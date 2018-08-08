@@ -1,0 +1,475 @@
+/*
+Icon classes can be used entirely standalone. They are named after their original file names.
+
+```html
+<i class="icon-home"></i>
+```
+*/
+.icon-clubs-01 {
+  background-image: url(card-sprite.png);
+  background-position: -522px 0px;
+  width: 85px;
+  height: 150px;
+}
+.icon-clubs-02 {
+  background-image: url(card-sprite.png);
+  background-position: -255px -600px;
+  width: 85px;
+  height: 150px;
+}
+.icon-clubs-03 {
+  background-image: url(card-sprite.png);
+  background-position: -87px -150px;
+  width: 87px;
+  height: 150px;
+}
+.icon-clubs-04 {
+  background-image: url(card-sprite.png);
+  background-position: -425px -450px;
+  width: 85px;
+  height: 150px;
+}
+.icon-clubs-05 {
+  background-image: url(card-sprite.png);
+  background-position: -1030px -150px;
+  width: 84px;
+  height: 150px;
+}
+.icon-clubs-06 {
+  background-image: url(card-sprite.png);
+  background-position: -1030px -300px;
+  width: 84px;
+  height: 150px;
+}
+.icon-clubs-07 {
+  background-image: url(card-sprite.png);
+  background-position: -1030px -750px;
+  width: 83px;
+  height: 150px;
+}
+.icon-clubs-08 {
+  background-image: url(card-sprite.png);
+  background-position: -1030px 0px;
+  width: 84px;
+  height: 150px;
+}
+.icon-clubs-09 {
+  background-image: url(card-sprite.png);
+  background-position: -946px -600px;
+  width: 84px;
+  height: 150px;
+}
+.icon-clubs-10 {
+  background-image: url(card-sprite.png);
+  background-position: -946px -450px;
+  width: 84px;
+  height: 150px;
+}
+.icon-clubs-11 {
+  background-image: url(card-sprite.png);
+  background-position: -170px -450px;
+  width: 85px;
+  height: 150px;
+}
+.icon-clubs-12 {
+  background-image: url(card-sprite.png);
+  background-position: -344px -300px;
+  width: 86px;
+  height: 150px;
+}
+.icon-clubs-13 {
+  background-image: url(card-sprite.png);
+  background-position: -258px -300px;
+  width: 86px;
+  height: 150px;
+}
+.icon-clubs-14 {
+  background-image: url(card-sprite.png);
+  background-position: -172px -300px;
+  width: 86px;
+  height: 150px;
+}
+.icon-diamonds-01 {
+  background-image: url(card-sprite.png);
+  background-position: -692px -150px;
+  width: 85px;
+  height: 150px;
+}
+.icon-diamonds-02 {
+  background-image: url(card-sprite.png);
+  background-position: -692px -300px;
+  width: 85px;
+  height: 150px;
+}
+.icon-diamonds-03 {
+  background-image: url(card-sprite.png);
+  background-position: -692px -450px;
+  width: 85px;
+  height: 150px;
+}
+.icon-diamonds-04 {
+  background-image: url(card-sprite.png);
+  background-position: -86px -300px;
+  width: 86px;
+  height: 150px;
+}
+.icon-diamonds-05 {
+  background-image: url(card-sprite.png);
+  background-position: -777px 0px;
+  width: 85px;
+  height: 150px;
+}
+.icon-diamonds-06 {
+  background-image: url(card-sprite.png);
+  background-position: -174px -150px;
+  width: 87px;
+  height: 150px;
+}
+.icon-diamonds-07 {
+  background-image: url(card-sprite.png);
+  background-position: -88px 0px;
+  width: 88px;
+  height: 150px;
+}
+.icon-diamonds-08 {
+  background-image: url(card-sprite.png);
+  background-position: -350px -150px;
+  width: 86px;
+  height: 150px;
+}
+.icon-diamonds-09 {
+  background-image: url(card-sprite.png);
+  background-position: -176px 0px;
+  width: 87px;
+  height: 150px;
+}
+.icon-diamonds-10 {
+  background-image: url(card-sprite.png);
+  background-position: -436px 0px;
+  width: 86px;
+  height: 150px;
+}
+.icon-diamonds-11 {
+  background-image: url(card-sprite.png);
+  background-position: -946px 0px;
+  width: 84px;
+  height: 150px;
+}
+.icon-diamonds-12 {
+  background-image: url(card-sprite.png);
+  background-position: -436px -150px;
+  width: 86px;
+  height: 150px;
+}
+.icon-diamonds-13 {
+  background-image: url(card-sprite.png);
+  background-position: 0px -300px;
+  width: 86px;
+  height: 150px;
+}
+.icon-diamonds-14 {
+  background-image: url(card-sprite.png);
+  background-position: -510px -450px;
+  width: 85px;
+  height: 150px;
+}
+.icon-hearts-01 {
+  background-image: url(card-sprite.png);
+  background-position: -350px 0px;
+  width: 86px;
+  height: 150px;
+}
+.icon-hearts-02 {
+  background-image: url(card-sprite.png);
+  background-position: -607px -150px;
+  width: 85px;
+  height: 150px;
+}
+.icon-hearts-03 {
+  background-image: url(card-sprite.png);
+  background-position: -840px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-hearts-04 {
+  background-image: url(card-sprite.png);
+  background-position: -588px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-hearts-05 {
+  background-image: url(card-sprite.png);
+  background-position: -692px 0px;
+  width: 85px;
+  height: 150px;
+}
+.icon-hearts-06 {
+  background-image: url(card-sprite.png);
+  background-position: 0px 0px;
+  width: 88px;
+  height: 150px;
+}
+.icon-hearts-07 {
+  background-image: url(card-sprite.png);
+  background-position: -263px 0px;
+  width: 87px;
+  height: 150px;
+}
+.icon-hearts-08 {
+  background-image: url(card-sprite.png);
+  background-position: -261px -150px;
+  width: 87px;
+  height: 150px;
+}
+.icon-hearts-09 {
+  background-image: url(card-sprite.png);
+  background-position: -430px -300px;
+  width: 86px;
+  height: 150px;
+}
+.icon-hearts-10 {
+  background-image: url(card-sprite.png);
+  background-position: -85px -600px;
+  width: 85px;
+  height: 150px;
+}
+.icon-hearts-11 {
+  background-image: url(card-sprite.png);
+  background-position: -170px -600px;
+  width: 85px;
+  height: 150px;
+}
+.icon-hearts-12 {
+  background-image: url(card-sprite.png);
+  background-position: -1030px -600px;
+  width: 84px;
+  height: 150px;
+}
+.icon-hearts-13 {
+  background-image: url(card-sprite.png);
+  background-position: -504px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-hearts-14 {
+  background-image: url(card-sprite.png);
+  background-position: -336px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-spades-01 {
+  background-image: url(card-sprite.png);
+  background-position: -252px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-spades-02 {
+  background-image: url(card-sprite.png);
+  background-position: -168px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-spades-03 {
+  background-image: url(card-sprite.png);
+  background-position: -680px -600px;
+  width: 85px;
+  height: 150px;
+}
+.icon-spades-04 {
+  background-image: url(card-sprite.png);
+  background-position: -84px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-spades-05 {
+  background-image: url(card-sprite.png);
+  background-position: -862px -600px;
+  width: 84px;
+  height: 150px;
+}
+.icon-spades-06 {
+  background-image: url(card-sprite.png);
+  background-position: -862px 0px;
+  width: 84px;
+  height: 150px;
+}
+.icon-spades-07 {
+  background-image: url(card-sprite.png);
+  background-position: -777px -450px;
+  width: 85px;
+  height: 150px;
+}
+.icon-spades-08 {
+  background-image: url(card-sprite.png);
+  background-position: -777px -300px;
+  width: 85px;
+  height: 150px;
+}
+.icon-spades-09 {
+  background-image: url(card-sprite.png);
+  background-position: -672px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-spades-10 {
+  background-image: url(card-sprite.png);
+  background-position: -862px -150px;
+  width: 84px;
+  height: 150px;
+}
+.icon-spades-11 {
+  background-image: url(card-sprite.png);
+  background-position: -862px -300px;
+  width: 84px;
+  height: 150px;
+}
+.icon-spades-12 {
+  background-image: url(card-sprite.png);
+  background-position: -862px -450px;
+  width: 84px;
+  height: 150px;
+}
+.icon-spades-13 {
+  background-image: url(card-sprite.png);
+  background-position: -777px -150px;
+  width: 85px;
+  height: 150px;
+}
+.icon-spades-14 {
+  background-image: url(card-sprite.png);
+  background-position: 0px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-trumps-00 {
+  background-image: url(card-sprite.png);
+  background-position: 0px -150px;
+  width: 87px;
+  height: 150px;
+}
+.icon-trumps-01 {
+  background-image: url(card-sprite.png);
+  background-position: -595px -600px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-02 {
+  background-image: url(card-sprite.png);
+  background-position: -510px -600px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-03 {
+  background-image: url(card-sprite.png);
+  background-position: -425px -600px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-04 {
+  background-image: url(card-sprite.png);
+  background-position: -420px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-trumps-05 {
+  background-image: url(card-sprite.png);
+  background-position: -340px -600px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-06 {
+  background-image: url(card-sprite.png);
+  background-position: -607px -450px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-07 {
+  background-image: url(card-sprite.png);
+  background-position: -777px -600px;
+  width: 84px;
+  height: 150px;
+}
+.icon-trumps-08 {
+  background-image: url(card-sprite.png);
+  background-position: -756px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-trumps-09 {
+  background-image: url(card-sprite.png);
+  background-position: -607px -300px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-10 {
+  background-image: url(card-sprite.png);
+  background-position: -255px -450px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-11 {
+  background-image: url(card-sprite.png);
+  background-position: -946px -150px;
+  width: 84px;
+  height: 150px;
+}
+.icon-trumps-12 {
+  background-image: url(card-sprite.png);
+  background-position: -946px -300px;
+  width: 84px;
+  height: 150px;
+}
+.icon-trumps-13 {
+  background-image: url(card-sprite.png);
+  background-position: -85px -450px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-14 {
+  background-image: url(card-sprite.png);
+  background-position: 0px -450px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-15 {
+  background-image: url(card-sprite.png);
+  background-position: -946px -750px;
+  width: 84px;
+  height: 150px;
+}
+.icon-trumps-16 {
+  background-image: url(card-sprite.png);
+  background-position: -522px -300px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-17 {
+  background-image: url(card-sprite.png);
+  background-position: -522px -150px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-18 {
+  background-image: url(card-sprite.png);
+  background-position: 0px -600px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-19 {
+  background-image: url(card-sprite.png);
+  background-position: -1030px -450px;
+  width: 84px;
+  height: 150px;
+}
+.icon-trumps-20 {
+  background-image: url(card-sprite.png);
+  background-position: -607px 0px;
+  width: 85px;
+  height: 150px;
+}
+.icon-trumps-21 {
+  background-image: url(card-sprite.png);
+  background-position: -340px -450px;
+  width: 85px;
+  height: 150px;
+}
