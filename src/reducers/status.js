@@ -1,6 +1,12 @@
 import {DEAL} from '../constants/action-types';
 
-const initialState = [];
+const initialState = {
+  playerOrder: [],
+  chien: [],
+  roundOpener: null,
+  trickWinner: null,
+  tricksRemaining: 18
+};
 
 /**
  * Reducer for the Author details
@@ -12,7 +18,7 @@ const initialState = [];
 export default function data (state = initialState, action) {
   switch (action.type) {
   case DEAL:
-    return action.chien;
+    return {...state, chien: action.chien};
   default:
     return state;
   }

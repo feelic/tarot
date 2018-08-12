@@ -476,9 +476,6 @@
     // enforce padding within blocks (off by default)
     "padded-blocks": [2, "never"],
 
-    // require quotes around object literal property names (off by default)
-    "quote-props": [2, "always"],
-
     // specify whether backticks, double or single quotes should be used
     "quotes": [2, "single"],
 

@@ -1,5 +1,8 @@
 .deck {
-  padding: 30px 10px 10px 45px;
+  padding: 25px 10px 10px 55px;
+}
+.deck-back {
+  padding-left: 92px;
 }
 .card {
   display: inline-block;
@@ -11,4 +14,15 @@
 .card:hover {
   margin-top: 0px;
   vertical-align: top;
+}
+.turned {
+  background-image: url(../assets/back.jpg);
+  width: 85px;
+  height: 150px;
+  margin-left: -72px;
+  background-size: 100%;
+}
+.card.turned:hover {
+  margin-top: 20px;
+  vertical-align: initial;
 }

@@ -1,6 +1,17 @@
-import {DEAL} from '../constants/action-types';
+import {
+  INIT_GAME,
+  DEAL,
+  PLAY_CARD,
+  AWARD_TRICK
+} from '../constants/action-types';
 
-const initialState = [];
+const initialState = {
+  a: {}
+};
+const initialPlayer = {
+  hand: [],
+  tricks: []
+};
 
 /**
  * Reducer for the Author details
@@ -11,8 +22,43 @@ const initialState = [];
  */
 export default function data (state = initialState, action) {
   switch (action.type) {
+  case INIT_GAME:
+    return action.players.reduce((prev, curr) => {
+      return {
+        ...prev,
+        [curr]: {
+          ...initialPlayer,
+          name: curr
+        }
+      };
+    }, {});
   case DEAL:
-    return action.playerHands;
+    return Object.keys(state).reduce((prev, curr, idx) => {
+      return {
+        ...prev,
+        [curr]: {
+          ...state[curr],
+          hand: action.hands[idx],
+          tricks: []
+        }
+      };
+    }, {});
+  case PLAY_CARD:
+  case AWARD_TRICK:
+    return {
+      ...state,
+      [action.player]: player(state[action.player], action)
+    };
+  default:
+    return state;
+  }
+}
+
+export function player (state = initialPlayer, action) {
+  switch (action.type) {
+  case INIT_GAME:
+  case PLAY_CARD:
+  case AWARD_TRICK:
   default:
     return state;
   }

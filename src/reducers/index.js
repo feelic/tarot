@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
 import players from './players';
-import chien from './chien';
+import status from './status';
 
 export default combineReducers({
   players,
-  chien
+  status
 });
