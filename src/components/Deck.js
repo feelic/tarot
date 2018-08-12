@@ -3,10 +3,10 @@ import '../assets/card-sprite.css';
 import './Deck.css';
 
 export default props => {
-  const {cards} = props;
+  const { cards } = props;
 
   return (
-    <div>
+    <div className="deck">
       {cards.map(card => {
         return <div className={`card icon-${card}`} key={card} />;
       })}

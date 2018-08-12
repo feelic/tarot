@@ -1,3 +1,14 @@
+.deck {
+  padding: 30px 10px 10px 45px;
+}
 .card {
   display: inline-block;
+  margin-left: -35px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.card:hover {
+  margin-top: 0px;
+  vertical-align: top;
 }
