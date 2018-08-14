@@ -9,29 +9,21 @@ body {
 .bottom-panel {
   display: inline-block;
   vertical-align: top;
+  width:100%;
+  height: 185px;
 }
 .top-panel {
   background-color: #FFCCCC;
-  width:100%;
-  height: 200px;
 }
 .left-panel {
   background-color: #CCFFCC;
-  width:20%;
-  height: 500px;
 }
 .center-panel {
   background-color: #CCCCFF;
-  width:60%;
-  height: 500px;
 }
 .right-panel {
   background-color: #FFFFCC;
-  width:20%;
-  height: 500px;
 }
 .bottom-panel {
   background-color: #FFCCFF;
-  width:100%;
-  height: 200px;
 }

@@ -1,5 +1,5 @@
 import {tarotDeck, chienSizes} from '../constants';
-import {INIT_GAME, DEAL} from '../constants/action-types';
+import {INIT_GAME, DEAL, PLAY_CARD} from '../constants/action-types';
 import playerNames from '../constants/player-names';
 
 export function initialize (nbPlayers = 4) {
@@ -65,4 +65,12 @@ export function sortHand (hand) {
 
     return 0;
   });
+}
+
+export function playCard (player, card) {
+  return {
+    type: PLAY_CARD,
+    player,
+    card
+  };
 }

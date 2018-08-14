@@ -57,7 +57,17 @@ export default function data (state = initialState, action) {
 export function player (state = initialPlayer, action) {
   switch (action.type) {
   case INIT_GAME:
+    return state;
   case PLAY_CARD:
+    const cardIndex = state.hand.indexOf(action.card);
+
+    return {
+      ...state,
+      hand: [
+        ...state.hand.slice(0, cardIndex),
+        ...state.hand.slice(cardIndex + 1)
+      ]
+    };
   case AWARD_TRICK:
   default:
     return state;

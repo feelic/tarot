@@ -1,4 +1,4 @@
-import {DEAL} from '../constants/action-types';
+import {DEAL, PLAY_CARD} from '../constants/action-types';
 
 const initialState = {
   playerOrder: [],
@@ -19,6 +19,11 @@ export default function data (state = initialState, action) {
   switch (action.type) {
   case DEAL:
     return {...state, chien: action.chien};
+  case PLAY_CARD:
+    return {
+      ...state,
+      currentTrick: {...state.currentTrick, [action.player]: action.card}
+    };
   default:
     return state;
   }
