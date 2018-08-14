@@ -2,7 +2,8 @@ import {
   INIT_GAME,
   DEAL,
   PLAY_CARD,
-  AWARD_TRICK
+  AWARD_TRICK,
+  MAKE_CHIEN
 } from '../constants/action-types';
 
 const initialState = {
@@ -32,6 +33,8 @@ export default function data (state = initialState, action) {
         }
       };
     }, {});
+  case MAKE_CHIEN:
+    return {...state, chien: {}};
   case DEAL:
     return Object.keys(state).reduce((prev, curr, idx) => {
       return {
