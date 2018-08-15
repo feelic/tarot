@@ -1,4 +1,11 @@
-import {tarotDeck, chienSizes} from '../constants';
+import {
+  tarotDeck,
+  chienSizes,
+  suits,
+  bouts,
+  suitsAndTrumps,
+  winThresholdByBoutsCount
+} from '../constants';
 
 export function dealCards (nbPlayers = 4) {
   //shuffle the deck
@@ -14,27 +21,30 @@ export function dealCards (nbPlayers = 4) {
     const start = idx * handSize;
     const end = start + handSize;
 
-    return sortHand(deck.slice(start, end));
+    return sortCards(deck.slice(start, end));
   });
 
   return {hands, chien};
 }
 
-export function sortHand (hand) {
-  const suitOrder = ['clubs', 'diamonds', 'spades', 'hearts', 'trumps'];
+export function sortCards (hand, suitOrder = suitsAndTrumps, order = 'asc') {
+  const orderFactor = (order === 'asc' && 1) || - 1;
 
   return hand.sort((a, b) => {
+    const cardA = a.card || a;
+    const cardB = b.card || b;
+
     //excuse at the end
-    if (a === 'trumps-00') {
+    if (cardA === 'trumps-00') {
       return 1;
     }
-    if (b === 'trumps-00') {
+    if (cardB === 'trumps-00') {
       return - 1;
     }
 
     //sort suits
-    const suitA = suitOrder.indexOf(a.split('-')[0]);
-    const suitB = suitOrder.indexOf(b.split('-')[0]);
+    const suitA = suitOrder.indexOf(cardA.split('-')[0]);
+    const suitB = suitOrder.indexOf(cardB.split('-')[0]);
 
     if (suitA > suitB) {
       return 1;
@@ -44,16 +54,96 @@ export function sortHand (hand) {
     }
 
     //sort in suit
-    const valueA = a.split('-')[1];
-    const valueB = b.split('-')[1];
+    const valueA = cardA.split('-')[1];
+    const valueB = cardB.split('-')[1];
 
     if (valueA > valueB) {
-      return 1;
+      return 1 * orderFactor;
     }
     if (valueA < valueB) {
-      return - 1;
+      return - 1 * orderFactor;
     }
 
     return 0;
   });
+}
+
+export function getAllowedCards (trick, hand) {
+  const demandedSuit = trick[0].card.split('-')[0];
+
+  //if player has demanded suit, only these are allowed
+  const demandedSuitInHand = hand.filter(card => {
+    return card.split('-')[0] === demandedSuit;
+  });
+
+  if (demandedSuitInHand.length) {
+    return demandedSuitInHand;
+  }
+
+  //if player doesnt have demanded suit, only trumps are allowed
+  const trumpsInHand = hand.filter(card => card.split('-')[0] === 'trumps');
+
+  if (trumpsInHand.length) {
+    //trumps allowed must be above the last trump card played in the trick
+    const playedTrumps = trick
+      .map(play => play.card)
+      .filter(card => card.split('-')[0] === 'trumps');
+
+    if (playedTrumps.length) {
+      const lastPlayedTrump = playedTrumps[playedTrumps.length - 1];
+      const lastPlayedTrumpValue = lastPlayedTrump.split('-')[1];
+      const higherTrumps = trumpsInHand.filter(card => card.split('-')[1] > lastPlayedTrumpValue);
+
+      return (higherTrumps.length && higherTrumps) || trumpsInHand;
+    }
+
+    //if player doesnt have a trump card higher than the last played, all trumps are allowed
+    return trumpsInHand;
+  }
+
+  //if player has none of the demanded suit and no trumps, they can play anything
+  return hand;
+}
+
+export function getTrickWinner (trick) {
+  const demandedSuit = trick[0].card.split('-')[0];
+
+  const suitOrder = [
+    'trumps',
+    demandedSuit,
+    ...suits.slice(0, suits.indexOf(demandedSuit)),
+    ...suits.slice(suits.indexOf(demandedSuit) + 1)
+  ];
+
+  const orderedCards = sortCards(trick, suitOrder, 'desc');
+
+  return orderedCards[0].player;
+}
+
+export function countBouts (tricks) {
+  return bouts.reduce((total, bout) => {
+    return total + ~ ~ tricks.includes(bout);
+  }, 0);
+}
+
+export function countScore (tricks) {
+  return tricks.reduce((total, card) => {
+    const isBout = bouts.includes(card);
+    const cardSuit = card.split('-')[0];
+    const cardValue = card.split('-')[1];
+    const isTrump = cardSuit === 'trumps';
+    const pointValue
+      = (isTrump && 0.5) || (cardValue < 11 && 0.5) || cardValue - 10 + 0.5;
+    const points = (isBout && 4.5) || pointValue;
+
+    return total + points;
+  }, 0);
+}
+
+export function getTargetPointDifference (tricks) {
+  const boutsCounts = countBouts(tricks);
+  const winThreshold = winThresholdByBoutsCount[boutsCounts];
+  const score = countScore(tricks);
+
+  return score - winThreshold;
 }

@@ -16,9 +16,12 @@ status {
   trickWinner: a
   tricksRemaining: 18
 }
-currentTrick {
-
-}
+currentTrick [
+  {
+    'card': 'hearts-1',
+    'player': 'abelard'
+  }
+]
 ```
 
 INIT_GAME:

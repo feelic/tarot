@@ -1,5 +1,17 @@
 // rules taken from https://www.pagat.com/tarot/frtarot.html
 
+export const suits = ['clubs', 'diamonds', 'spades', 'hearts'];
+export const suitsAndTrumps = [...suits, 'trumps'];
+export const bouts = ['trumps-01', 'trumps-21', 'trumps-00'];
+export const chienSizes = {
+  '3': 6,
+  '4': 6,
+  '5': 3
+};
+export const winThresholdByBoutsCount = [
+  56, 51, 41, 36
+];
+
 export const tarotDeck = buildDeck();
 
 export function buildDeck () {
@@ -10,7 +22,7 @@ export function buildDeck () {
     ...buildSuit('spades', 1, 14),
     ...buildSuit('trumps', 0, 21)
   ];
-};
+}
 export function buildSuit (ensign, from, to) {
   const suit = [];
 
@@ -20,9 +32,3 @@ export function buildSuit (ensign, from, to) {
 
   return suit;
 }
-
-export const chienSizes = {
-  '3': 6,
-  '4': 6,
-  '5': 3
-};
