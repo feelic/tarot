@@ -1,24 +1,19 @@
 {
-  "name": "tarot",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-redux": "^5.0.7",
-    "react-scripts": "1.1.4",
-    "redux": "^4.0.0",
-    "redux-logger": "^3.0.6"
-  },
+  "name": "socket",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "server": "node --experimental-modules server",
+    "client": "cd client && yarn start",
     "sprite": "spritesmith .spritesmith.js",
     "thumbs": "mogrify -resize x150 -quality 100 -path src/assets/thumbs src/assets/cards/*.jpg"
   },
-  "devDependencies": {
+  "author": "Felix Goalec <fgoalec@synthesio.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1",
     "spritesmith-cli": "^1.1.2"
   }
 }

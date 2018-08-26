@@ -32,3 +32,18 @@ export function buildSuit (ensign, from, to) {
 
   return suit;
 }
+export const bidOptions = {
+  pass: {},
+  petite: {},
+  garde: {},
+  gardeSans: {},
+  gardeContre: {}
+};
+export const gamePhases = {
+  ROOM_SETUP: 'ROOM_SETUP',
+  BIDDING: 'BIDDING',
+  CHIEN_REVEAL: 'CHIEN_REVEAL',
+  TRICK: 'TRICK',
+  ROUND_SCORES: 'ROUND_SCORES',
+  FAILED_BIDDING: 'FAILED_BIDDING'
+};
