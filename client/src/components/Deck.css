@@ -1,0 +1,22 @@
+.deck {
+  padding: 20px;
+  background-color: #ABCDEF;
+}
+.deck.deck-hand {
+  padding-left: 60px;
+}
+.deck.deck-hand .card {
+  margin-left: -40px;
+}
+.deck.deck-spread {
+
+}
+.deck.deck-spread .card {
+  margin: 8px;
+}
+.deck.deck-compact {
+  padding-left: 80px;
+}
+.deck.deck-compact .card {
+  margin-left: -60px;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './Card';
+import Deck from './Deck';
 
 export default props => {
   const {actions, chien, bidTaker, currentPlayer, players} = props;
@@ -10,9 +10,7 @@ export default props => {
         {players[bidTaker].username} takes the bid with {players[bidTaker].bid}
       </h2>
 
-      {chien.map(card => {
-        return <Card key={card} card={card} />;
-      })}
+      <Deck display="spread" cards={chien} />
     </div>
   );
 };

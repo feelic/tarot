@@ -3,7 +3,7 @@ import socketIOClient from 'socket.io-client';
 
 import BiddingPanel from './components/BiddingPanel';
 import ChienRevealPanel from './components/ChienRevealPanel';
-import Card from './components/Card';
+import Deck from './components/Deck';
 
 import * as appActions from './actions';
 import bindActionCreators from './actions/bind-action-creators';
@@ -86,7 +86,7 @@ class App extends Component {
         {gamePhase === 'CHIEN_REVEAL'
           && <ChienRevealPanel {...this.state} actions={actions} />
         }
-        <p>{players[currentPlayer].hand.map(card => <Card key={card} card={card} />)}</p>
+        <Deck display="hand" cards={players[currentPlayer].hand} />
       </div>
     );
   }
