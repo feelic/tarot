@@ -3,10 +3,10 @@
   background-color: #ABCDEF;
 }
 .deck.deck-hand {
-  padding-left: 60px;
+  padding-left: 55px;
 }
 .deck.deck-hand .card {
-  margin-left: -40px;
+  margin-left: -35px;
 }
 .deck.deck-spread {
 
