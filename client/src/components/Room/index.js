@@ -3,8 +3,7 @@ import React, {Component} from 'react';
 import BiddingPanel from './BiddingPanel';
 import ChienRevealPanel from './ChienRevealPanel';
 import Setup from './Setup';
-
-import Deck from '../Deck';
+import PlayerSlot from './PlayerSlot';
 
 import {gamePhases} from '../../constants';
 import {sortCards} from '../../util/cards';
@@ -22,7 +21,6 @@ export default class Room extends Component {
     const {
       actions,
       gamePhase,
-      hand,
       room,
       players,
       playerGameNumber,
@@ -42,35 +40,21 @@ export default class Room extends Component {
     }
 
     const playerPositions = definePlayerPositions(playerOrder, currentPlayer);
+    const cardAction
+      = gamePhase === gamePhases.CHIEN_REVEAL
+      && (card => this.moveCardFromHandToChien(card));
 
     return (
       <div className="table">
         {Object.keys(players).map(playerId => {
-          const cardAction
-            = gamePhase === gamePhases.CHIEN_REVEAL
-            && (card => this.moveCardFromHandToChien(card));
-          const isCurrentPlayer = playerId === currentPlayer;
-          const playerPosition = playerPositions[playerId];
-          const displayModes = {
-            top: 'compact',
-            left: 'vertical',
-            right: 'vertical',
-            bottom: 'hand'
-          };
-          const displayMode = displayModes[playerPosition];
-          const cards
-            = (isCurrentPlayer && hand) || new Array(hand.length).fill('');
-
           return (
-            <div className={`player-slot player-slot-${playerPosition}`}>
-              <h2>{players[playerId].username}</h2>
-              <Deck
-                key={playerId}
-                display={displayMode}
-                cards={cards}
-                onCardClick={cardAction}
-              />
-            </div>
+            <PlayerSlot
+              key={playerId}
+              {...this.props}
+              playerId={playerId}
+              cardAction={cardAction}
+              playerPositions={playerPositions}
+            />
           );
         })}
         <div className="table-center">
