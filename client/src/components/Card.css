@@ -1,6 +1,6 @@
 .card {
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
   width: 85px;
   height: 150px;
@@ -8,4 +8,7 @@
 .card-turned {
   background-image: url(../assets/back.jpg);
   background-size: cover;
+}
+.card:hover {
+  border: 2px solid #aaa;
 }

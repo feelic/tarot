@@ -2,7 +2,14 @@ import React from 'react';
 import Deck from '../Deck';
 
 export default props => {
-  const {actions, chien, bidTaker, currentPlayer, players, moveCardFromChienToHand} = props;
+  const {
+    actions,
+    chien,
+    bidTaker,
+    currentPlayer,
+    players,
+    moveCardFromChienToHand
+  } = props;
 
   if (bidTaker !== currentPlayer) {
     return (
@@ -17,6 +24,8 @@ export default props => {
     );
   }
 
+  const displayMode = (chien.length <= 6 && 'spread') || 'hand';
+
   return (
     <React.Fragment>
       <h2>You take the bid with {players[bidTaker].bid}</h2>
@@ -26,12 +35,20 @@ export default props => {
         round.<br />
         The other players will not see the cards you place in your chien.
       </p>
-      <Deck display="spread" cards={chien} onCardClick={moveCardFromChienToHand} />
-      {chien.length === 6
-        && <button onClick={() => actions.makeChien(chien, players[bidTaker].hand)}>
-          Confirm chien
-        </button>
-      }
+      <div className="chien-cards">
+        <Deck
+          display={displayMode}
+          cards={chien}
+          onCardClick={moveCardFromChienToHand}
+        />
+        {chien.length === 6
+          && <button
+            onClick={() => actions.makeChien(chien, players[bidTaker].hand)}
+          >
+            Confirm chien
+          </button>
+        }
+      </div>
     </React.Fragment>
   );
 };

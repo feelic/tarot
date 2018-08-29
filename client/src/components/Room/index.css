@@ -34,9 +34,12 @@
   top: 0;
   right: 140px;
   left: 140px;
-  bottom: 0;
+  bottom: calc(100% - 220px);;
 }
 .player-slot-left {
   top: 200px;
   left: 0;
+}
+.chien-cards {
+  text-align: center;
 }

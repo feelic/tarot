@@ -13,8 +13,9 @@ export default props => {
     bottom: 'hand'
   };
   const displayMode = displayModes[playerPosition];
+  const playerHand = players[playerId].hand;
   const cards
-    = (isCurrentPlayer && hand) || new Array(hand.length).fill('');
+    = (isCurrentPlayer && hand) || new Array(playerHand.length).fill('');
 
   return (
     <div className={`player-slot player-slot-${playerPosition}`}>
@@ -22,7 +23,7 @@ export default props => {
       <Deck
         display={displayMode}
         cards={cards}
-        onCardClick={cardAction}
+        onCardClick={isCurrentPlayer && cardAction}
       />
     </div>
   );

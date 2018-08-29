@@ -17,6 +17,16 @@ export default class Room extends Component {
     this.state = {};
   }
 
+  static getDerivedStateFromProps (props, state) {
+    if (props.gamePhase === gamePhases.CHIEN_REVEAL && ! state.hand) {
+      return {
+        hand: props.hand,
+        chien: props.chien
+      };
+    }
+    return null;
+  }
+
   render () {
     const {
       actions,
@@ -25,9 +35,11 @@ export default class Room extends Component {
       players,
       playerGameNumber,
       currentPlayer,
-      playerOrder
+      playerOrder,
+      bidTaker
     } = this.props;
 
+    console.log(this.state);
     if (gamePhase === 'ROOM_SETUP') {
       return (
         <Setup
@@ -39,9 +51,14 @@ export default class Room extends Component {
       );
     }
 
+    const hand
+      = (gamePhase === gamePhases.CHIEN_REVEAL && this.state.hand) || this.props.hand;
+    const chien
+      = (gamePhase === gamePhases.CHIEN_REVEAL && this.state.chien)
+      || this.props.chien;
     const playerPositions = definePlayerPositions(playerOrder, currentPlayer);
     const cardAction
-      = gamePhase === gamePhases.CHIEN_REVEAL
+      = gamePhase === gamePhases.CHIEN_REVEAL && bidTaker === currentPlayer
       && (card => this.moveCardFromHandToChien(card));
 
     return (
@@ -50,10 +67,13 @@ export default class Room extends Component {
           return (
             <PlayerSlot
               key={playerId}
-              {...this.props}
+              currentPlayer={currentPlayer}
               playerId={playerId}
               cardAction={cardAction}
               playerPositions={playerPositions}
+              hand={hand}
+              chien={chien}
+              players={players}
             />
           );
         })}
@@ -63,6 +83,7 @@ export default class Room extends Component {
           {gamePhase === gamePhases.CHIEN_REVEAL
             && <ChienRevealPanel
               {...this.props}
+              chien={chien}
               moveCardFromChienToHand={this.moveCardFromChienToHand.bind(this)}
             />
           }
