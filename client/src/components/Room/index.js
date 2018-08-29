@@ -84,12 +84,17 @@ export default class Room extends Component {
             && <ChienRevealPanel
               {...this.props}
               chien={chien}
+              confirmChien={this.handleConfirmChien.bind(this)}
               moveCardFromChienToHand={this.moveCardFromChienToHand.bind(this)}
             />
           }
         </div>
       </div>
     );
+  }
+
+  handleConfirmChien () {
+    this.props.actions.makeChien(this.state.chien, this.state.hand);
   }
 
   moveCardFromChienToHand (card) {

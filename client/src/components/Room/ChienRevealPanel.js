@@ -3,12 +3,12 @@ import Deck from '../Deck';
 
 export default props => {
   const {
-    actions,
     chien,
     bidTaker,
     currentPlayer,
     players,
-    moveCardFromChienToHand
+    moveCardFromChienToHand,
+    confirmChien
   } = props;
 
   if (bidTaker !== currentPlayer) {
@@ -43,7 +43,7 @@ export default props => {
         />
         {chien.length === 6
           && <button
-            onClick={() => actions.makeChien(chien, players[bidTaker].hand)}
+            onClick={confirmChien}
           >
             Confirm chien
           </button>
