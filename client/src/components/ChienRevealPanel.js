@@ -2,7 +2,7 @@ import React from 'react';
 import Deck from './Deck';
 
 export default props => {
-  const {chien, bidTaker, currentPlayer, players} = props;
+  const {actions, chien, bidTaker, currentPlayer, players, moveCardFromChienToHand} = props;
 
   if (bidTaker !== currentPlayer) {
     return (
@@ -23,11 +23,15 @@ export default props => {
       <p>
         You can exchange cards from your hand and the chien. Cards in the chien
         will be added to your tricks, and count towards your score in this
-        round.<br/>
+        round.<br />
         The other players will not see the cards you place in your chien.
       </p>
-      <Deck display="spread" cards={chien} action />
-      <button>Confirm chien</button>
+      <Deck display="spread" cards={chien} onCardClick={moveCardFromChienToHand} />
+      {chien.length === 6
+        && <button onClick={() => actions.makeChien(chien, players[bidTaker].hand)}>
+          Confirm chien
+        </button>
+      }
     </div>
   );
 };

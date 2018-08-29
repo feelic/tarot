@@ -3,12 +3,12 @@ import Card from './Card';
 import './Deck.css';
 
 export default props => {
-  const {cards, display} = props;
+  const {onCardClick, cards, display} = props;
 
   return (
     <div className={`deck deck-${display}`}>
       {cards.map(card => {
-        return <Card card={card} />;
+        return <Card key={card} card={card} onCardClick={onCardClick} />;
       })}
     </div>
   );
