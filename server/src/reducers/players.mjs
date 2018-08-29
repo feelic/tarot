@@ -70,6 +70,7 @@ export function player(state = initialPlayer, action) {
     case types.MAKE_CHIEN:
       return {
         ...state,
+        hand: [...action.hand],
         tricks: [...action.chien]
       };
     case types.PLAY_CARD:
