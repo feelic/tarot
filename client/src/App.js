@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import socketIOClient from 'socket.io-client';
 
 import Lobby from './components/Lobby';
-import Room from './components/Room';
+import Room from './components/Room/';
 
 import * as appActions from './actions';
 import bindActionCreators from './actions/bind-action-creators';
@@ -17,6 +17,7 @@ class App extends Component {
     this.socket = socketIOClient(this.state.endpoint);
 
     this.socket.on('server-event', payload => {
+      console.log(payload);
       this.setState({
         ...payload,
         ...payload.players[payload.currentPlayer]
@@ -25,7 +26,7 @@ class App extends Component {
   }
 
   componentWillMount () {
-    this.socket.emit('join-room', {room: 'game-room-a', username: 'bobby'});
+    // this.socket.emit('join-room', {room: 'game-room-a', username: 'bobby'});
   }
 
   // method for emitting a socket.io event

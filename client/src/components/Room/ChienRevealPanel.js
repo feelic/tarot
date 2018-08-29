@@ -1,24 +1,24 @@
 import React from 'react';
-import Deck from './Deck';
+import Deck from '../Deck';
 
 export default props => {
   const {actions, chien, bidTaker, currentPlayer, players, moveCardFromChienToHand} = props;
 
   if (bidTaker !== currentPlayer) {
     return (
-      <div>
+      <React.Fragment>
         <h2>
           {players[bidTaker].username} takes the bid with{' '}
           {players[bidTaker].bid}
         </h2>
         <Deck display="spread" cards={chien} />
         <p>Please wait while they make their chien...</p>
-      </div>
+      </React.Fragment>
     );
   }
 
   return (
-    <div>
+    <React.Fragment>
       <h2>You take the bid with {players[bidTaker].bid}</h2>
       <p>
         You can exchange cards from your hand and the chien. Cards in the chien
@@ -32,6 +32,6 @@ export default props => {
           Confirm chien
         </button>
       }
-    </div>
+    </React.Fragment>
   );
 };

@@ -4,7 +4,9 @@ import '../assets/card-sprite.css';
 
 export default props => {
   const {onCardClick, card} = props;
-  const cardClass = `icon-${card}`;
+  const cardClass = (card && `icon-${card}`) || 'card-turned';
 
-  return <div onClick={() => onCardClick(card)} className={`card ${cardClass}`} />;
+  return (
+    <div onClick={() => onCardClick && onCardClick(card)} className={`card ${cardClass}`} />
+  );
 };

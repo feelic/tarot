@@ -1,6 +1,6 @@
 .deck {
   padding: 20px;
-  background-color: #ABCDEF;
+  /* background-color: #ABCDEF; */
 }
 .deck.deck-hand {
   padding-left: 55px;
@@ -19,4 +19,11 @@
 }
 .deck.deck-compact .card {
   margin-left: -60px;
+}
+.deck.deck-vertical {
+  width: 85px;
+  padding-top: 150px;
+}
+.deck.deck-vertical .card {
+  margin-top: -140px;
 }

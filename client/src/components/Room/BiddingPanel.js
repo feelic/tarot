@@ -1,17 +1,20 @@
 import React from 'react';
-import {bidOptions} from '../constants';
+import {bidOptions} from '../../constants';
 
 export default props => {
   const {actions, bidSpeaker, currentPlayer, players} = props;
 
   return (
-    <div>
+    <React.Fragment>
       <h2>{bidSpeaker === currentPlayer && 'Your turn'}</h2>
       <h2>Bids:</h2>
       {Object.values(players).map(player => {
+        const displayName
+          = (player.id === currentPlayer && 'You') || player.username;
+
         return (
           <div key={player.id}>
-            {player.username}: {player.bid}
+            {displayName}: {player.bid}
           </div>
         );
       })}
@@ -25,6 +28,6 @@ export default props => {
           );
         })}
       </ul>
-    </div>
+    </React.Fragment>
   );
 };
