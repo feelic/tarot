@@ -7,7 +7,7 @@
   top: 220px;
   right: 140px;
   left: 140px;
-  bottom: 220px;
+  bottom: 230px;
   background: #45aa77;
   border-radius: 20px;
   border: 2px solid #666;
@@ -21,7 +21,7 @@
   font-size: 16px;
 }
 .player-slot-bottom {
-  top: calc(100% - 220px);
+  top: calc(100% - 230px);
   left: 0;
   right: 0;
   bottom: 0;

@@ -4,12 +4,15 @@ import BiddingPanel from './BiddingPanel';
 import ChienRevealPanel from './ChienRevealPanel';
 import Setup from './Setup';
 import PlayerSlot from './PlayerSlot';
+import TrickPanel from './TrickPanel';
 
 import {gamePhases} from '../../constants';
 import {sortCards} from '../../util/cards';
 import {definePlayerPositions} from '../../util/table';
 
 import './index.css';
+
+const {TRICK, CHIEN_REVEAL, BIDDING} = gamePhases;
 
 export default class Room extends Component {
   constructor () {
@@ -36,10 +39,10 @@ export default class Room extends Component {
       playerGameNumber,
       currentPlayer,
       playerOrder,
-      bidTaker
+      playerTurn,
+      bidSpeaker
     } = this.props;
 
-    console.log(this.state);
     if (gamePhase === 'ROOM_SETUP') {
       return (
         <Setup
@@ -52,14 +55,11 @@ export default class Room extends Component {
     }
 
     const hand
-      = (gamePhase === gamePhases.CHIEN_REVEAL && this.state.hand) || this.props.hand;
+      = (gamePhase === CHIEN_REVEAL && this.state.hand) || this.props.hand;
     const chien
-      = (gamePhase === gamePhases.CHIEN_REVEAL && this.state.chien)
-      || this.props.chien;
+      = (gamePhase === CHIEN_REVEAL && this.state.chien) || this.props.chien;
     const playerPositions = definePlayerPositions(playerOrder, currentPlayer);
-    const cardAction
-      = gamePhase === gamePhases.CHIEN_REVEAL && bidTaker === currentPlayer
-      && (card => this.moveCardFromHandToChien(card));
+    const activePlayer = playerTurn || bidSpeaker;
 
     return (
       <div className="table">
@@ -69,7 +69,7 @@ export default class Room extends Component {
               key={playerId}
               currentPlayer={currentPlayer}
               playerId={playerId}
-              cardAction={cardAction}
+              cardAction={this.handleCardClick.bind(this)}
               playerPositions={playerPositions}
               hand={hand}
               chien={chien}
@@ -78,9 +78,12 @@ export default class Room extends Component {
           );
         })}
         <div className="table-center">
-          <h1>{gamePhase}</h1>
-          {gamePhase === gamePhases.BIDDING && <BiddingPanel {...this.props} />}
-          {gamePhase === gamePhases.CHIEN_REVEAL
+          {(activePlayer === currentPlayer && <h1>Your turn</h1>)
+            || <h1>{players[activePlayer].username}s turn</h1>
+          }
+
+          {gamePhase === BIDDING && <BiddingPanel {...this.props} />}
+          {gamePhase === CHIEN_REVEAL
             && <ChienRevealPanel
               {...this.props}
               chien={chien}
@@ -88,9 +91,30 @@ export default class Room extends Component {
               moveCardFromChienToHand={this.moveCardFromChienToHand.bind(this)}
             />
           }
+          {gamePhase === TRICK && <TrickPanel {...this.props} />}
         </div>
       </div>
     );
+  }
+
+  handleCardClick (card) {
+    const {
+      actions,
+      gamePhase,
+      currentPlayer,
+      bidTaker,
+      playerTurn
+    } = this.props;
+
+    if (gamePhase === CHIEN_REVEAL && currentPlayer === bidTaker) {
+      return this.moveCardFromHandToChien(card);
+    }
+
+    if (gamePhase === TRICK && currentPlayer === playerTurn) {
+      return actions.playCard(card);
+    }
+
+    return null;
   }
 
   handleConfirmChien () {

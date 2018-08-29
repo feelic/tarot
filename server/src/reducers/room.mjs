@@ -1,6 +1,8 @@
 import * as types from '../constants/action-types';
 import players from './players';
 import bids from './bids';
+import trick from './trick';
+
 import {getBidTaker} from '../util/bids';
 import {getTrickWinner, dealCards} from '../util/cards';
 import {getNextPlayer} from '../util/players';
@@ -13,6 +15,7 @@ const initialState = {
   playerGameNumber: 4,
   chien: [],
   roundOpener: null,
+  currentTrick: {},
   trickWinner: null,
   playerTurn: null,
   tricksRemaining: 18,
@@ -63,7 +66,8 @@ export default function room(state = initialState, action) {
     case types.PLACE_BID:
       const newPlayers = players(state.players, action);
       const bidTaker = getBidTaker(newPlayers, state.playerOrder);
-      const bidSpeaker = getNextPlayer(state.playerOrder, action.playerId);
+      const bidSpeaker =
+        (bidTaker && null) || getNextPlayer(state.playerOrder, action.playerId);
       const gamePhase =
         (bidTaker === 'nobody' && gamePhases.FAILED_BIDDING) ||
         (bidTaker && gamePhases.CHIEN_REVEAL) ||
@@ -79,16 +83,43 @@ export default function room(state = initialState, action) {
       return {
         ...state,
         chien: [],
-        gamePhase: gamePhases.TRICK
+        gamePhase: gamePhases.TRICK,
+        playerTurn: state.roundOpener,
+        players:  players(state.players, {...action}),
       };
     case types.PLAY_CARD:
       const currentTrick = trick(state.currentTrick, action);
-      const trickWinner = getTrickWinner(currentTrick, playerOrder);
-      const nextPlayer = getNextPlayer(playerOrder, action.playerId);
+
+      //Trick is not over, give turn to next player
+      if (Object.keys(currentTrick).length < state.playerGameNumber) {
+        const nextPlayer = getNextPlayer(state.playerOrder, action.playerId);
+
+        return {
+          ...state,
+          currentTrick,
+          playerTurn: nextPlayer
+        };
+      }
+
+      const trickWinner = getTrickWinner(currentTrick, state.playerOrder);
+
+      //Trick is not the last, award to winner, give turn to trick winner
+      if (state.players[trickWinner].hand.length > 0) {
+        return {
+          ...state,
+          currentTrick: {},
+          playerTurn: trickWinner,
+          players: players(state.players, {
+            type: types.AWARD_TRICK,
+            trickWinner,
+            currentTrick
+          })
+        };
+      }
+
       return {
         ...state,
-        currentTrick: {...state.currentTrick, [action.player]: action.card},
-        players: players(state.players, action)
+        roundOpener: getNextPlayer(state.playerOrder, state.roundOpener)
       };
     default:
       return state;
