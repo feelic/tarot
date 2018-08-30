@@ -89,7 +89,7 @@ export default function room (state = initialState, action, dispatch) {
       currentTrick: [],
       playerTurn: action.trickWinner,
       players: players(state.players, action),
-      trickWinner: action.trickWinner
+      trickWinner: null
     };
   case AWARD_ROUND:
     return {
@@ -122,8 +122,10 @@ export function handleBidding (state, action) {
 
 export function handleTrick (state, action, dispatch) {
   const currentTrick = trick(state.currentTrick, action);
-  const trickWinner = getTrickWinner(currentTrick);
   const isTrickComplete = currentTrick.length === state.playerGameNumber;
+  const trickWinner = (isTrickComplete && getTrickWinner(currentTrick)) || null;
+  const isTrickLast
+    = isTrickComplete && state.players[trickWinner].hand.length === 0;
 
   //card is last of trick
   if (isTrickComplete) {
@@ -139,7 +141,7 @@ export function handleTrick (state, action, dispatch) {
   }
 
   //Trick is last of round, go to score board
-  if (isTrickComplete && state.players[trickWinner].hand.length === 0) {
+  if (isTrickLast) {
     setTimeout(() => {
       dispatch({
         type: AWARD_ROUND,
@@ -149,11 +151,14 @@ export function handleTrick (state, action, dispatch) {
     }, 4000);
   }
 
-  const nextPlayer = getNextPlayer(state.playerOrder, action.playerId);
+  const nextPlayer
+    = (! isTrickComplete && getNextPlayer(state.playerOrder, action.playerId))
+    || null;
 
   return {
     ...state,
     currentTrick,
+    trickWinner,
     playerTurn: nextPlayer,
     players: players(state.players, action)
   };

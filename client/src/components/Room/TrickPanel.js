@@ -16,8 +16,8 @@ export default props => {
   );
 };
 
-function getTrickWinnerText (trickWinner, currentPlayer, players, currentTrick) {
-  if (! trickWinner || currentTrick.length !== 0) {
+function getTrickWinnerText (trickWinner, currentPlayer, players) {
+  if (! trickWinner) {
     return '';
   }
 
@@ -28,6 +28,10 @@ function getTrickWinnerText (trickWinner, currentPlayer, players, currentTrick) 
   return `${players[trickWinner].username} wins the trick. `;
 }
 function getPlayerTurnText (playerTurn, currentPlayer, players) {
+  if (! playerTurn) {
+    return '';
+  }
+
   if (playerTurn === currentPlayer) {
     return 'Your turn to play.';
   }
