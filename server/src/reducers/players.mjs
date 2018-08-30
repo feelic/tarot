@@ -6,7 +6,8 @@ import {
   START_ROUND,
   PLACE_BID,
   MAKE_CHIEN,
-  PLAY_CARD
+  PLAY_CARD,
+  ADD_BOT
 } from '../constants/action-types';
 
 const initialState = {};
@@ -27,6 +28,7 @@ const initialPlayer = {
 export default function players (state = initialState, action) {
   switch (action.type) {
   case JOIN_ROOM:
+  case ADD_BOT:
     return {
       ...state,
       [action.playerId]: player(initialPlayer, action)
@@ -70,10 +72,12 @@ export default function players (state = initialState, action) {
 export function player (state = initialPlayer, action) {
   switch (action.type) {
   case JOIN_ROOM:
+  case ADD_BOT:
     return {
       ...state,
       username: action.username,
-      id: action.playerId
+      id: action.playerId,
+      bot: action.type === ADD_BOT
     };
   case PLACE_BID:
     return {

@@ -39,6 +39,7 @@ export const bidOptions = {
   gardeSans: {},
   gardeContre: {}
 };
+export const bidRanking = Object.keys(bidOptions);
 export const gamePhases = {
   ROOM_SETUP: 'ROOM_SETUP',
   BIDDING: 'BIDDING',

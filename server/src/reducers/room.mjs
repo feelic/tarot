@@ -7,8 +7,10 @@ import {
   PLAY_CARD,
   MAKE_CHIEN,
   AWARD_TRICK,
-  AWARD_ROUND
+  AWARD_ROUND,
+  ADD_BOT
 } from '../constants/action-types';
+import {getBotPLayerName} from '../constants/bot-player-names';
 import players from './players';
 import trick from './trick';
 
@@ -42,29 +44,9 @@ const initialState = {
 export default function room (state = initialState, action, dispatch) {
   switch (action.type) {
   case JOIN_ROOM:
-    if (state.playerGameNumber === state.playerOrder.length) {
-      return state;
-    }
-
-    return {
-      ...state,
-      players: players(state.players, action),
-      playerOrder: [...state.playerOrder, action.playerId]
-    };
+  case ADD_BOT:
   case LEAVE_ROOM:
-    if (Object.keys(state.players).length - 1 === 0) {
-      return initialState;
-    }
-    const leaverIndex = state.playerOrder.indexOf(action.playerId);
-
-    return {
-      ...state,
-      playerOrder: [
-        ...state.playerOrder.slice(0, leaverIndex),
-        ...state.playerOrder.slice(leaverIndex + 1)
-      ],
-      players: players(state.players, action)
-    };
+    return handleRoster(state, action);
   case START_GAME:
   case START_ROUND:
     const deal = dealCards(state.players.length);
@@ -104,6 +86,53 @@ export default function room (state = initialState, action, dispatch) {
     return {
       ...state,
       gamePhase: gamePhases.ROUND_SCORES
+    };
+  default:
+    return state;
+  }
+}
+
+export function handleRoster (state, action) {
+  switch (action.type) {
+  case JOIN_ROOM:
+    if (state.playerGameNumber === state.playerOrder.length) {
+      return state;
+    }
+
+    return {
+      ...state,
+      players: players(state.players, action),
+      playerOrder: [...state.playerOrder, action.playerId]
+    };
+  case ADD_BOT:
+    if (state.playerGameNumber === state.playerOrder.length) {
+      return state;
+    }
+    const botName = getBotPLayerName();
+
+    return {
+      ...state,
+      players: players(state.players, {
+        ...action,
+        username: botName,
+        playerId: botName
+      }),
+      playerOrder: [...state.playerOrder, botName]
+    };
+
+  case LEAVE_ROOM:
+    if (Object.keys(state.players).length - 1 === 0) {
+      return initialState;
+    }
+    const leaverIndex = state.playerOrder.indexOf(action.playerId);
+
+    return {
+      ...state,
+      playerOrder: [
+        ...state.playerOrder.slice(0, leaverIndex),
+        ...state.playerOrder.slice(leaverIndex + 1)
+      ],
+      players: players(state.players, action)
     };
   default:
     return state;

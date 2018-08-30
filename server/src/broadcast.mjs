@@ -1,3 +1,5 @@
+import {playBotturn} from './bots';
+
 let io;
 
 export function configureBroadcaster (ioServer) {
@@ -16,6 +18,10 @@ export default function broadcast (room, state) {
   });
 
   responses.forEach(message => {
-    io.in(message.currentPlayer).emit('server-event', message);
+    if (state.players[message.currentPlayer].bot === true) {
+      return playBotturn(message);
+    }
+
+    return io.in(message.currentPlayer).emit('server-event', message);
   });
 }

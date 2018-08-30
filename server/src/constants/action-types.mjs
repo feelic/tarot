@@ -6,6 +6,7 @@ export const START_ROUND = 'START_ROUND';
 export const PLACE_BID = 'PLACE_BID';
 export const MAKE_CHIEN = 'MAKE_CHIEN';
 export const PLAY_CARD = 'PLAY_CARD';
+export const ADD_BOT = 'ADD_BOT';
 
 // Player Actions
 export const AWARD_TRICK = 'AWARD_TRICK';

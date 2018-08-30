@@ -2,7 +2,14 @@ import React from 'react';
 import Deck from '../Deck';
 
 export default props => {
-  const {cardAction, playerId, currentPlayer, playerPositions, hand, players} = props;
+  const {
+    cardAction,
+    playerId,
+    currentPlayer,
+    playerPositions,
+    hand,
+    players
+  } = props;
 
   const isCurrentPlayer = playerId === currentPlayer;
   const playerPosition = playerPositions[playerId];
