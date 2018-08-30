@@ -4,6 +4,8 @@ import playCard from './play-card';
 
 import {PLACE_BID, PLAY_CARD} from '../constants/action-types';
 
+const BOT_ACTION_DELAY = 400;
+
 export function playBotturn (room, state) {
   const playerId = state.currentPlayer;
   const hand = state.players[playerId].hand;
@@ -11,12 +13,16 @@ export function playBotturn (room, state) {
   if (state.bidSpeaker === playerId) {
     const bid = placeBid(state.players, hand);
 
-    return dispatch({room, type: PLACE_BID, bid, playerId});
+    return delayedDispatch({room, type: PLACE_BID, bid, playerId});
   }
   if (state.playerTurn === playerId) {
     const card = playCard(state.currentTrick, hand);
 
-    return dispatch({room, type: PLAY_CARD, card, playerId});
+    return delayedDispatch({room, type: PLAY_CARD, card, playerId});
   }
   return null;
+}
+
+function delayedDispatch (action) {
+  return setTimeout(() => dispatch(action), BOT_ACTION_DELAY);
 }
