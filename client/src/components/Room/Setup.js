@@ -19,6 +19,7 @@ export default class Room extends Component {
           })}
         </ul>
         <p>Waiting for {playerGameNumber - playerIds.length} more player(s) to join</p>
+        <button onClick={actions.addBot}>add a bot</button>
         <button onClick={actions.startGame}>start game</button>
       </div>
     );

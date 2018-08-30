@@ -1,4 +1,10 @@
-import {MAKE_CHIEN, PLACE_BID, PLAY_CARD, START_GAME} from '../constants/action-types';
+import {
+  MAKE_CHIEN,
+  PLACE_BID,
+  PLAY_CARD,
+  START_GAME,
+  ADD_BOT
+} from '../constants/action-types';
 
 export function placeBid (bid) {
   return {type: PLACE_BID, bid};
@@ -11,4 +17,7 @@ export function makeChien (chien, hand) {
 }
 export function playCard (card) {
   return {type: PLAY_CARD, card};
+}
+export function addBot () {
+  return {type: ADD_BOT};
 }

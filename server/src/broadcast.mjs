@@ -19,7 +19,7 @@ export default function broadcast (room, state) {
 
   responses.forEach(message => {
     if (state.players[message.currentPlayer].bot === true) {
-      return playBotturn(message);
+      return playBotturn(room, message);
     }
 
     return io.in(message.currentPlayer).emit('server-event', message);
