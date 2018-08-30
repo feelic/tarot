@@ -1,7 +1,8 @@
 .card {
   display: inline-block;
-  border: 2px solid #ccc;
-  border-radius: 5px;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   width: 85px;
   height: 150px;
 }
@@ -9,6 +10,15 @@
   background-image: url(../assets/back.jpg);
   background-size: cover;
 }
-.card:hover {
-  border: 2px solid #aaa;
+.card-hoverable:hover {
+  border: 1px solid #aaa;
+}
+.card-disable-overlay {
+  position: absolute;
+  border-radius: 8px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.2);
 }
