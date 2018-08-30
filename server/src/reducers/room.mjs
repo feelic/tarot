@@ -121,13 +121,16 @@ export function handleBidding (state, action) {
 
 export function handleTrick (state, action, dispatch) {
   const currentTrick = trick(state.currentTrick, action);
-  const trickWinner = getTrickWinner(currentTrick, state.playerOrder);
+  const trickWinner = getTrickWinner(currentTrick);
+  const isTrickComplete = currentTrick.length === state.playerGameNumber;
 
   //card is last of trick
-  if (trickWinner) {
+  if (isTrickComplete) {
     setTimeout(() => {
       dispatch({
         type: AWARD_TRICK,
+        room: action.room,
+        playerId: 'SERVER',
         trickWinner,
         trick: currentTrick.map(play => play.card)
       });
@@ -135,10 +138,12 @@ export function handleTrick (state, action, dispatch) {
   }
 
   //Trick is last of round, go to score board
-  if (trickWinner && state.players[trickWinner].hand.length === 0) {
+  if (isTrickComplete && state.players[trickWinner].hand.length === 0) {
     setTimeout(() => {
       dispatch({
-        type: AWARD_ROUND
+        type: AWARD_ROUND,
+        room: action.room,
+        playerId: 'SERVER'
       });
     }, 6000);
   }

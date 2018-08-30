@@ -41,11 +41,7 @@ io.on('connection', socket => {
 });
 
 function handlePlayerAction (data) {
-  const {gameRoom, id, username} = this;
-
-  console.log(
-    `user ${username} (id: ${id}) dispatched ${data.type} in ${gameRoom}`
-  );
+  const {gameRoom, id} = this;
 
   return dispatch({...data, room: gameRoom, playerId: id});
 }

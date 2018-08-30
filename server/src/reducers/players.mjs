@@ -1,4 +1,5 @@
 import {
+  AWARD_TRICK,
   JOIN_ROOM,
   LEAVE_ROOM,
   START_GAME,
@@ -56,6 +57,11 @@ export default function players (state = initialState, action) {
       ...state,
       [action.playerId]: player(state[action.playerId], action)
     };
+  case AWARD_TRICK:
+    return {
+      ...state,
+      [action.trickWinner]: player(state[action.trickWinner], action)
+    };
   default:
     return state;
   }
@@ -79,6 +85,11 @@ export function player (state = initialPlayer, action) {
       ...state,
       hand: [...action.hand],
       tricks: [...action.chien]
+    };
+  case AWARD_TRICK:
+    return {
+      ...state,
+      tricks: [...action.trick]
     };
   case PLAY_CARD:
     const cardIndex = state.hand.indexOf(action.card);
