@@ -1,12 +1,12 @@
-import * as types from '../constants/action-types';
+import {PLACE_BID, PLAY_CARD} from '../constants/action-types';
 
 export default function controlActions (state, action) {
   switch (action.type) {
-    case types.PLACE_BID:
-      return action.playerId === state.bidSpeaker;
-    case types.PLACE_BID:
-      return action.playerId === state.playerTurn;
-    default:
-      return true;
+  case PLACE_BID:
+    return action.playerId === state.bidSpeaker;
+  case PLAY_CARD:
+    return action.playerId === state.playerTurn;
+  default:
+    return true;
   }
 }

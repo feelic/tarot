@@ -2,12 +2,15 @@ import express from 'express';
 import http from 'http';
 import socketIO from 'socket.io';
 import {dispatch} from './src/game';
+import {configureBroadcaster} from './src/broadcast';
 import {JOIN_ROOM, LEAVE_ROOM} from './src/constants/action-types';
 
 const port = 4001;
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
+
+configureBroadcaster(io);
 
 io.on('connection', socket => {
   socket.on('join-room', data => {
@@ -29,21 +32,22 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     const {gameRoom, playerId} = socket;
 
-    handlePlayerAction.call(socket, {type: LEAVE_ROOM, room: gameRoom, playerId});
+    handlePlayerAction.call(socket, {
+      type: LEAVE_ROOM,
+      room: gameRoom,
+      playerId
+    });
   });
 });
 
-function handlePlayerAction(data) {
+function handlePlayerAction (data) {
   const {gameRoom, id, username} = this;
 
-  console.log(`user ${username} (id: ${id}) dispatched ${data.type} in ${gameRoom}`);
+  console.log(
+    `user ${username} (id: ${id}) dispatched ${data.type} in ${gameRoom}`
+  );
 
-  const responses = dispatch({...data, room: gameRoom, playerId: id});
-
-  responses.forEach(message => {
-
-    io.in(message.currentPlayer).emit('server-event', message);
-  });
+  return dispatch({...data, room: gameRoom, playerId: id});
 }
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

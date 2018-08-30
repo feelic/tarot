@@ -8,15 +8,15 @@ export function getBidTaker (players = {}, playerOrder) {
   }
 
   const bidRanking = Object.keys(bidOptions);
-  const winner = Object.values(players).reduce((winner, player) => {
-    const winningBid = bidRanking.indexOf(winner.bid);
+  const winner = Object.values(players).reduce((prev, player) => {
+    const winningBid = bidRanking.indexOf(prev.bid);
     const playerBid = bidRanking.indexOf(player.bid);
 
     if (winningBid < playerBid) {
       return player;
     }
 
-    return winner;
+    return prev;
   }, playerOrder[0]);
 
   if (bidRanking.indexOf(winner.bid) === 0) {
