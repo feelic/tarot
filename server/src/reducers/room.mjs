@@ -6,7 +6,8 @@ import {
   PLACE_BID,
   PLAY_CARD,
   MAKE_CHIEN,
-  AWARD_TRICK
+  AWARD_TRICK,
+  AWARD_ROUND
 } from '../constants/action-types';
 import players from './players';
 import trick from './trick';
@@ -38,7 +39,7 @@ const initialState = {
  * @param  {Object} action action to perform
  * @return {Object} nextState next state
  */
-export default function room (state = initialState, action) {
+export default function room (state = initialState, action, dispatch) {
   switch (action.type) {
   case JOIN_ROOM:
     return {
@@ -78,10 +79,22 @@ export default function room (state = initialState, action) {
       chien: [],
       gamePhase: gamePhases.TRICK,
       playerTurn: state.roundOpener,
-      players: players(state.players, {...action})
+      players: players(state.players, action)
     };
   case PLAY_CARD:
-    return handleTrick(state, action);
+    return handleTrick(state, action, dispatch);
+  case AWARD_TRICK:
+    return {
+      ...state,
+      currentTrick: [],
+      playerTurn: action.trickWinner,
+      players: players(state.players, action)
+    };
+  case AWARD_ROUND:
+    return {
+      ...state,
+      gamePhase: gamePhases.ROUND_SCORES
+    };
   default:
     return state;
   }
@@ -91,11 +104,11 @@ export function handleBidding (state, action) {
   const newPlayers = players(state.players, action);
   const bidTaker = getBidTaker(newPlayers, state.playerOrder);
   const bidSpeaker
-      = (bidTaker && null) || getNextPlayer(state.playerOrder, action.playerId);
+    = (bidTaker && null) || getNextPlayer(state.playerOrder, action.playerId);
   const gamePhase
-      = (bidTaker === 'nobody' && gamePhases.FAILED_BIDDING)
-      || (bidTaker && gamePhases.CHIEN_REVEAL)
-      || gamePhases.BIDDING;
+    = (bidTaker === 'nobody' && gamePhases.FAILED_BIDDING)
+    || (bidTaker && gamePhases.CHIEN_REVEAL)
+    || gamePhases.BIDDING;
 
   return {
     ...state,
@@ -106,38 +119,36 @@ export function handleBidding (state, action) {
   };
 }
 
-export function handleTrick (state, action) {
+export function handleTrick (state, action, dispatch) {
   const currentTrick = trick(state.currentTrick, action);
-
-  //Trick is not over, give turn to next player
-  if (Object.keys(currentTrick).length < state.playerGameNumber) {
-    const nextPlayer = getNextPlayer(state.playerOrder, action.playerId);
-
-    return {
-      ...state,
-      currentTrick,
-      playerTurn: nextPlayer
-    };
-  }
-
   const trickWinner = getTrickWinner(currentTrick, state.playerOrder);
 
-  //Trick is not the last, award to winner, give turn to trick winner
-  if (state.players[trickWinner].hand.length > 0) {
-    return {
-      ...state,
-      currentTrick: [],
-      playerTurn: trickWinner,
-      players: players(state.players, {
+  //card is last of trick
+  if (trickWinner) {
+    setTimeout(() => {
+      dispatch({
         type: AWARD_TRICK,
         trickWinner,
-        currentTrick
-      })
-    };
+        trick: currentTrick.map(play => play.card)
+      });
+    }, 3000);
   }
+
+  //Trick is last of round, go to score board
+  if (trickWinner && state.players[trickWinner].hand.length === 0) {
+    setTimeout(() => {
+      dispatch({
+        type: AWARD_ROUND
+      });
+    }, 6000);
+  }
+
+  const nextPlayer = getNextPlayer(state.playerOrder, action.playerId);
 
   return {
     ...state,
-    gamePhase: gamePhases.ROUND_SCORES
+    currentTrick,
+    playerTurn: nextPlayer,
+    players: players(state.players, action)
   };
 }
