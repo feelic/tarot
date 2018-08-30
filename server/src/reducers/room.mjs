@@ -1,4 +1,6 @@
-import * as types from '../constants/action-types';
+import {
+  JOIN_ROOM, LEAVE_ROOM, START_GAME, START_ROUND, PLACE_BID, PLAY_CARD, MAKE_CHIEN, AWARD_TRICK
+} from '../constants/action-types';
 import players from './players';
 import bids from './bids';
 import trick from './trick';
@@ -15,7 +17,7 @@ const initialState = {
   playerGameNumber: 4,
   chien: [],
   roundOpener: null,
-  currentTrick: {},
+  currentTrick: [],
   trickWinner: null,
   playerTurn: null,
   tricksRemaining: 18,
@@ -33,13 +35,13 @@ const initialState = {
  */
 export default function room(state = initialState, action) {
   switch (action.type) {
-    case types.JOIN_ROOM:
+    case JOIN_ROOM:
       return {
         ...state,
         players: players(state.players, action),
         playerOrder: [...state.playerOrder, action.playerId]
       };
-    case types.LEAVE_ROOM:
+    case LEAVE_ROOM:
       if (Object.keys(state.players).length - 1 === 0) {
         return initialState;
       }
@@ -48,8 +50,8 @@ export default function room(state = initialState, action) {
         ...state,
         players: players(state.players, action)
       };
-    case types.START_GAME:
-    case types.START_ROUND:
+    case START_GAME:
+    case START_ROUND:
       const deal = dealCards(state.players.length);
       const roundOpenerIdx = state.playerOrder.indexOf(state.roundOpener) + 1;
       const roundOpener =
@@ -63,7 +65,7 @@ export default function room(state = initialState, action) {
         roundOpener,
         bidSpeaker: roundOpener
       };
-    case types.PLACE_BID:
+    case PLACE_BID:
       const newPlayers = players(state.players, action);
       const bidTaker = getBidTaker(newPlayers, state.playerOrder);
       const bidSpeaker =
@@ -79,7 +81,7 @@ export default function room(state = initialState, action) {
         bidSpeaker,
         gamePhase
       };
-    case types.MAKE_CHIEN:
+    case MAKE_CHIEN:
       return {
         ...state,
         chien: [],
@@ -87,7 +89,7 @@ export default function room(state = initialState, action) {
         playerTurn: state.roundOpener,
         players:  players(state.players, {...action}),
       };
-    case types.PLAY_CARD:
+    case PLAY_CARD:
       const currentTrick = trick(state.currentTrick, action);
 
       //Trick is not over, give turn to next player
@@ -107,10 +109,10 @@ export default function room(state = initialState, action) {
       if (state.players[trickWinner].hand.length > 0) {
         return {
           ...state,
-          currentTrick: {},
+          currentTrick: [],
           playerTurn: trickWinner,
           players: players(state.players, {
-            type: types.AWARD_TRICK,
+            type: AWARD_TRICK,
             trickWinner,
             currentTrick
           })
@@ -119,7 +121,7 @@ export default function room(state = initialState, action) {
 
       return {
         ...state,
-        roundOpener: getNextPlayer(state.playerOrder, state.roundOpener)
+        gamePhase: gamePhases.ROUND_SCORES
       };
     default:
       return state;

@@ -7,13 +7,16 @@ import * as types from '../constants/action-types';
  * @param  {Object} action action to perform
  * @return {Object} nextState next state
  */
-export default function trick(state = {}, action) {
+export default function trick(state = [], action) {
   switch (action.type) {
     case types.PLAY_CARD:
-      return {
+      return [
         ...state,
-        [action.playerId]: action.card
-      };
+        {
+          card: action.card,
+          player: action.playerId
+        }
+      ];
     default:
       return state;
   }

@@ -7,5 +7,5 @@ export default props => {
     currentTrick
   } = props;
 
-  return <Deck cards={Object.values(currentTrick)} />;
+  return <Deck cards={currentTrick.map(play => play.card)} />;
 };
