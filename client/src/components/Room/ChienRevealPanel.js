@@ -14,10 +14,10 @@ export default props => {
   if (bidTaker !== currentPlayer) {
     return (
       <React.Fragment>
-        <h2>
+        <h1>
           {players[bidTaker].username} takes the bid with{' '}
           {players[bidTaker].bid}
-        </h2>
+        </h1>
         <Deck display="spread" cards={chien} />
         <p>Please wait while they make their chien...</p>
       </React.Fragment>
@@ -28,7 +28,7 @@ export default props => {
 
   return (
     <React.Fragment>
-      <h2>You take the bid with {players[bidTaker].bid}</h2>
+      <h1>You take the bid with {players[bidTaker].bid}</h1>
       <p>
         You can exchange cards from your hand and the chien. Cards in the chien
         will be added to your tricks, and count towards your score in this

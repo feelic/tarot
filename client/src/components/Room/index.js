@@ -38,9 +38,7 @@ export default class Room extends Component {
       players,
       playerGameNumber,
       currentPlayer,
-      playerOrder,
-      playerTurn,
-      bidSpeaker
+      playerOrder
     } = this.props;
 
     if (gamePhase === 'ROOM_SETUP') {
@@ -59,7 +57,6 @@ export default class Room extends Component {
     const chien
       = (gamePhase === CHIEN_REVEAL && this.state.chien) || this.props.chien;
     const playerPositions = definePlayerPositions(playerOrder, currentPlayer);
-    const activePlayer = playerTurn || bidSpeaker;
 
     return (
       <div className="table">
@@ -78,10 +75,6 @@ export default class Room extends Component {
           );
         })}
         <div className="table-center">
-          {(activePlayer === currentPlayer && <h1>Your turn</h1>)
-            || <h1>{players[activePlayer].username}s turn</h1>
-          }
-
           {gamePhase === BIDDING && <BiddingPanel {...this.props} />}
           {gamePhase === CHIEN_REVEAL
             && <ChienRevealPanel

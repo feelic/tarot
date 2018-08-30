@@ -88,7 +88,8 @@ export default function room (state = initialState, action, dispatch) {
       ...state,
       currentTrick: [],
       playerTurn: action.trickWinner,
-      players: players(state.players, action)
+      players: players(state.players, action),
+      trickWinner: action.trickWinner
     };
   case AWARD_ROUND:
     return {
@@ -134,7 +135,7 @@ export function handleTrick (state, action, dispatch) {
         trickWinner,
         trick: currentTrick.map(play => play.card)
       });
-    }, 3000);
+    }, 2000);
   }
 
   //Trick is last of round, go to score board
@@ -145,7 +146,7 @@ export function handleTrick (state, action, dispatch) {
         room: action.room,
         playerId: 'SERVER'
       });
-    }, 6000);
+    }, 4000);
   }
 
   const nextPlayer = getNextPlayer(state.playerOrder, action.playerId);
