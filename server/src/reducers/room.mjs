@@ -42,6 +42,10 @@ const initialState = {
 export default function room (state = initialState, action, dispatch) {
   switch (action.type) {
   case JOIN_ROOM:
+    if (state.playerGameNumber === state.playerOrder.length) {
+      return state;
+    }
+
     return {
       ...state,
       players: players(state.players, action),
@@ -51,9 +55,14 @@ export default function room (state = initialState, action, dispatch) {
     if (Object.keys(state.players).length - 1 === 0) {
       return initialState;
     }
+    const leaverIndex = state.playerOrder.indexOf(action.playerId);
 
     return {
       ...state,
+      playerOrder: [
+        ...state.playerOrder.slice(0, leaverIndex),
+        ...state.playerOrder.slice(leaverIndex + 1)
+      ],
       players: players(state.players, action)
     };
   case START_GAME:
