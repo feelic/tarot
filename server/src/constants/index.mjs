@@ -1,5 +1,3 @@
-// rules taken from https://www.pagat.com/tarot/frtarot.html
-
 export const suits = ['clubs', 'diamonds', 'spades', 'hearts'];
 export const suitsAndTrumps = [...suits, 'trumps'];
 export const bouts = ['trumps-01', 'trumps-21', 'trumps-00'];
