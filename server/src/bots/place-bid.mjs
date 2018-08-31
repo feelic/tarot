@@ -5,7 +5,7 @@ export default function (players, hand) {
   const allowedBids = getAllowedBids(players);
   const handStrength = assessHandStrength(players, hand);
 
-  if (handStrength > 3) {
+  if (handStrength > 10) {
     return allowedBids[1];
   }
 

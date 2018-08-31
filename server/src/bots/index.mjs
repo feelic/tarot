@@ -12,7 +12,7 @@ export function playBotturn (room, state) {
   const playerId = state.currentPlayer;
   const hand = state.players[playerId].hand;
 
-  if (state.bidSpeaker === playerId) {
+  if (state.bidSpeaker === playerId && state.gamePhase === gamePhases.BIDDING) {
     const bid = placeBid(state.players, hand);
 
     return delayedDispatch({room, type: PLACE_BID, bid, playerId});
@@ -31,7 +31,7 @@ export function playBotturn (room, state) {
       5000
     );
   }
-  if (state.playerTurn === playerId) {
+  if (state.playerTurn === playerId && state.gamePhase === gamePhases.TRICK) {
     const card = playCard(state.currentTrick, hand);
 
     return delayedDispatch({room, type: PLAY_CARD, card, playerId});

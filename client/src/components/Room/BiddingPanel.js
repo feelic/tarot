@@ -2,10 +2,10 @@ import React from 'react';
 import {bidOptions} from '../../constants';
 
 export default props => {
-  const {actions, currentPlayer, players, bidSpeaker} = props;
-  const title
-    = (bidSpeaker === currentPlayer && 'Your turn to speak')
-    || `${players[bidSpeaker].username}'s turn to speak`;
+  const {actions, currentPlayer, players, bidSpeaker, bidTaker} = props;
+
+  const title = getPanelTitle(bidSpeaker, bidTaker, currentPlayer, players);
+  const isSpeaker = bidSpeaker === currentPlayer;
 
   return (
     <React.Fragment>
@@ -21,16 +21,40 @@ export default props => {
           </div>
         );
       })}
-      <h2>Your Options</h2>
-      <ul>
-        {Object.keys(bidOptions).map(option => {
-          return (
-            <li key={option}>
-              <a onClick={() => actions.placeBid(option)}>{option}</a>
-            </li>
-          );
-        })}
-      </ul>
+      {isSpeaker
+        && <React.Fragment>
+          <h2>Your Options</h2>
+          <ul>
+            {Object.keys(bidOptions).map(option => {
+              return (
+                <li key={option}>
+                  <a onClick={() => actions.placeBid(option)}>{option}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </React.Fragment>
+      }
     </React.Fragment>
   );
 };
+
+function getPanelTitle (bidSpeaker, bidTaker, currentPlayer, players) {
+  if (bidTaker === currentPlayer) {
+    return 'You take the bid !';
+  }
+
+  if (bidTaker === 'nobody') {
+    return 'Nobody takes the bid, dealing again...';
+  }
+
+  if (bidTaker) {
+    return `${players[bidTaker].username} takes the bid !`;
+  }
+
+  if (bidSpeaker === currentPlayer) {
+    return 'Your turn to speak';
+  }
+
+  return `${players[bidSpeaker].username}'s turn to speak`;
+}

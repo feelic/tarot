@@ -20,14 +20,7 @@ import {getTrickWinner, dealCards} from '../util/cards';
 import {getNextPlayer} from '../util/players';
 import {gamePhases} from '../constants';
 
-const {
-  ROOM_SETUP,
-  BIDDING,
-  CHIEN_REVEAL,
-  TRICK,
-  ROUND_SCORES,
-  FAILED_BIDDING
-} = gamePhases;
+const {ROOM_SETUP, BIDDING, CHIEN_REVEAL, TRICK, ROUND_SCORES} = gamePhases;
 
 const initialState = {
   gamePhase: ROOM_SETUP,
@@ -70,7 +63,11 @@ export default function room (state = initialState, action, dispatch) {
       players: players(state.players, {...action, deal: deal.hands}),
       chien: deal.chien,
       roundOpener,
-      bidSpeaker: roundOpener
+      bidSpeaker: roundOpener,
+      trickWinner: null,
+      playerTurn: null,
+      tricksRemaining: 18,
+      bidTaker: null
     };
   case AWARD_BID:
   case PLACE_BID:
@@ -153,30 +150,20 @@ export function handleRoster (state, action) {
 export function handleBidding (state, action, dispatch) {
   switch (action.type) {
   case AWARD_BID:
-    const gamePhase
-        = (action.bidTaker === 'nobody' && FAILED_BIDDING) || CHIEN_REVEAL;
-
-    if (gamePhase === FAILED_BIDDING) {
-      setTimeout(() => {
-        dispatch({
-          type: START_ROUND,
-          room: action.room,
-          playerId: 'SERVER'
-        });
-      }, 4000);
-    }
     return {
       ...state,
       bidTaker: action.bidTaker,
-      gamePhase
+      gamePhase: CHIEN_REVEAL
     };
   case PLACE_BID:
     const newPlayers = players(state.players, action);
     const bidTaker = getBidTaker(newPlayers, state.playerOrder);
     const nextPlayer = getNextPlayer(state.playerOrder, action.playerId);
-    const bidSpeaker = (bidTaker && null) || nextPlayer;
+    const bidSpeaker = (! bidTaker && nextPlayer) || null;
+    const biddingFailed = bidTaker === 'nobody';
 
-    if (bidTaker) {
+    if (! biddingFailed && bidTaker) {
+      console.log('bidTaker', bidTaker);
       setTimeout(() => {
         dispatch({
           type: AWARD_BID,
@@ -187,11 +174,22 @@ export function handleBidding (state, action, dispatch) {
       }, 2000);
     }
 
+    if (biddingFailed) {
+      setTimeout(() => {
+        dispatch({
+          type: START_ROUND,
+          room: action.room,
+          playerId: 'SERVER'
+        });
+      }, 4000);
+    }
+
     return {
       ...state,
       players: newPlayers,
       bidSpeaker,
-      gamePhase: BIDDING
+      gamePhase: BIDDING,
+      bidTaker
     };
   default:
     return state;
