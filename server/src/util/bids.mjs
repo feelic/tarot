@@ -31,5 +31,5 @@ export function getAllowedBids (players) {
   const highestBid = Object.values(players).reduce(compareBids, {bid: 'pass'}).bid;
   const highestBidIdx = bidRanking.indexOf(highestBid);
 
-  return ['pass', bidRanking.slice(highestBidIdx + 1)];
+  return ['pass', ...bidRanking.slice(highestBidIdx + 1)];
 }

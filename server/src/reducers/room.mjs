@@ -8,7 +8,8 @@ import {
   MAKE_CHIEN,
   AWARD_TRICK,
   AWARD_ROUND,
-  ADD_BOT
+  ADD_BOT,
+  AWARD_BID
 } from '../constants/action-types';
 import {getBotPLayerName} from '../constants/bot-player-names';
 import players from './players';
@@ -19,8 +20,17 @@ import {getTrickWinner, dealCards} from '../util/cards';
 import {getNextPlayer} from '../util/players';
 import {gamePhases} from '../constants';
 
+const {
+  ROOM_SETUP,
+  BIDDING,
+  CHIEN_REVEAL,
+  TRICK,
+  ROUND_SCORES,
+  FAILED_BIDDING
+} = gamePhases;
+
 const initialState = {
-  gamePhase: gamePhases.ROOM_SETUP,
+  gamePhase: ROOM_SETUP,
   players: {},
   playerOrder: [],
   playerGameNumber: 4,
@@ -56,19 +66,20 @@ export default function room (state = initialState, action, dispatch) {
 
     return {
       ...state,
-      gamePhase: gamePhases.BIDDING,
+      gamePhase: BIDDING,
       players: players(state.players, {...action, deal: deal.hands}),
       chien: deal.chien,
       roundOpener,
       bidSpeaker: roundOpener
     };
+  case AWARD_BID:
   case PLACE_BID:
-    return handleBidding(state, action);
+    return handleBidding(state, action, dispatch);
   case MAKE_CHIEN:
     return {
       ...state,
       chien: [],
-      gamePhase: gamePhases.TRICK,
+      gamePhase: TRICK,
       playerTurn: state.roundOpener,
       players: players(state.players, action)
     };
@@ -85,7 +96,7 @@ export default function room (state = initialState, action, dispatch) {
   case AWARD_ROUND:
     return {
       ...state,
-      gamePhase: gamePhases.ROUND_SCORES
+      gamePhase: ROUND_SCORES
     };
   default:
     return state;
@@ -139,23 +150,52 @@ export function handleRoster (state, action) {
   }
 }
 
-export function handleBidding (state, action) {
-  const newPlayers = players(state.players, action);
-  const bidTaker = getBidTaker(newPlayers, state.playerOrder);
-  const bidSpeaker
-    = (bidTaker && null) || getNextPlayer(state.playerOrder, action.playerId);
-  const gamePhase
-    = (bidTaker === 'nobody' && gamePhases.FAILED_BIDDING)
-    || (bidTaker && gamePhases.CHIEN_REVEAL)
-    || gamePhases.BIDDING;
+export function handleBidding (state, action, dispatch) {
+  switch (action.type) {
+  case AWARD_BID:
+    const gamePhase
+        = (action.bidTaker === 'nobody' && FAILED_BIDDING) || CHIEN_REVEAL;
 
-  return {
-    ...state,
-    players: newPlayers,
-    bidTaker,
-    bidSpeaker,
-    gamePhase
-  };
+    if (gamePhase === FAILED_BIDDING) {
+      setTimeout(() => {
+        dispatch({
+          type: START_ROUND,
+          room: action.room,
+          playerId: 'SERVER'
+        });
+      }, 4000);
+    }
+    return {
+      ...state,
+      bidTaker: action.bidTaker,
+      gamePhase
+    };
+  case PLACE_BID:
+    const newPlayers = players(state.players, action);
+    const bidTaker = getBidTaker(newPlayers, state.playerOrder);
+    const nextPlayer = getNextPlayer(state.playerOrder, action.playerId);
+    const bidSpeaker = (bidTaker && null) || nextPlayer;
+
+    if (bidTaker) {
+      setTimeout(() => {
+        dispatch({
+          type: AWARD_BID,
+          room: action.room,
+          playerId: 'SERVER',
+          bidTaker
+        });
+      }, 2000);
+    }
+
+    return {
+      ...state,
+      players: newPlayers,
+      bidSpeaker,
+      gamePhase: BIDDING
+    };
+  default:
+    return state;
+  }
 }
 
 export function handleTrick (state, action, dispatch) {

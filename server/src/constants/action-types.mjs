@@ -8,6 +8,7 @@ export const MAKE_CHIEN = 'MAKE_CHIEN';
 export const PLAY_CARD = 'PLAY_CARD';
 export const ADD_BOT = 'ADD_BOT';
 
-// Player Actions
+// Server Actions
 export const AWARD_TRICK = 'AWARD_TRICK';
 export const AWARD_ROUND = 'AWARD_ROUND';
+export const AWARD_BID = 'AWARD_BID';
