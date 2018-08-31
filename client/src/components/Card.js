@@ -3,9 +3,9 @@ import './Card.css';
 import '../assets/card-sprite.css';
 
 export default props => {
-  const {onCardClick, card, disabled, tooltip} = props;
-  const cardClass = (card && `icon-${card}`) || 'card-turned';
-  const hoverableClass = card && ! disabled && 'card-hoverable';
+  const {onCardClick, card, tooltip} = props;
+  const {value, disabled, cardClass, hoverable} = normalizeCard(card);
+  const hoverableClass = onCardClick && hoverable && 'card-hoverable';
   const tooltipAttribute = {};
 
   if (tooltip) {
@@ -14,7 +14,7 @@ export default props => {
 
   return (
     <div
-      onClick={() => onCardClick && ! disabled && onCardClick(card)}
+      onClick={() => onCardClick && ! disabled && onCardClick(value)}
       className={`card ${cardClass} ${hoverableClass}`}
       {...tooltipAttribute}
     >
@@ -22,3 +22,18 @@ export default props => {
     </div>
   );
 };
+
+export function normalizeCard (card) {
+  if (typeof card === 'string') {
+    const turned = card === '';
+
+    return {
+      value: card,
+      disabled: false,
+      cardClass: (turned && 'card-turned') || `icon-${card}`,
+      hoverable: ! turned
+    };
+  }
+
+  return {...card, cardClass: `icon-${card.value}`, hoverable: ! card.disabled};
+}

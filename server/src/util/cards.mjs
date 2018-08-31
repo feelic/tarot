@@ -68,7 +68,7 @@ export function sortCards (hand, suitOrder = suitsAndTrumps, order = 'asc') {
   });
 }
 
-export function getAllowedCards (trick, hand) {
+export function getAllowedCards (trick = [], hand) {
   if (trick.length === 0) {
     return hand;
   }

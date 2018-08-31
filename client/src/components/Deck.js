@@ -8,7 +8,7 @@ export default props => {
   return (
     <div className={`deck deck-${display}`}>
       {cards.map((card, idx) => {
-        return <Card key={card || idx} card={card} onCardClick={onCardClick} />;
+        return <Card key={card.value || card || idx} card={card} onCardClick={onCardClick} />;
       })}
     </div>
   );

@@ -38,7 +38,9 @@ export default class Room extends Component {
       players,
       playerGameNumber,
       currentPlayer,
-      playerOrder
+      playerOrder,
+      currentTrick,
+      playerTurn
     } = this.props;
 
     if (gamePhase === 'ROOM_SETUP') {
@@ -71,6 +73,8 @@ export default class Room extends Component {
               hand={hand}
               chien={chien}
               players={players}
+              currentTrick={currentTrick}
+              playerTurn={playerTurn}
             />
           );
         })}

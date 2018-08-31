@@ -1,15 +1,10 @@
 import React from 'react';
 import Deck from '../Deck';
 
+import {getAllowedCards} from '../../util/cards';
+
 export default props => {
-  const {
-    cardAction,
-    playerId,
-    currentPlayer,
-    playerPositions,
-    hand,
-    players
-  } = props;
+  const {cardAction, playerId, currentPlayer, playerPositions, players} = props;
 
   const isCurrentPlayer = playerId === currentPlayer;
   const playerPosition = playerPositions[playerId];
@@ -20,13 +15,13 @@ export default props => {
     bottom: 'hand'
   };
   const displayMode = displayModes[playerPosition];
-  const playerHand = players[playerId].hand;
-  const cards
-    = (isCurrentPlayer && hand) || new Array(playerHand.length).fill('');
+  const cards = getCards(props);
 
   return (
     <div className={`player-slot player-slot-${playerPosition}`}>
-      <h2>{players[playerId].username}</h2>
+      <h2>
+        {players[playerId].username} ({cards.length})
+      </h2>
       <Deck
         display={displayMode}
         cards={cards}
@@ -35,3 +30,27 @@ export default props => {
     </div>
   );
 };
+
+function getCards (props) {
+  const {
+    playerId,
+    currentPlayer,
+    hand,
+    players,
+    currentTrick,
+    playerTurn
+  } = props;
+
+  if (playerId !== currentPlayer) {
+    return new Array(players[playerId].hand.length).fill('');
+  }
+  const isPlaying = playerTurn === currentPlayer;
+  const allowedCards = isPlaying && getAllowedCards(currentTrick, hand);
+
+  return hand.map(card => {
+    return {
+      value: card,
+      disabled: isPlaying && ! allowedCards.includes(card)
+    };
+  });
+}
