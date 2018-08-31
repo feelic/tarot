@@ -20,10 +20,6 @@ export function playBotturn (room, state) {
   if (state.bidTaker === playerId && state.gamePhase === gamePhases.CHIEN_REVEAL) {
     const {updatedHand, discarded} = makeChien(hand, state.chien);
 
-    console.log(updatedHand.length);
-    console.log(updatedHand);
-    console.log(discarded.length);
-    console.log(discarded);
     return delayedDispatch(
       {
         room,

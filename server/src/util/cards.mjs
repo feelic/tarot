@@ -69,6 +69,10 @@ export function sortCards (hand, suitOrder = suitsAndTrumps, order = 'asc') {
 }
 
 export function getAllowedCards (trick, hand) {
+  if (trick.length === 0) {
+    return hand;
+  }
+
   const demandedSuit = trick[0].card.split('-')[0];
 
   //if player has demanded suit, only these are allowed
