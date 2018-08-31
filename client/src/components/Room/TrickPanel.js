@@ -1,17 +1,41 @@
 import React from 'react';
 
-import Deck from '../Deck';
+import Card from '../Card';
+
+import './TrickPanel.css';
 
 export default props => {
-  const {currentTrick, currentPlayer, playerTurn, players, trickWinner} = props;
-  const trickWinnerText = getTrickWinnerText (trickWinner, currentPlayer, players, currentTrick);
-  const playerTurnText = getPlayerTurnText (playerTurn, currentPlayer, players);
+  const {
+    currentTrick,
+    currentPlayer,
+    playerTurn,
+    players,
+    trickWinner,
+    playerPositions
+  } = props;
+  const trickWinnerText = getTrickWinnerText(
+    trickWinner,
+    currentPlayer,
+    players,
+    currentTrick
+  );
+  const playerTurnText = getPlayerTurnText(playerTurn, currentPlayer, players);
   const title = trickWinnerText + playerTurnText;
 
   return (
     <React.Fragment>
       <h1>{title}</h1>
-      <Deck cards={currentTrick.map(play => play.card)} />
+      <div className="trick-panel">
+        {currentTrick.map(play => {
+          const position = playerPositions[play.player];
+
+          return (
+            <div key={play.card} className={`trick-panel-card trick-panel-card-${position}`}>
+              <Card card={play.card} />
+            </div>
+          );
+        })}
+      </div>
     </React.Fragment>
   );
 };

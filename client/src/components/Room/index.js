@@ -84,7 +84,7 @@ export default class Room extends Component {
               moveCardFromChienToHand={this.moveCardFromChienToHand.bind(this)}
             />
           }
-          {gamePhase === TRICK && <TrickPanel {...this.props} />}
+          {gamePhase === TRICK && <TrickPanel {...this.props} playerPositions={playerPositions}/>}
         </div>
       </div>
     );

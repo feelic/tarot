@@ -1,0 +1,24 @@
+.trick-panel {
+  position: relative;
+  height:calc(100% - 80px);
+  width: 100%;
+}
+.trick-panel-card {
+  position: absolute;
+}
+.trick-panel-card-top {
+  top: 10px;
+  left: calc(50% - (87px / 2));
+}
+.trick-panel-card-right {
+  top: calc(50% - (152px / 2));
+  right: 10px;
+}
+.trick-panel-card-bottom {
+    bottom: 10px;
+    left: calc(50% - (87px / 2));
+}
+.trick-panel-card-left {
+    top: calc(50% - (152px / 2));
+    left: 10px;
+}
