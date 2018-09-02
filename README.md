@@ -16,8 +16,14 @@ tbd
 * [x] Round bidding interface
 * [x] Chien making time
 * [x] Round play interface
+* [x] AI player
+
+#### To do
 * [ ] Round scores interface
-* [ ] AI player
+* [ ] Functional next round button
+* [ ] "Excuse" rules
+* [ ] Fix allowed trump card
+* [ ] Handle mid game disconnect/refresh
 
 ### Later
 * [ ] Advanced room creation & roster management
