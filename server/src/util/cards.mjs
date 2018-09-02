@@ -2,9 +2,7 @@ import {
   tarotDeck,
   chienSizes,
   suits,
-  bouts,
-  suitsAndTrumps,
-  winThresholdByBoutsCount
+  suitsAndTrumps
 } from '../constants';
 
 export function dealCards (nbPlayers = 4) {
@@ -96,7 +94,9 @@ export function getAllowedCards (trick = [], hand) {
     if (playedTrumps.length) {
       const lastPlayedTrump = playedTrumps[playedTrumps.length - 1];
       const lastPlayedTrumpValue = lastPlayedTrump.split('-')[1];
-      const higherTrumps = trumpsInHand.filter(card => card.split('-')[1] > lastPlayedTrumpValue);
+      const higherTrumps = trumpsInHand.filter(
+        card => card.split('-')[1] > lastPlayedTrumpValue
+      );
 
       return (higherTrumps.length && higherTrumps) || trumpsInHand;
     }
@@ -122,32 +122,4 @@ export function getTrickWinner (trick) {
   const orderedCards = sortCards(trick, suitOrder, 'desc');
 
   return orderedCards[0].player;
-}
-
-export function countBouts (tricks) {
-  return bouts.reduce((total, bout) => {
-    return total + ~ ~ tricks.includes(bout);
-  }, 0);
-}
-
-export function countScore (tricks) {
-  return tricks.reduce((total, card) => {
-    const isBout = bouts.includes(card);
-    const cardSuit = card.split('-')[0];
-    const cardValue = card.split('-')[1];
-    const isTrump = cardSuit === 'trumps';
-    const pointValue
-      = (isTrump && 0.5) || (cardValue < 11 && 0.5) || cardValue - 10 + 0.5;
-    const points = (isBout && 4.5) || pointValue;
-
-    return total + points;
-  }, 0);
-}
-
-export function getTargetPointDifference (tricks) {
-  const boutsCounts = countBouts(tricks);
-  const winThreshold = winThresholdByBoutsCount[boutsCounts];
-  const score = countScore(tricks);
-
-  return score - winThreshold;
 }

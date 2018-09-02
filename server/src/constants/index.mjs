@@ -6,9 +6,7 @@ export const chienSizes = {
   '4': 6,
   '5': 3
 };
-export const winThresholdByBoutsCount = [
-  56, 51, 41, 36
-];
+export const winThresholdByBoutsCount = [56, 51, 41, 36];
 
 export const tarotDeck = buildDeck();
 
@@ -31,11 +29,21 @@ export function buildSuit (ensign, from, to) {
   return suit;
 }
 export const bidOptions = {
-  pass: {},
-  petite: {},
-  garde: {},
-  gardeSans: {},
-  gardeContre: {}
+  pass: {
+    multiplier: 0
+  },
+  petite: {
+    multiplier: 1
+  },
+  garde: {
+    multiplier: 2
+  },
+  gardeSans: {
+    multiplier: 4
+  },
+  gardeContre: {
+    multiplier: 6
+  }
 };
 export const bidRanking = Object.keys(bidOptions);
 export const gamePhases = {

@@ -16,11 +16,11 @@ import players from './players';
 import trick from './trick';
 
 import {getBidTaker} from '../util/bids';
-import {getTrickWinner, dealCards} from '../util/cards';
+import {dealCards} from '../util/cards';
 import {getNextPlayer} from '../util/players';
 import {gamePhases} from '../constants';
 
-const {ROOM_SETUP, BIDDING, CHIEN_REVEAL, TRICK, ROUND_SCORES} = gamePhases;
+const {ROOM_SETUP, BIDDING, CHIEN_REVEAL, TRICK} = gamePhases;
 
 const initialState = {
   gamePhase: ROOM_SETUP,
@@ -81,20 +81,9 @@ export default function room (state = initialState, action, dispatch) {
       players: players(state.players, action)
     };
   case PLAY_CARD:
-    return handleTrick(state, action, dispatch);
   case AWARD_TRICK:
-    return {
-      ...state,
-      currentTrick: [],
-      playerTurn: action.trickWinner,
-      players: players(state.players, action),
-      trickWinner: null
-    };
   case AWARD_ROUND:
-    return {
-      ...state,
-      gamePhase: ROUND_SCORES
-    };
+    return trick(state, action, dispatch);
   default:
     return state;
   }
@@ -153,7 +142,8 @@ export function handleBidding (state, action, dispatch) {
     return {
       ...state,
       bidTaker: action.bidTaker,
-      gamePhase: CHIEN_REVEAL
+      gamePhase: CHIEN_REVEAL,
+      bid: action.bid
     };
   case PLACE_BID:
     const newPlayers = players(state.players, action);
@@ -163,13 +153,13 @@ export function handleBidding (state, action, dispatch) {
     const biddingFailed = bidTaker === 'nobody';
 
     if (! biddingFailed && bidTaker) {
-      console.log('bidTaker', bidTaker);
       setTimeout(() => {
         dispatch({
           type: AWARD_BID,
           room: action.room,
           playerId: 'SERVER',
-          bidTaker
+          bidTaker,
+          bid: action.bid
         });
       }, 2000);
     }
@@ -194,48 +184,4 @@ export function handleBidding (state, action, dispatch) {
   default:
     return state;
   }
-}
-
-export function handleTrick (state, action, dispatch) {
-  const currentTrick = trick(state.currentTrick, action);
-  const isTrickComplete = currentTrick.length === state.playerGameNumber;
-  const trickWinner = (isTrickComplete && getTrickWinner(currentTrick)) || null;
-  const isTrickLast
-    = isTrickComplete && state.players[trickWinner].hand.length === 0;
-
-  //card is last of trick
-  if (isTrickComplete) {
-    setTimeout(() => {
-      dispatch({
-        type: AWARD_TRICK,
-        room: action.room,
-        playerId: 'SERVER',
-        trickWinner,
-        trick: currentTrick.map(play => play.card)
-      });
-    }, 2000);
-  }
-
-  //Trick is last of round, go to score board
-  if (isTrickLast) {
-    setTimeout(() => {
-      dispatch({
-        type: AWARD_ROUND,
-        room: action.room,
-        playerId: 'SERVER'
-      });
-    }, 4000);
-  }
-
-  const nextPlayer
-    = (! isTrickComplete && getNextPlayer(state.playerOrder, action.playerId))
-    || null;
-
-  return {
-    ...state,
-    currentTrick,
-    trickWinner,
-    playerTurn: nextPlayer,
-    players: players(state.players, action)
-  };
 }

@@ -5,6 +5,7 @@ import ChienRevealPanel from './ChienRevealPanel';
 import Setup from './Setup';
 import PlayerSlot from './PlayerSlot';
 import TrickPanel from './TrickPanel';
+import RoundScoresPanel from './RoundScoresPanel';
 
 import {gamePhases} from '../../constants';
 import {sortCards} from '../../util/cards';
@@ -12,7 +13,7 @@ import {definePlayerPositions} from '../../util/table';
 
 import './index.css';
 
-const {TRICK, CHIEN_REVEAL, BIDDING} = gamePhases;
+const {TRICK, CHIEN_REVEAL, BIDDING, ROUND_SCORES} = gamePhases;
 
 export default class Room extends Component {
   constructor () {
@@ -40,7 +41,10 @@ export default class Room extends Component {
       currentPlayer,
       playerOrder,
       currentTrick,
-      playerTurn
+      playerTurn,
+      scores,
+      bidTaker,
+      bid
     } = this.props;
 
     if (gamePhase === 'ROOM_SETUP') {
@@ -90,6 +94,11 @@ export default class Room extends Component {
           }
           {gamePhase === TRICK
             && <TrickPanel {...this.props} playerPositions={playerPositions} />
+          }
+          {gamePhase === ROUND_SCORES
+            && <RoundScoresPanel
+              {...{...scores, actions, players, bidTaker, bid}}
+            />
           }
         </div>
       </div>

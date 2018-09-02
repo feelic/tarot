@@ -1,5 +1,6 @@
 import {
   AWARD_TRICK,
+  AWARD_ROUND,
   JOIN_ROOM,
   LEAVE_ROOM,
   START_GAME,
@@ -64,6 +65,16 @@ export default function players (state = initialState, action) {
       ...state,
       [action.trickWinner]: player(state[action.trickWinner], action)
     };
+  case AWARD_ROUND:
+    return Object.keys(state).reduce((prev, playerId) => {
+      return {
+        ...prev,
+        [playerId]: {
+          ...state[playerId],
+          score: state[playerId].score + action.scores[playerId]
+        }
+      };
+    }, {});
   default:
     return state;
   }
@@ -93,7 +104,7 @@ export function player (state = initialPlayer, action) {
   case AWARD_TRICK:
     return {
       ...state,
-      tricks: [...action.trick]
+      tricks: [...state.tricks, ...action.trick]
     };
   case PLAY_CARD:
     const cardIndex = state.hand.indexOf(action.card);
