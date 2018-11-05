@@ -1,3 +1,4 @@
+/* global describe, it, expect */
 import {getNextPlayer} from './players';
 
 describe('players util functions', () => {

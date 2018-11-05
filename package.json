@@ -7,7 +7,8 @@
     "server": "node --experimental-modules server",
     "client": "cd client && yarn start",
     "sprite": "spritesmith .spritesmith.js",
-    "thumbs": "mogrify -resize x150 -quality 100 -path src/assets/thumbs src/assets/cards/*.jpg"
+    "thumbs": "mogrify -resize x150 -quality 100 -path src/assets/thumbs src/assets/cards/*.jpg",
+    "test": "jest server --config=jest.config.js"
   },
   "author": "Felix Goalec <fgoalec@synthesio.com>",
   "license": "ISC",
@@ -15,5 +16,13 @@
     "express": "^4.16.3",
     "socket.io": "^2.1.1",
     "spritesmith-cli": "^1.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^7.0.0-bridge",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0"
   }
 }
