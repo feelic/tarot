@@ -41,7 +41,7 @@ export default function trick (state = [], action, dispatch) {
           room: action.room,
           trickWinner,
           playerId: 'SERVER',
-          trick: currentTrick.map(play => play.card)
+          trick: currentTrick
         });
       }, 2000);
     }

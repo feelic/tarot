@@ -48,9 +48,10 @@ export function countScore (tricks) {
     const cardSuit = card.split('-')[0];
     const cardValue = card.split('-')[1];
     const isTrump = cardSuit === 'trumps';
+    const isExcuse = card === 'trumps-00';
     const pointValue
       = (isTrump && 0.5) || (cardValue < 11 && 0.5) || cardValue - 10 + 0.5;
-    const points = (isBout && 4.5) || pointValue;
+    const points = (isExcuse && 4) || (isBout && 4.5) || pointValue;
 
     return total + points;
   }, 0);

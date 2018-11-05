@@ -63,7 +63,14 @@ export default function players (state = initialState, action) {
   case AWARD_TRICK:
     return {
       ...state,
-      [action.trickWinner]: player(state[action.trickWinner], action)
+      ...getTrickCards(action.trick, action.trickWinner).reduce((prev, curr) => {
+        const {playerId, cards} = curr;
+
+        return {
+          ...prev,
+          [playerId]: player(state[playerId], {...action, cards})
+        };
+      }, {})
     };
   case AWARD_ROUND:
     return Object.keys(state).reduce((prev, playerId) => {
@@ -104,7 +111,7 @@ export function player (state = initialPlayer, action) {
   case AWARD_TRICK:
     return {
       ...state,
-      tricks: [...state.tricks, ...action.trick]
+      tricks: [...state.tricks, ...action.cards]
     };
   case PLAY_CARD:
     const cardIndex = state.hand.indexOf(action.card);
@@ -119,4 +126,27 @@ export function player (state = initialPlayer, action) {
   default:
     return state;
   }
+}
+
+export function getTrickCards (trick, trickWinner) {
+  const excusePlayed = trick.find(play => play.card === 'trumps-00');
+
+  if (! excusePlayed) {
+    return [{playerId: trickWinner, cards: trick.map(play => play.card)}];
+  }
+
+  const excusePlayer = excusePlayed.player;
+  const trickCards = trick.map(play => play.card);
+  const excuseIndex = trickCards.indexOf('trumps-00');
+
+  return [
+    {
+      playerId: trickWinner,
+      cards: [
+        trickCards.slice(0, excuseIndex),
+        trickCards.slice(excuseIndex + 1)
+      ]
+    },
+    {playerId: excusePlayer, cards: ['trumps-00']}
+  ];
 }
