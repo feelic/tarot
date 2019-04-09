@@ -77,6 +77,7 @@ export default function trick (state = [], action, dispatch) {
   case AWARD_ROUND:
     const roundScores = getRoundScores(state);
 
+    console.log(JSON.stringify(roundScores, null, 2))
     return {
       ...state,
       gamePhase: ROUND_SCORES,

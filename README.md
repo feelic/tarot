@@ -17,22 +17,27 @@ tbd
 * [x] Chien making time
 * [x] Round play interface
 * [x] AI player
-
-#### To do
+* [x] "Excuse" rules
+* [x] Fix allowed trump card
+* [ ] Fix bid taking error
 * [ ] Round scores interface
 * [ ] Functional next round button
-* [ ] "Excuse" rules
-* [ ] Fix allowed trump card
 * [ ] Handle mid game disconnect/refresh
+* [ ] Handle server side erorrs
+
+#### To do
+* [ ] AI player difficulties
 
 ### Later
 * [ ] Advanced room creation & roster management
-* [ ] AI player difficulties
+* [ ] Tarot à cinq
+* [ ] tutorial
+* [ ] scoreboard
+* [ ] player portraits
+
+### Maybe someday
 * [ ] i18n
 * [ ] themed cards
 * [ ] italian suits
 * [ ] french suits
 * [ ] goblin suits
-* [ ] tutorial
-* [ ] scoreboard
-* [ ] player portraits

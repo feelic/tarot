@@ -8,8 +8,8 @@ export function getRoundScores (state) {
   const {players, bidTaker, bid} = state;
   const tricks = players[bidTaker].tricks;
   const boutsCounts = countBouts(tricks);
-  const winThreshold = winThresholdByBoutsCount[boutsCounts];
   const totalRoundScore = countScore(tricks);
+  const winThreshold = winThresholdByBoutsCount[boutsCounts];
   const difference = totalRoundScore - winThreshold;
   const win = difference > 0;
   const winner

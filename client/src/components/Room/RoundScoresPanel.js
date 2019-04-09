@@ -5,6 +5,7 @@ export default props => {
     players,
     winner,
     winThreshold,
+    difference,
     boutsCounts,
     totalRoundScore,
     bidTaker,
@@ -22,17 +23,37 @@ export default props => {
         round
       </p>
       <p>
-        They did {totalRoundScore}, with a difference of {pointResult}
+        They did {totalRoundScore}, with a difference of {difference}
       </p>
       <p>
-        The winner is/are{' '}
+        {(winner.length > 1 && 'The winners are') || 'The winner is'}{' '}
         {winner
           .map(playerId => {
             return players[playerId].username;
           })
           .join(', ')}
       </p>
-      <button onCLick={actions.startGame}>Next round</button>
+      <table>
+        <thead>
+          <tr>
+            <td>Player</td>
+            <td>This round</td>
+            <td>Total</td>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.values(players).map(player => {
+            return (
+              <tr key={player.id}>
+                <td>{player.username}</td>
+                <td>{0}</td>
+                <td>{player.score}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <button onClick={actions.startGame}>Next round</button>
     </div>
   );
 };

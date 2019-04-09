@@ -153,13 +153,15 @@ export function handleBidding (state, action, dispatch) {
     const biddingFailed = bidTaker === 'nobody';
 
     if (! biddingFailed && bidTaker) {
+      const winningBid = state.players[bidTaker].bid;
+
       setTimeout(() => {
         dispatch({
           type: AWARD_BID,
           room: action.room,
           playerId: 'SERVER',
           bidTaker,
-          bid: action.bid
+          bid: winningBid
         });
       }, 2000);
     }

@@ -26,7 +26,11 @@ class App extends Component {
   }
 
   componentWillMount () {
-    this.socket.emit('join-room', {room: 'game-room-a', username: 'bobby'});
+    this.socket.emit('join-room', {
+      room: 'game-room-a',
+      username: 'bobby',
+      id: 'bobby'
+    });
     this.send({type: 'ADD_BOT'});
     this.send({type: 'ADD_BOT'});
     this.send({type: 'ADD_BOT'});

@@ -1,9 +1,5 @@
 /* global describe, it, expect */
-import {
-  countBouts,
-  countScore
-  // getTargetPointDifference
-} from './scores';
+import {countBouts, countScore, getRoundScores} from './scores';
 
 describe('score util functions', () => {
   describe('countBouts', () => {
@@ -80,34 +76,74 @@ describe('score util functions', () => {
       expect(countScore(cards)).toEqual(0.5);
     });
   });
-  // describe('getTargetPointDifference', () => {
-  //   it('should return the difference of points between points gotten by bid taker and success target (success)', () => {
-  //     const cards = [
-  //       'trumps-01',
-  //       'hearts-14',
-  //       'trumps-21',
-  //       'diamonds-14',
-  //       'trumps-00',
-  //       'clubs-14',
-  //       'spades-14',
-  //       'clubs-13',
-  //       'spades-13',
-  //       'diamonds-01'
-  //     ];
-  //
-  //     expect(getTargetPointDifference(cards)).toEqual(3);
-  //   });
-  //   it('should return the difference of points between points gotten by bid taker and success target (failure)', () => {
-  //     const cards = [
-  //       'trumps-01',
-  //       'hearts-14',
-  //       'trumps-21',
-  //       'diamonds-14',
-  //       'trumps-00',
-  //       'clubs-14'
-  //     ];
-  //
-  //     expect(getTargetPointDifference(cards)).toEqual(- 9);
-  //   });
-  // });
+  describe('getRoundScores', () => {
+    it('should return the details of the rounds scores', () => {
+      const state = {
+        bid: 'garde',
+        bidTaker: 'a',
+        players: {
+          a: {
+            tricks: [
+              'trumps-01',
+              'hearts-14',
+              'trumps-21',
+              'diamonds-14',
+              'trumps-00',
+              'clubs-14',
+              'spades-14',
+              'clubs-13',
+              'spades-13',
+              'diamonds-01'
+            ]
+          },
+          b: {}
+        }
+      };
+      const expectedResult = {
+        details: {
+          boutsCounts: 3,
+          winThreshold: 36,
+          totalRoundScore: 38.5,
+          difference: 2.5,
+          pointResult: 5,
+          winner: ['a']
+        },
+        scores: {a: 5, b: - 5}
+      };
+
+      expect(getRoundScores(state)).toEqual(expectedResult);
+    });
+    it('should return the details of the rounds scores losing round', () => {
+      const state = {
+        bid: 'garde',
+        bidTaker: 'a',
+        players: {
+          a: {
+            tricks: [
+              'diamonds-14',
+              'clubs-14',
+              'spades-14',
+              'clubs-13',
+              'spades-13',
+              'diamonds-01'
+            ]
+          },
+          b: {}
+        }
+      };
+      const expectedResult = {
+        details: {
+          boutsCounts: 0,
+          difference: - 35,
+          pointResult: - 70,
+          totalRoundScore: 21,
+          winThreshold: 56,
+          winner: ['b']
+        },
+        scores: {a: 70, b: - 70}
+      };
+
+      expect(getRoundScores(state)).toEqual(expectedResult);
+    });
+  });
 });

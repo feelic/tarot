@@ -4,7 +4,8 @@ import {
   PLAY_CARD,
   START_GAME,
   START_ROUND,
-  ADD_BOT
+  ADD_BOT,
+  LEAVE_ROOM
 } from '../constants/action-types';
 
 export function placeBid (bid) {
@@ -24,4 +25,7 @@ export function playCard (card) {
 }
 export function addBot () {
   return {type: ADD_BOT};
+}
+export function leaveRoom () {
+  return {type: LEAVE_ROOM};
 }

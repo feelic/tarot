@@ -2,6 +2,7 @@
 import {
   dealCards,
   getAllowedCards,
+  getAllowedTrumpCards,
   getTrickWinner,
   sortCards
 } from './cards';
@@ -136,26 +137,58 @@ describe('cards util functions', () => {
 
       expect(getAllowedCards(trick, hand)).toEqual(allowedCards);
     });
-    it('should return an array of trumps higher than previous trumps', () => {
-      const hand = ['diamonds-01', 'diamonds-02', 'trumps-01', 'trumps-05'];
-      const trick = [{card: 'hearts-01'}, {card: 'trumps-02'}, {card: 'trumps-04'}];
-      const allowedCards = ['trumps-05'];
-
-      expect(getAllowedCards(trick, hand)).toEqual(allowedCards);
-    });
-    it('should return an array of all trumps if player doesnt have any higher', () => {
-      const hand = ['diamonds-01', 'diamonds-02', 'trumps-01', 'trumps-03'];
-      const trick = [{card: 'hearts-01'}, {card: 'trumps-02'}, {card: 'trumps-04'}];
-      const allowedCards = ['trumps-01', 'trumps-03'];
-
-      expect(getAllowedCards(trick, hand)).toEqual(allowedCards);
-    });
     it('should return an array with all cards if player doesnt have either demanded suit or trump cards', () => {
       const hand = ['diamonds-01', 'diamonds-02', 'clubs-01', 'clubs-03'];
       const trick = [{card: 'hearts-01'}, {card: 'trumps-02'}, {card: 'trumps-04'}];
       const allowedCards = ['diamonds-01', 'diamonds-02', 'clubs-01', 'clubs-03'];
 
       expect(getAllowedCards(trick, hand)).toEqual(allowedCards);
+    });
+  });
+  describe('getAllowedTrumpCards', () => {
+    it('should return an array of trumps higher than previous trumps', () => {
+      const hand = ['trumps-01', 'trumps-02', 'trumps-05', 'trumps-06'];
+      const trick = [{card: 'hearts-01'}, {card: 'trumps-02'}, {card: 'trumps-04'}];
+      const allowedCards = ['trumps-05', 'trumps-06'];
+      const result = getAllowedTrumpCards(trick, hand);
+
+      expect(result).toEqual(allowedCards);
+    });
+    it('should return an array of trumps higher than previous trumps even if demanded suit is trumps', () => {
+      const hand = ['trumps-01', 'trumps-02', 'trumps-05', 'trumps-06'];
+      const trick = [{card: 'trumps-02'}, {card: 'trumps-04'}];
+      const allowedCards = ['trumps-05', 'trumps-06'];
+      const result = getAllowedTrumpCards(trick, hand);
+
+      expect(result).toEqual(allowedCards);
+    });
+    it('should return an array of all trumps if player doesnt have any higher', () => {
+      const hand = ['trumps-01', 'trumps-03'];
+      const trick = [{card: 'hearts-01'}, {card: 'trumps-02'}, {card: 'trumps-04'}];
+      const allowedCards = ['trumps-01', 'trumps-03'];
+
+      expect(getAllowedTrumpCards(trick, hand)).toEqual(allowedCards);
+    });
+    it('should return an array of all trumps if player doesnt have any higher even if demanded suit is trumps', () => {
+      const hand = ['trumps-01', 'trumps-03'];
+      const trick = [{card: 'trumps-02'}, {card: 'trumps-04'}];
+      const allowedCards = ['trumps-01', 'trumps-03'];
+
+      expect(getAllowedTrumpCards(trick, hand)).toEqual(allowedCards);
+    });
+    it('should look at the previous card if last played trump was the excuse', () => {
+      const hand = ['trumps-01', 'trumps-03'];
+      const trick = [{card: 'trumps-02'}, {card: 'trumps-00'}];
+      const allowedCards = ['trumps-03'];
+
+      expect(getAllowedTrumpCards(trick, hand)).toEqual(allowedCards);
+    });
+    it('should allow the excuse if higher trumps have been played', () => {
+      const hand = ['trumps-01', 'trumps-06', 'trumps-00'];
+      const trick = [{card: 'trumps-02'}, {card: 'trumps-05'}];
+      const allowedCards = ['trumps-06', 'trumps-00'];
+
+      expect(getAllowedTrumpCards(trick, hand)).toEqual(allowedCards);
     });
   });
   describe('getTrickWinner', () => {

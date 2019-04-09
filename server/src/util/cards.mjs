@@ -1,9 +1,4 @@
-import {
-  tarotDeck,
-  chienSizes,
-  suits,
-  suitsAndTrumps
-} from '../constants';
+import {tarotDeck, chienSizes, suits, suitsAndTrumps} from '../constants';
 
 export function dealCards (nbPlayers = 4) {
   //shuffle the deck
@@ -78,7 +73,7 @@ export function getAllowedCards (trick = [], hand) {
     return card.split('-')[0] === demandedSuit;
   });
 
-  if (demandedSuitInHand.length) {
+  if (demandedSuit !== 'trumps' && demandedSuitInHand.length) {
     return demandedSuitInHand;
   }
 
@@ -86,26 +81,31 @@ export function getAllowedCards (trick = [], hand) {
   const trumpsInHand = hand.filter(card => card.split('-')[0] === 'trumps');
 
   if (trumpsInHand.length) {
-    //trumps allowed must be above the last trump card played in the trick
-    const playedTrumps = trick
-      .map(play => play.card)
-      .filter(card => card.split('-')[0] === 'trumps');
-
-    if (playedTrumps.length) {
-      const lastPlayedTrump = playedTrumps[playedTrumps.length - 1];
-      const lastPlayedTrumpValue = lastPlayedTrump.split('-')[1];
-      const higherTrumps = trumpsInHand.filter(
-        card => card.split('-')[1] > lastPlayedTrumpValue
-      );
-
-      return (higherTrumps.length && higherTrumps) || trumpsInHand;
-    }
-
-    //if player doesnt have a trump card higher than the last played, all trumps are allowed
-    return trumpsInHand;
+    return getAllowedTrumpCards(trick, trumpsInHand);
   }
 
   //if player has none of the demanded suit and no trumps, they can play anything
+  return hand;
+}
+
+export function getAllowedTrumpCards (trick, hand) {
+  //trumps allowed must be above the last trump card played in the trick
+  const playedTrumps = trick
+    .map(play => play.card)
+    .filter(card => card.split('-')[0] === 'trumps');
+
+  if (playedTrumps.length) {
+    const highestPlayedTrump = playedTrumps
+      .map(card => parseInt(card.split('-')[1], 10))
+      .sort()[playedTrumps.length - 1];
+    const higherTrumps = hand.filter(
+      card => card.split('-')[1] > highestPlayedTrump || card === 'trumps-00'
+    );
+
+    return (higherTrumps.length && higherTrumps) || hand;
+  }
+
+  //if player doesnt have a trump card higher than the last played, all trumps are allowed
   return hand;
 }
 

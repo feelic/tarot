@@ -19,7 +19,7 @@ export default props => {
           {players[bidTaker].bid}
         </h1>
         <Deck display="spread" cards={chien} />
-        <p>Please wait while they make their chien...</p>
+        <p>Please wait while {players[bidTaker].username} makes their chien...</p>
       </React.Fragment>
     );
   }
