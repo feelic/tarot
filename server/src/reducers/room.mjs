@@ -9,7 +9,8 @@ import {
   AWARD_TRICK,
   AWARD_ROUND,
   ADD_BOT,
-  AWARD_BID
+  AWARD_BID,
+  SERVER_ERROR
 } from '../constants/action-types';
 import {getBotPLayerName} from '../constants/bot-player-names';
 import players from './players';
@@ -44,6 +45,7 @@ const initialState = {
  * @param  {Object} action action to perform
  * @return {Object} nextState next state
  */
+/* eslint-disable complexity */
 export default function room (state = initialState, action, dispatch) {
   switch (action.type) {
   case JOIN_ROOM:
@@ -84,6 +86,11 @@ export default function room (state = initialState, action, dispatch) {
   case AWARD_TRICK:
   case AWARD_ROUND:
     return trick(state, action, dispatch);
+  case SERVER_ERROR:
+    return {
+      ...state,
+      serverError: action.error
+    };
   default:
     return state;
   }

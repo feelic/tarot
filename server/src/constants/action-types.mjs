@@ -12,3 +12,4 @@ export const ADD_BOT = 'ADD_BOT';
 export const AWARD_TRICK = 'AWARD_TRICK';
 export const AWARD_ROUND = 'AWARD_ROUND';
 export const AWARD_BID = 'AWARD_BID';
+export const SERVER_ERROR = 'SERVER_ERROR';

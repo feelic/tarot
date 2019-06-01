@@ -49,12 +49,34 @@ class App extends Component {
 
     if (! this.state.room) {
       return (
-        <Lobby connect={payload => this.socket.emit('join-room', payload)} />
+        <GameContainer {...this.state}>
+          <Lobby connect={payload => this.socket.emit('join-room', payload)} />
+        </GameContainer>
       );
     }
 
-    return <Room {...this.state} actions={actions} />;
+    return (
+      <GameContainer {...this.state}>
+        <Room {...this.state} actions={actions} />
+      </GameContainer>
+    );
   }
 }
 
 export default App;
+
+export function GameContainer (props) {
+  const {children, serverError} = props;
+
+  return (
+    <div>
+      {serverError
+        && <div>
+          <h1>The server encountered an error</h1>
+          <p>{serverError}</p>{' '}
+        </div>
+      }
+      {children}
+    </div>
+  );
+}
