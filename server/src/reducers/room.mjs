@@ -4,6 +4,7 @@ import {
   CHOOSE_GAME,
   START_GAME,
   ADD_BOT,
+  REMOVE_BOT,
   SERVER_ERROR,
   DISCONNECT
 } from '../constants/action-types';
@@ -32,6 +33,7 @@ export default function room (state = initialState, action, dispatch) {
   switch (action.type) {
   case JOIN_ROOM:
   case ADD_BOT:
+  case REMOVE_BOT:
   case LEAVE_ROOM:
   case DISCONNECT:
     return handleRoster(state, action);
@@ -44,7 +46,7 @@ export default function room (state = initialState, action, dispatch) {
       playerSlots: gameDescription.playerSlots
     };
   case START_GAME:
-    const playerIds = Object.keys(state.players);
+    const playerIds = Object.keys(state.players).slice(0, 4);
 
     if (! state.selectedGame || state.playerSlots > playerIds.length) {
       return state;
@@ -54,7 +56,7 @@ export default function room (state = initialState, action, dispatch) {
 
     return {
       ...state,
-      status: roomStatuses.GAME_IN_PROGRESS,
+      roomStatus: roomStatuses.GAME_IN_PROGRESS,
       game: gameReducer(state.game, {...action, playerIds}, dispatch)
     };
   case SERVER_ERROR:
@@ -71,6 +73,7 @@ export function handleRoster (state, action) {
   switch (action.type) {
   case JOIN_ROOM:
   case DISCONNECT:
+  case REMOVE_BOT:
     return {
       ...state,
       players: players(state.players, action)

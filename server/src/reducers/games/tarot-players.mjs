@@ -28,7 +28,7 @@ export default function players (state = initialState, action) {
   case START_GAME:
     return action.playerIds.reduce((prev, playerId) => {
       return {...prev, [playerId]: {...initialPlayer}};
-    });
+    }, {});
   case START_ROUND:
     return Object.keys(state).reduce((prev, playerId, idx) => {
       return {

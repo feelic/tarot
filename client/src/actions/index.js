@@ -4,6 +4,7 @@ import {
   PLAY_CARD,
   START_GAME,
   ADD_BOT,
+  REMOVE_BOT,
   LEAVE_ROOM,
   CHOOSE_GAME
 } from '../constants/action-types';
@@ -25,6 +26,9 @@ export function playCard (card) {
 }
 export function addBot () {
   return {type: ADD_BOT};
+}
+export function removeBot (botId) {
+  return {type: REMOVE_BOT, botId};
 }
 export function leaveRoom () {
   return {type: LEAVE_ROOM};

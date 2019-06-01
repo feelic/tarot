@@ -19,6 +19,7 @@ export default class Room extends Component {
               <li key={player.id}>
                 {player.username}{' '}
                 {! player.connected && <b>connection issues</b>}
+                {player.bot && <a onClick={() => actions.removeBot(player.id)}>(remove bot)</a>}
               </li>
             );
           })}
