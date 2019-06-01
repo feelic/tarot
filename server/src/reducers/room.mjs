@@ -4,9 +4,11 @@ import {
   CHOOSE_GAME,
   START_GAME,
   ADD_BOT,
-  SERVER_ERROR
+  SERVER_ERROR,
+  DISCONNECT
 } from '../constants/action-types';
-import {getBotPLayerName} from '../constants/bot-player-names';
+import {getBotPlayerName} from '../constants/bot-player-names';
+import {roomStatuses} from '../constants';
 import players from './players';
 import gameDescriptions from '../constants/game-descriptions';
 import games from './games';
@@ -15,7 +17,8 @@ const initialState = {
   selectedGame: null,
   playerSlots: 0,
   game: {},
-  players: {}
+  players: {},
+  roomStatus: roomStatuses.ROOM_SETUP
 };
 
 /**
@@ -30,9 +33,10 @@ export default function room (state = initialState, action, dispatch) {
   case JOIN_ROOM:
   case ADD_BOT:
   case LEAVE_ROOM:
+  case DISCONNECT:
     return handleRoster(state, action);
   case CHOOSE_GAME:
-    const gameDescription = gameDescriptions[action.selectedGame];
+    const gameDescription = gameDescriptions[action.game];
 
     return {
       ...state,
@@ -50,6 +54,7 @@ export default function room (state = initialState, action, dispatch) {
 
     return {
       ...state,
+      status: roomStatuses.GAME_IN_PROGRESS,
       game: gameReducer(state.game, {...action, playerIds}, dispatch)
     };
   case SERVER_ERROR:
@@ -65,12 +70,13 @@ export default function room (state = initialState, action, dispatch) {
 export function handleRoster (state, action) {
   switch (action.type) {
   case JOIN_ROOM:
+  case DISCONNECT:
     return {
       ...state,
       players: players(state.players, action)
     };
   case ADD_BOT:
-    const botName = getBotPLayerName();
+    const botName = getBotPlayerName();
 
     return {
       ...state,

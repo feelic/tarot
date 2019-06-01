@@ -16,10 +16,10 @@ import {dealCards} from '../../util/cards';
 import {getNextPlayer} from '../../util/players';
 import {gamePhases} from '../../constants';
 
-const {ROOM_SETUP, BIDDING, CHIEN_REVEAL, TRICK} = gamePhases;
+const {BIDDING, CHIEN_REVEAL, TRICK} = gamePhases;
 
 const initialState = {
-  gamePhase: ROOM_SETUP,
+  gamePhase: null,
   players: {},
   playerOrder: [],
   chien: [],

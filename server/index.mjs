@@ -20,7 +20,6 @@ io.on('connection', socket => {
     socket.username = username;
     socket.gameRoom = room;
     socket.playerId = playerId;
-
     handlePlayerAction.call(socket, {
       type: JOIN_ROOM,
       username,

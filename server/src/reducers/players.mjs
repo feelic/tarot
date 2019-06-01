@@ -2,6 +2,7 @@ import {
   JOIN_ROOM,
   LEAVE_ROOM,
   ADD_BOT,
+  REMOVE_BOT,
   DISCONNECT
 } from '../constants/action-types';
 
@@ -19,15 +20,23 @@ export default function players (state = initialState, action) {
   switch (action.type) {
   case JOIN_ROOM:
   case ADD_BOT:
-  case DISCONNECT:
     return {
       ...state,
       [action.playerId]: player(initialPlayer, action)
     };
+  case DISCONNECT:
+    return {
+      ...state,
+      [action.playerId]: player(state[action.playerId], action)
+    };
   case LEAVE_ROOM:
+  case REMOVE_BOT:
+    const targetId
+        = (action.type === LEAVE_ROOM && action.playerId)
+        || (action.type === REMOVE_BOT && action.botId);
     const newState = {...state};
 
-    delete newState[action.playerId];
+    delete newState[targetId];
 
     return newState;
   default:

@@ -7,7 +7,7 @@ import PlayerSlot from './PlayerSlot';
 import TrickPanel from './TrickPanel';
 import RoundScoresPanel from './RoundScoresPanel';
 
-import {gamePhases} from '../../constants';
+import {gamePhases, roomStatuses} from '../../constants';
 import {sortCards} from '../../util/cards';
 import {definePlayerPositions} from '../../util/table';
 
@@ -38,7 +38,9 @@ export default class Room extends Component {
       players,
       playerSlots,
       currentPlayer,
-      game
+      game,
+      selectedGame,
+      roomStatus
     } = this.props;
     const {
       gamePhase,
@@ -49,13 +51,14 @@ export default class Room extends Component {
       bid
     } = game;
 
-    if (gamePhase === 'ROOM_SETUP') {
+    if (roomStatus === roomStatuses.ROOM_SETUP) {
       return (
         <Setup
           actions={actions}
           players={players}
           room={room}
           playerSlots={playerSlots}
+          selectedGame={selectedGame}
         />
       );
     }

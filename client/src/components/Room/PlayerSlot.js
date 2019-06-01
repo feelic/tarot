@@ -6,6 +6,7 @@ import {getAllowedCards} from '../../util/cards';
 export default props => {
   const {cardAction, playerId, currentPlayer, playerPositions, players} = props;
 
+  const player = players[playerId];
   const isCurrentPlayer = playerId === currentPlayer;
   const playerPosition = playerPositions[playerId];
   const displayModes = {
@@ -22,6 +23,7 @@ export default props => {
       <h2>
         {players[playerId].username} ({cards.length})
       </h2>
+      {! player.connected && <b>connection issues</b>}
       <Deck
         display={displayMode}
         cards={cards}

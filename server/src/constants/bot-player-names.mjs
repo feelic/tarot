@@ -13,6 +13,6 @@ export const botPlayerNames = [
 
 let nameIdx = 0;
 
-export function getBotPLayerName () {
+export function getBotPlayerName () {
   return botPlayerNames[nameIdx ++ % botPlayerNames.length];
 }

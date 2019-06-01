@@ -47,10 +47,13 @@ export const bidOptions = {
 };
 export const bidRanking = Object.keys(bidOptions);
 export const gamePhases = {
-  ROOM_SETUP: 'ROOM_SETUP',
   BIDDING: 'BIDDING',
   CHIEN_REVEAL: 'CHIEN_REVEAL',
   TRICK: 'TRICK',
   ROUND_SCORES: 'ROUND_SCORES',
   FAILED_BIDDING: 'FAILED_BIDDING'
+};
+export const roomStatuses = {
+  ROOM_SETUP: 'ROOM_SETUP',
+  GAME_IN_PROGRESS: 'GAME_IN_PROGRESS'
 };

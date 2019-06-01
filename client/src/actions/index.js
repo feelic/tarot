@@ -4,7 +4,8 @@ import {
   PLAY_CARD,
   START_GAME,
   ADD_BOT,
-  LEAVE_ROOM
+  LEAVE_ROOM,
+  CHOOSE_GAME
 } from '../constants/action-types';
 
 export function placeBid (bid) {
@@ -12,6 +13,9 @@ export function placeBid (bid) {
 }
 export function startGame () {
   return {type: START_GAME};
+}
+export function chooseGame (game) {
+  return {type: CHOOSE_GAME, game};
 }
 export function makeChien (chien, hand) {
   return {type: MAKE_CHIEN, chien, hand};

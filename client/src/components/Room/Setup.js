@@ -7,7 +7,7 @@ export default class Room extends Component {
   }
 
   render () {
-    const {actions, room, players, playerSlots} = this.props;
+    const {actions, room, players, playerSlots, selectedGame} = this.props;
     const playerIds = Object.values(players);
 
     return (
@@ -15,12 +15,33 @@ export default class Room extends Component {
         <h1>{room}</h1>
         <ul>
           {playerIds.map(player => {
-            return <li key={player.id}>{player.username}</li>;
+            return (
+              <li key={player.id}>
+                {player.username}{' '}
+                {! player.connected && <b>connection issues</b>}
+              </li>
+            );
           })}
         </ul>
-        <p>Waiting for {playerSlots - playerIds.length} more player(s) to join</p>
-        <button onClick={actions.addBot}>add a bot</button>
-        <button onClick={actions.startGame}>start game</button>
+        {selectedGame
+          && <React.Fragment>
+            <p>
+              Waiting for {playerSlots - playerIds.length} more player(s) to
+              join
+            </p>
+            <button onClick={actions.addBot}>add a bot</button>
+            <button onClick={actions.startGame}>start game</button>
+          </React.Fragment>
+        }
+        {! selectedGame
+          && <React.Fragment>
+            <p>Waiting for more player(s) to join</p>
+            <button onClick={() => actions.chooseGame('four-player-tarot')}>
+              Play 4 player Tarot
+            </button>
+          </React.Fragment>
+        }
+
         <button onClick={actions.leaveRoom}>leave room</button>
       </div>
     );

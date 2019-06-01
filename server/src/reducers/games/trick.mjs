@@ -18,7 +18,7 @@ const {ROUND_SCORES} = gamePhases;
 export default function trick (state = [], action, dispatch) {
   switch (action.type) {
   case PLAY_CARD:
-    const playerIds = Object.keys(state.players)
+    const playerIds = Object.keys(state.players);
     const currentTrick = [
       ...state.currentTrick,
       {
