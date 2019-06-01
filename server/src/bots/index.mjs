@@ -1,4 +1,4 @@
-import {dispatch} from '../game';
+import {dispatch} from '../dispatch';
 import placeBid from './place-bid';
 import playCard from './play-card';
 import makeChien from './make-chien';

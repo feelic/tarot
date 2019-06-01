@@ -1,9 +1,9 @@
 import express from 'express';
 import http from 'http';
 import socketIO from 'socket.io';
-import {dispatch} from './src/game';
+import {dispatch} from './src/dispatch';
 import {configureBroadcaster} from './src/broadcast';
-import {JOIN_ROOM, LEAVE_ROOM} from './src/constants/action-types';
+import {JOIN_ROOM, DISCONNECT} from './src/constants/action-types';
 
 const port = 4001;
 const app = express();
@@ -33,7 +33,7 @@ io.on('connection', socket => {
     const {gameRoom, playerId} = socket;
 
     handlePlayerAction.call(socket, {
-      type: LEAVE_ROOM,
+      type: DISCONNECT,
       room: gameRoom,
       playerId
     });
