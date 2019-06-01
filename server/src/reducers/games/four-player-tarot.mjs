@@ -22,7 +22,6 @@ const initialState = {
   gamePhase: ROOM_SETUP,
   players: {},
   playerOrder: [],
-  playerGameNumber: 4,
   chien: [],
   roundOpener: null,
   currentTrick: [],

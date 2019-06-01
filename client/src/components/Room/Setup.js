@@ -7,7 +7,7 @@ export default class Room extends Component {
   }
 
   render () {
-    const {actions, room, players, playerGameNumber} = this.props;
+    const {actions, room, players, playerSlots} = this.props;
     const playerIds = Object.values(players);
 
     return (
@@ -18,7 +18,7 @@ export default class Room extends Component {
             return <li key={player.id}>{player.username}</li>;
           })}
         </ul>
-        <p>Waiting for {playerGameNumber - playerIds.length} more player(s) to join</p>
+        <p>Waiting for {playerSlots - playerIds.length} more player(s) to join</p>
         <button onClick={actions.addBot}>add a bot</button>
         <button onClick={actions.startGame}>start game</button>
         <button onClick={actions.leaveRoom}>leave room</button>

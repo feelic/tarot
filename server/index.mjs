@@ -14,18 +14,19 @@ configureBroadcaster(io);
 
 io.on('connection', socket => {
   socket.on('join-room', data => {
-    const {room, username} = data;
+    const {room, username, playerId} = data;
 
     socket.join(room);
     socket.username = username;
     socket.gameRoom = room;
-    socket.playerId = socket.id;
+    socket.playerId = playerId;
 
     handlePlayerAction.call(socket, {
       type: JOIN_ROOM,
       username,
       room,
-      playerId: socket.id
+      playerId: socket.playerId,
+      socketId: socket.id
     });
   });
   socket.on('player-action', handlePlayerAction.bind(socket));
@@ -41,9 +42,9 @@ io.on('connection', socket => {
 });
 
 function handlePlayerAction (data) {
-  const {gameRoom, id} = this;
+  const {gameRoom, playerId} = this;
 
-  return dispatch({...data, room: gameRoom, playerId: id});
+  return dispatch({...data, room: gameRoom, playerId});
 }
 
 server.listen(port, () => console.log(`Listening on port ${port}`));

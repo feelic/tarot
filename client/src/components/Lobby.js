@@ -6,33 +6,42 @@ export default class Lobby extends Component {
     this.state = {};
   }
 
-  handleConnect (room, username) {
-    this.socket.emit('join-room', {room, username});
+  handleConnect (room, username, playerId) {
+    this.socket.emit('join-room', {room, username, playerId});
   }
 
   render () {
     const {connect} = this.props;
-    const {room, username} = this.state;
+    const {room, username, playerId} = this.state;
 
     return (
       <div>
-        <label>Name</label>
-        <input
-          type="text"
-          onChange={e => this.setState({username: e.target.value})}
-        />
-        <label>Room</label>
-        <input
-          type="text"
-          onChange={e => this.setState({room: e.target.value})}
-        />
-        <button
-          onClick={() =>
-            connect({room, username})
-          }
-        >
-          Connect
-        </button>
+        <p>
+          <label>User id</label>
+          <input
+            type="text"
+            onChange={e => this.setState({playerId: e.target.value})}
+          />
+        </p>
+        <p>
+          <label>Name</label>
+          <input
+            type="text"
+            onChange={e => this.setState({username: e.target.value})}
+          />
+        </p>
+        <p>
+          <label>Room</label>
+          <input
+            type="text"
+            onChange={e => this.setState({room: e.target.value})}
+          />
+        </p>
+        <p>
+          <button onClick={() => connect({room, username, playerId})}>
+            Connect
+          </button>
+        </p>
       </div>
     );
   }

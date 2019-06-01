@@ -21,7 +21,8 @@ export default function broadcast (room, state) {
     if (state.players[message.currentPlayer].bot === true) {
       return playBotturn(room, message);
     }
+    const socketId = players[message.currentPlayer].socketId;
 
-    return io.in(message.currentPlayer).emit('server-event', message);
+    return io.in(socketId).emit('server-event', message);
   });
 }

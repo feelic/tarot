@@ -18,6 +18,7 @@ const {ROUND_SCORES} = gamePhases;
 export default function trick (state = [], action, dispatch) {
   switch (action.type) {
   case PLAY_CARD:
+    const playerIds = Object.keys(state.players)
     const currentTrick = [
       ...state.currentTrick,
       {
@@ -25,12 +26,12 @@ export default function trick (state = [], action, dispatch) {
         player: action.playerId
       }
     ];
-    const isTrickComplete = currentTrick.length === state.playerGameNumber;
+    const isTrickComplete = currentTrick.length === playerIds.length;
     const trickWinner
         = (isTrickComplete && getTrickWinner(currentTrick)) || null;
     const nextPlayer
         = (! isTrickComplete
-          && getNextPlayer(state.playerOrder, action.playerId))
+          && getNextPlayer(playerIds, action.playerId))
         || null;
 
       //card is last of trick

@@ -1,16 +1,12 @@
 import {
   JOIN_ROOM,
   LEAVE_ROOM,
-  ADD_BOT
+  ADD_BOT,
+  DISCONNECT
 } from '../constants/action-types';
 
 const initialState = {};
-const initialPlayer = {
-  hand: [],
-  tricks: [],
-  bid: false,
-  score: 0
-};
+const initialPlayer = {};
 
 /**
  * Reducer for the Players In a room
@@ -23,6 +19,7 @@ export default function players (state = initialState, action) {
   switch (action.type) {
   case JOIN_ROOM:
   case ADD_BOT:
+  case DISCONNECT:
     return {
       ...state,
       [action.playerId]: player(initialPlayer, action)
@@ -46,7 +43,14 @@ export function player (state = initialPlayer, action) {
       ...state,
       username: action.username,
       id: action.playerId,
+      socketId: action.socketId,
+      connected: true,
       bot: action.type === ADD_BOT
+    };
+  case DISCONNECT:
+    return {
+      ...state,
+      connected: false
     };
   default:
     return state;

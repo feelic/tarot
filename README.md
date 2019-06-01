@@ -23,7 +23,7 @@ tbd
 * [ ] Round scores interface
 * [ ] Functional next round button
 * [ ] Handle mid game disconnect/refresh
-* [ ] Handle server side erorrs
+* [ ] Handle server side errors
 
 #### To do
 * [ ] AI player difficulties

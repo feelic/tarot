@@ -34,18 +34,20 @@ export default class Room extends Component {
   render () {
     const {
       actions,
-      gamePhase,
       room,
       players,
-      playerGameNumber,
+      playerSlots,
       currentPlayer,
-      playerOrder,
+      game
+    } = this.props;
+    const {
+      gamePhase,
       currentTrick,
       playerTurn,
       scores,
       bidTaker,
       bid
-    } = this.props;
+    } = game;
 
     if (gamePhase === 'ROOM_SETUP') {
       return (
@@ -53,7 +55,7 @@ export default class Room extends Component {
           actions={actions}
           players={players}
           room={room}
-          playerGameNumber={playerGameNumber}
+          playerSlots={playerSlots}
         />
       );
     }
@@ -62,6 +64,7 @@ export default class Room extends Component {
       = (gamePhase === CHIEN_REVEAL && this.state.hand) || this.props.hand;
     const chien
       = (gamePhase === CHIEN_REVEAL && this.state.chien) || this.props.chien;
+    const playerOrder = Object.keys(players);
     const playerPositions = definePlayerPositions(playerOrder, currentPlayer);
 
     return (
