@@ -74,7 +74,7 @@ export function GameContainer (props) {
       {serverError
         && <div>
           <h1>The server encountered an error</h1>
-          <p>{serverError}</p>{' '}
+          <pre>{JSON.stringify(serverError, null, 2)}</pre>
         </div>
       }
       {children}

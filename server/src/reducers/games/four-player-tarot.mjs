@@ -42,15 +42,19 @@ const initialState = {
 export default function game (state = initialState, action, dispatch) {
   switch (action.type) {
   case START_GAME:
-    return {
-      ...state,
-      players: players({}, action)
-    };
+    return game(
+      {
+        ...state,
+        players: players({}, action)
+      },
+      {type: START_ROUND},
+      dispatch
+    );
   case START_ROUND:
     const deal = dealCards(state.players.length);
-    const roundOpenerIdx = state.playerOrder.indexOf(state.roundOpener) + 1;
-    const roundOpener
-        = state.playerOrder[roundOpenerIdx % state.playerOrder.length];
+    const playerOrder = Object.keys(state.players);
+    const roundOpenerIdx = playerOrder.indexOf(state.roundOpener) + 1;
+    const roundOpener = playerOrder[roundOpenerIdx % playerOrder.length];
 
     return {
       ...state,

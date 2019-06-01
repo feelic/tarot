@@ -4,9 +4,8 @@ import Deck from '../Deck';
 import {getAllowedCards} from '../../util/cards';
 
 export default props => {
-  const {cardAction, playerId, currentPlayer, playerPositions, players} = props;
+  const {cardAction, playerId, currentPlayer, playerPositions, player} = props;
 
-  const player = players[playerId];
   const isCurrentPlayer = playerId === currentPlayer;
   const playerPosition = playerPositions[playerId];
   const displayModes = {
@@ -21,7 +20,7 @@ export default props => {
   return (
     <div className={`player-slot player-slot-${playerPosition}`}>
       <h2>
-        {players[playerId].username} ({cards.length})
+        {player.username} ({cards.length})
       </h2>
       {! player.connected && <b>connection issues</b>}
       <Deck
@@ -38,13 +37,13 @@ function getCards (props) {
     playerId,
     currentPlayer,
     hand,
-    players,
+    player,
     currentTrick,
     playerTurn
   } = props;
 
   if (playerId !== currentPlayer) {
-    return new Array(players[playerId].hand.length).fill('');
+    return new Array(player.hand.length).fill('');
   }
   const isPlaying = playerTurn === currentPlayer;
   const allowedCards = isPlaying && getAllowedCards(currentTrick, hand);

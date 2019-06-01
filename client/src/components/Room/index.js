@@ -42,14 +42,7 @@ export default class Room extends Component {
       selectedGame,
       roomStatus
     } = this.props;
-    const {
-      gamePhase,
-      currentTrick,
-      playerTurn,
-      scores,
-      bidTaker,
-      bid
-    } = game;
+    const {gamePhase, currentTrick, playerTurn, scores, bidTaker, bid} = game;
 
     if (roomStatus === roomStatuses.ROOM_SETUP) {
       return (
@@ -73,6 +66,11 @@ export default class Room extends Component {
     return (
       <div className="table">
         {Object.keys(players).map(playerId => {
+          const player = {
+            ...players[playerId],
+            ...game.players[playerId]
+          };
+
           return (
             <PlayerSlot
               key={playerId}
@@ -82,7 +80,7 @@ export default class Room extends Component {
               playerPositions={playerPositions}
               hand={hand}
               chien={chien}
-              players={players}
+              player={player}
               currentTrick={currentTrick}
               playerTurn={playerTurn}
             />

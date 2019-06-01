@@ -21,6 +21,7 @@ export function dispatch (action) {
 
     state.rooms[roomId] = room(state.rooms[roomId], action, dispatch);
   } catch (e) {
+    console.log(e);
     state.rooms[roomId] = room(state.rooms[roomId], {type: SERVER_ERROR, error: e}, dispatch);
   }
 
