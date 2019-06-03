@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './Card';
-import './Deck.css';
+import './Deck.scss';
 
 export default props => {
   const {onCardClick, cards, display} = props;

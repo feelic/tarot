@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import socketIOClient from 'socket.io-client';
 
-import Lobby from './components/Lobby';
+import Lobby from './components/Lobby/';
 import Room from './components/Room/';
 
+import prepareState from './util/prepare-state';
 import * as appActions from './actions';
 import bindActionCreators from './actions/bind-action-creators';
 
@@ -17,11 +18,11 @@ class App extends Component {
     this.socket = socketIOClient(this.state.endpoint);
 
     this.socket.on('server-event', payload => {
-      console.log(payload);
-      this.setState({
-        ...payload,
-        ...payload.players[payload.currentPlayer]
-      });
+      const appState = prepareState(payload);
+
+      console.log(appState);
+
+      this.setState(appState);
     });
   }
 

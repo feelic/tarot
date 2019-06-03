@@ -11,7 +11,7 @@ import {gamePhases, roomStatuses} from '../../constants';
 import {sortCards} from '../../util/cards';
 import {definePlayerPositions} from '../../util/table';
 
-import './index.css';
+import './index.scss';
 
 const {TRICK, CHIEN_REVEAL, BIDDING, ROUND_SCORES} = gamePhases;
 

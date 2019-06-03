@@ -2,7 +2,7 @@ import React from 'react';
 
 import Card from '../Card';
 
-import './TrickPanel.css';
+import './TrickPanel.scss';
 
 export default props => {
   const {
