@@ -24,7 +24,7 @@ export default class Room extends Component {
   static getDerivedStateFromProps (props, state) {
     if (props.gamePhase === gamePhases.CHIEN_REVEAL && ! state.hand) {
       return {
-        hand: props.hand,
+        hand: props.game.players[props.currentPlayer].hand,
         chien: props.chien
       };
     }
@@ -34,15 +34,23 @@ export default class Room extends Component {
   render () {
     const {
       actions,
-      room,
-      players,
-      playerSlots,
       currentPlayer,
       game,
-      selectedGame,
-      roomStatus
+      playerSlots,
+      room,
+      roomStatus,
+      selectedGame
     } = this.props;
-    const {gamePhase, currentTrick, playerTurn, scores, bidTaker, bid} = game;
+    const {
+      bid,
+      bidSpeaker,
+      bidTaker,
+      currentTrick,
+      gamePhase,
+      players,
+      playerTurn,
+      scores
+    } = game;
 
     if (roomStatus === roomStatuses.ROOM_SETUP) {
       return (
@@ -66,10 +74,7 @@ export default class Room extends Component {
     return (
       <div className="table">
         {Object.keys(players).map(playerId => {
-          const player = {
-            ...players[playerId],
-            ...game.players[playerId]
-          };
+          const player = players[playerId];
 
           return (
             <PlayerSlot
@@ -87,10 +92,20 @@ export default class Room extends Component {
           );
         })}
         <div className="table-center">
-          {gamePhase === BIDDING && <BiddingPanel {...this.props} />}
+          {gamePhase === BIDDING
+            && <BiddingPanel
+              actions={actions}
+              players={players}
+              currentPlayer={currentPlayer}
+              bidSpeaker={bidSpeaker}
+              bidTaker={bidTaker}
+            />
+          }
           {gamePhase === CHIEN_REVEAL
             && <ChienRevealPanel
-              {...this.props}
+              players={players}
+              bidTaker={bidTaker}
+              currentPlayer={currentPlayer}
               chien={chien}
               confirmChien={this.handleConfirmChien.bind(this)}
               moveCardFromChienToHand={this.moveCardFromChienToHand.bind(this)}

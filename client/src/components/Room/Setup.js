@@ -8,18 +8,50 @@ export default class Room extends Component {
 
   render () {
     const {actions, room, players, playerSlots, selectedGame} = this.props;
-    const playerIds = Object.values(players);
+    const playersArray = Object.values(players);
 
     return (
       <div>
-        <h1>{room}</h1>
+        <h1>Game room: {room}</h1>
+        {selectedGame
+          && <React.Fragment>
+            <h2>Players</h2>
+            {new Array(playerSlots).fill('').map((value, idx) => {
+              const player = playersArray[idx];
+
+              if (! player) {
+                return (
+                  <div>
+                    waiting for player or{' '}
+                    <button onClick={actions.addBot}>add a bot</button>
+                  </div>
+                );
+              }
+              return (
+                <div>
+                  {player.username}{' '}
+                  {! player.connected && <b>connection issues</b>}
+                  {player.bot
+                    && <button onClick={() => actions.removeBot(player.id)}>
+                      (remove bot)
+                    </button>
+                  }
+                </div>
+              );
+            })}
+          </React.Fragment>
+        }
         <ul>
-          {playerIds.map(player => {
+          {playersArray.slice(playerSlots).map(player => {
             return (
               <li key={player.id}>
                 {player.username}{' '}
                 {! player.connected && <b>connection issues</b>}
-                {player.bot && <a onClick={() => actions.removeBot(player.id)}>(remove bot)</a>}
+                {player.bot
+                  && <button onClick={() => actions.removeBot(player.id)}>
+                    (remove bot)
+                  </button>
+                }
               </li>
             );
           })}
@@ -27,10 +59,10 @@ export default class Room extends Component {
         {selectedGame
           && <React.Fragment>
             <p>
-              Waiting for {playerSlots - playerIds.length} more player(s) to
+              Waiting for {playerSlots - playersArray.length} more player(s) to
               join
             </p>
-            <button onClick={actions.addBot}>add a bot</button>
+
             <button onClick={actions.startGame}>start game</button>
           </React.Fragment>
         }

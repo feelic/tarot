@@ -28,7 +28,7 @@ export default props => {
             {Object.keys(bidOptions).map(option => {
               return (
                 <li key={option}>
-                  <a onClick={() => actions.placeBid(option)}>{option}</a>
+                  <button onClick={() => actions.placeBid(option)}>{option}</button>
                 </li>
               );
             })}

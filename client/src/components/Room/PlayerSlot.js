@@ -36,18 +36,16 @@ function getCards (props) {
   const {
     playerId,
     currentPlayer,
-    hand,
     player,
     currentTrick,
     playerTurn
   } = props;
+  const hand = player.hand;
 
   if (playerId !== currentPlayer) {
-    return new Array(player.hand.length).fill('');
+    return new Array(hand.length).fill('');
   }
-  if (! hand) {
-    return [];
-  }
+
   const isPlaying = playerTurn === currentPlayer;
   const allowedCards = isPlaying && getAllowedCards(currentTrick, hand);
 
