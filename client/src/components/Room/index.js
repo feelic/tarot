@@ -37,6 +37,7 @@ export default class Room extends Component {
       currentPlayer,
       game,
       playerSlots,
+      players: connectedPlayers,
       room,
       roomStatus,
       selectedGame
@@ -56,7 +57,7 @@ export default class Room extends Component {
       return (
         <Setup
           actions={actions}
-          players={players}
+          players={connectedPlayers}
           room={room}
           playerSlots={playerSlots}
           selectedGame={selectedGame}

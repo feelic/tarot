@@ -7,9 +7,9 @@ export default function controlActions (state, action) {
   case ADD_BOT:
     return state.roomStatus === roomStatuses.ROOM_SETUP;
   case PLACE_BID:
-    return action.playerId === state.bidSpeaker;
+    return action.playerId === state.game.bidSpeaker;
   case PLAY_CARD:
-    return action.playerId === state.playerTurn;
+    return action.playerId === state.game.playerTurn;
   default:
     return true;
   }

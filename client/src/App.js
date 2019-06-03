@@ -27,15 +27,16 @@ class App extends Component {
   }
 
   componentWillMount () {
-    // this.socket.emit('join-room', {
-    //   room: 'game-room-a',
-    //   username: 'bobby',
-    //   id: 'bobby',
-    //   playerId: '1234'
-    // });
-    // this.send({type: 'ADD_BOT'});
-    // this.send({type: 'ADD_BOT'});
-    // this.send({type: 'ADD_BOT'});
+    this.socket.emit('join-room', {
+      room: 'game-room-a',
+      username: 'bobby',
+      id: 'bobby',
+      playerId: '1234'
+    });
+    this.send({type: 'ADD_BOT'});
+    this.send({type: 'ADD_BOT'});
+    this.send({type: 'ADD_BOT'});
+    this.send({type: 'CHOOSE_GAME', game: 'four-player-tarot'});
     // this.send({type: 'START_GAME'});
   }
 
