@@ -1,5 +1,14 @@
 import React from 'react';
 import {bidOptions} from '../../constants';
+import styles from './BiddingPanel.module.scss';
+
+const bidDescriptions = {
+  pass: 'Let someone else take all the risks',
+  petite: 'When you want to try but not risk too much',
+  garde: 'Points are doubled, win or lose',
+  gardeSans: 'Points are tripled, but the chien remains a mystery',
+  gardeContre: 'Points are quadrupled, and the chien goes to the enemy'
+};
 
 export default props => {
   const {actions, currentPlayer, players, bidSpeaker, bidTaker} = props;
@@ -24,15 +33,14 @@ export default props => {
       {isSpeaker
         && <React.Fragment>
           <h2>Your Options</h2>
-          <ul>
-            {Object.keys(bidOptions).map(option => {
-              return (
-                <li key={option}>
-                  <button onClick={() => actions.placeBid(option)}>{option}</button>
-                </li>
-              );
-            })}
-          </ul>
+          {Object.keys(bidOptions).map(option => {
+            return (
+              <div key={option} className={styles.bidOption} onClick={() => actions.placeBid(option)}>
+                <p>{bidDescriptions[option]}</p>
+                <div className={styles.bidLabel}>{option}</div>
+              </div>
+            );
+          })}
         </React.Fragment>
       }
     </React.Fragment>

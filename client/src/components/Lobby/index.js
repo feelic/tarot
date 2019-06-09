@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Button from '../Button';
+import './index.scss';
 
 export default class Lobby extends Component {
   constructor () {
@@ -38,9 +40,9 @@ export default class Lobby extends Component {
           />
         </p>
         <p>
-          <button onClick={() => connect({room, username, playerId})}>
+          <Button onClick={() => connect({room, username, playerId})}>
             Connect
-          </button>
+          </Button>
         </p>
       </div>
     );

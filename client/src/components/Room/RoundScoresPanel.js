@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '../Button';
+
 export default props => {
   const {
     actions,
@@ -9,8 +11,8 @@ export default props => {
     boutsCounts,
     totalRoundScore,
     bidTaker,
-    bid,
-    pointResult
+    bid
+    // pointResult
   } = props;
 
   return (
@@ -53,7 +55,7 @@ export default props => {
           })}
         </tbody>
       </table>
-      <button onClick={actions.startGame}>Next round</button>
+      <Button onClick={actions.startGame}>Next round</Button>
     </div>
   );
 };

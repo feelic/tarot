@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+import styles from './Setup.module.scss';
+import Button from '../Button';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 export default class Room extends Component {
   constructor () {
@@ -21,20 +25,28 @@ export default class Room extends Component {
 
               if (! player) {
                 return (
-                  <div>
+                  <div
+                    className={[styles.playerSlot, styles.emptyPlayerSlot].join(
+                      ' '
+                    )}
+                    key={idx}
+                  >
                     waiting for player or{' '}
-                    <button onClick={actions.addBot}>add a bot</button>
+                    <Button onClick={actions.addBot}>add a bot</Button>
                   </div>
                 );
               }
               return (
-                <div>
+                <div className={styles.playerSlot} key={player.id}>
                   {player.username}{' '}
                   {! player.connected && <b>connection issues</b>}
                   {player.bot
-                    && <button onClick={() => actions.removeBot(player.id)}>
-                      (remove bot)
-                    </button>
+                    && <Button
+                      type="secondary"
+                      onClick={() => actions.removeBot(player.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} /> remove bot
+                    </Button>
                   }
                 </div>
               );
@@ -48,9 +60,9 @@ export default class Room extends Component {
                 {player.username}{' '}
                 {! player.connected && <b>connection issues</b>}
                 {player.bot
-                  && <button onClick={() => actions.removeBot(player.id)}>
-                    (remove bot)
-                  </button>
+                  && <Button onClick={() => actions.removeBot(player.id)}>
+                    <FontAwesomeIcon icon={faTrash} /> remove bot
+                  </Button>
                 }
               </li>
             );
@@ -63,19 +75,19 @@ export default class Room extends Component {
               join
             </p>
 
-            <button onClick={actions.startGame}>start game</button>
+            <Button onClick={actions.startGame}>start game</Button>
           </React.Fragment>
         }
         {! selectedGame
           && <React.Fragment>
             <p>Waiting for more player(s) to join</p>
-            <button onClick={() => actions.chooseGame('four-player-tarot')}>
+            <Button onClick={() => actions.chooseGame('four-player-tarot')}>
               Play 4 player Tarot
-            </button>
+            </Button>
           </React.Fragment>
         }
 
-        <button onClick={actions.leaveRoom}>leave room</button>
+        <Button onClick={actions.leaveRoom}>leave room</Button>
       </div>
     );
   }

@@ -1,0 +1,30 @@
+.bidOption {
+  margin: 4px;
+  padding: 12px;
+  display: inline-block;
+  width: calc(100% / 5 - 8px - 24px);
+  background-color: #d0d0d0;
+  color: #666;
+  text-align: center;
+  min-height: 140px;
+  vertical-align: top;
+  position: relative;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.bidLabel {
+  position: absolute;
+  width: calc(100% - 24px);
+  bottom: 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.disabled {
+
+}

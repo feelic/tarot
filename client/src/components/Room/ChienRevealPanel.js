@@ -1,5 +1,6 @@
 import React from 'react';
 import Deck from '../Deck';
+import Button from '../Button';
 
 export default props => {
   const {
@@ -42,11 +43,11 @@ export default props => {
           onCardClick={moveCardFromChienToHand}
         />
         {chien.length === 6
-          && <button
+          && <Button
             onClick={confirmChien}
           >
             Confirm chien
-          </button>
+          </Button>
         }
       </div>
     </React.Fragment>
