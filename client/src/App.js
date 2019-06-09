@@ -27,16 +27,16 @@ class App extends Component {
   }
 
   componentWillMount () {
-    this.socket.emit('join-room', {
-      room: 'game-room-a',
-      username: 'bobby',
-      id: 'bobby',
-      playerId: '1234'
-    });
-    this.send({type: 'ADD_BOT'});
-    this.send({type: 'ADD_BOT'});
-    this.send({type: 'ADD_BOT'});
-    this.send({type: 'CHOOSE_GAME', game: 'four-player-tarot'});
+    // this.socket.emit('join-room', {
+    //   room: 'game-room-a',
+    //   username: 'bobby',
+    //   id: 'bobby',
+    //   playerId: '1234'
+    // });
+    // this.send({type: 'ADD_BOT'});
+    // this.send({type: 'ADD_BOT'});
+    // this.send({type: 'ADD_BOT'});
+    // this.send({type: 'CHOOSE_GAME', game: 'four-player-tarot'});
     // this.send({type: 'START_GAME'});
   }
 
@@ -48,7 +48,15 @@ class App extends Component {
   }
 
   render () {
-    const actions = bindActionCreators(appActions, this.send.bind(this));
+    const boundActions = bindActionCreators(appActions, this.send.bind(this));
+    const leaveRoom = () => {
+      boundActions.leaveRoom();
+      this.setState({room: null});
+    };
+    const actions = {
+      ...boundActions,
+      leaveRoom
+    };
 
     if (! this.state.room) {
       return (

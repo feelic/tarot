@@ -43,6 +43,10 @@ io.on('connection', socket => {
 function handlePlayerAction (data) {
   const {gameRoom, playerId} = this;
 
+  if (data.type === 'LEAVE_ROOM') {
+    this.leave(gameRoom);
+  }
+
   return dispatch({...data, room: gameRoom, playerId});
 }
 

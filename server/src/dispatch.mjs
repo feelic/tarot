@@ -16,6 +16,7 @@ export function dispatch (action) {
     const isActionAllowed = controlActions(state.rooms[roomId], action);
 
     if (! isActionAllowed) {
+      console.log(`Forbidden action: user ${action.playerId} dispatched ${action.type} in ${roomId}`);
       return [];
     }
 
