@@ -6,13 +6,17 @@ import './TrickPanel.scss';
 
 export default props => {
   const {
-    currentTrick,
     currentPlayer,
-    playerTurn,
-    players,
-    trickWinner,
-    playerPositions
+    playerPositions,
+    game
   } = props;
+  const {
+    trickWinner,
+    currentTrick,
+    players,
+    playerTurn
+  } = game;
+
   const trickWinnerText = getTrickWinnerText(
     trickWinner,
     currentPlayer,

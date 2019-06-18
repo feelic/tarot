@@ -8,13 +8,14 @@
   right: 140px;
   left: 140px;
   bottom: 230px;
-  background: #45aa77;
+  background: radial-gradient(#61be61, #65ad45);
   border-radius: 20px;
   border: 2px solid #666;
 }
 .player-slot {
   text-align: center;
   position: absolute;
+  overflow: hidden;
 }
 .player-slot h2 {
   margin:10px 0 0 0;

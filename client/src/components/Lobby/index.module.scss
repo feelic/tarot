@@ -1,0 +1,28 @@
+.form {
+  padding: 20px;
+  border-radius: 2px;
+  background: radial-gradient(#61be61, #65ad45);
+  margin: 10px;
+    display: inline-block;
+
+
+  p {
+    margin: 10px 0;
+  }
+
+  label {
+    width: 140px;
+    display: inline-block;
+    color: #333;
+  }
+
+  input {
+    display: inline-block;
+    width: 300px;
+  }
+}
+
+.connectButton {
+  margin-top: 40px;
+  text-align: center;
+}

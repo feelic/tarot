@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Button from '../Button';
-import './index.scss';
+import styles from './index.module.scss';
 
 export default class Lobby extends Component {
   constructor () {
@@ -18,32 +18,35 @@ export default class Lobby extends Component {
 
     return (
       <div>
-        <p>
-          <label>User id</label>
-          <input
-            type="text"
-            onChange={e => this.setState({playerId: e.target.value})}
-          />
-        </p>
-        <p>
-          <label>Name</label>
-          <input
-            type="text"
-            onChange={e => this.setState({username: e.target.value})}
-          />
-        </p>
-        <p>
-          <label>Room</label>
-          <input
-            type="text"
-            onChange={e => this.setState({room: e.target.value})}
-          />
-        </p>
-        <p>
-          <Button onClick={() => connect({room, username, playerId})}>
-            Connect
-          </Button>
-        </p>
+        <h1>French Tarot</h1>
+        <div className={styles.form}>
+          <p>
+            <label>User id</label>
+            <input
+              type="text"
+              onChange={e => this.setState({playerId: e.target.value})}
+            />
+          </p>
+          <p>
+            <label>Name</label>
+            <input
+              type="text"
+              onChange={e => this.setState({username: e.target.value})}
+            />
+          </p>
+          <p>
+            <label>Room</label>
+            <input
+              type="text"
+              onChange={e => this.setState({room: e.target.value})}
+            />
+          </p>
+          <div className={styles.connectButton}>
+            <Button onClick={() => connect({room, username, playerId})}>
+              Connect
+            </Button>
+          </div>
+        </div>
       </div>
     );
   }

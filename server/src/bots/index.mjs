@@ -3,22 +3,28 @@ import placeBid from './place-bid';
 import playCard from './play-card';
 import makeChien from './make-chien';
 
-import {gamePhases} from '../constants';
+import {gamePhases, roomStatuses} from '../constants';
 import {PLACE_BID, PLAY_CARD, MAKE_CHIEN} from '../constants/action-types';
 
 const BOT_ACTION_DELAY = 400;
 
 export function playBotturn (room, state) {
   const playerId = state.currentPlayer;
-  const hand = state.players[playerId].hand;
+  const game = state.game;
 
-  if (state.bidSpeaker === playerId && state.gamePhase === gamePhases.BIDDING) {
-    const bid = placeBid(state.players, hand);
+  if (! game || state.roomStatus === roomStatuses.ROOM_SETUP) {
+    return null;
+  }
+
+  const hand = game.players[playerId].hand;
+
+  if (game.bidSpeaker === playerId && game.gamePhase === gamePhases.BIDDING) {
+    const bid = placeBid(game.players, hand);
 
     return delayedDispatch({room, type: PLACE_BID, bid, playerId});
   }
-  if (state.bidTaker === playerId && state.gamePhase === gamePhases.CHIEN_REVEAL) {
-    const {updatedHand, discarded} = makeChien(hand, state.chien);
+  if (game.bidTaker === playerId && game.gamePhase === gamePhases.CHIEN_REVEAL) {
+    const {updatedHand, discarded} = makeChien(hand, game.chien);
 
     return delayedDispatch(
       {
@@ -31,8 +37,8 @@ export function playBotturn (room, state) {
       5000
     );
   }
-  if (state.playerTurn === playerId && state.gamePhase === gamePhases.TRICK) {
-    const card = playCard(state.currentTrick, hand);
+  if (game.playerTurn === playerId && game.gamePhase === gamePhases.TRICK) {
+    const card = playCard(game.currentTrick, hand);
 
     return delayedDispatch({room, type: PLAY_CARD, card, playerId});
   }

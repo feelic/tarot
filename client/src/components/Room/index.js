@@ -22,10 +22,10 @@ export default class Room extends Component {
   }
 
   static getDerivedStateFromProps (props, state) {
-    if (props.gamePhase === gamePhases.CHIEN_REVEAL && ! state.hand) {
+    if (props.game.gamePhase === gamePhases.CHIEN_REVEAL && ! state.hand) {
       return {
         hand: props.game.players[props.currentPlayer].hand,
-        chien: props.chien
+        chien: props.game.chien
       };
     }
     return null;
@@ -66,9 +66,9 @@ export default class Room extends Component {
     }
 
     const hand
-      = (gamePhase === CHIEN_REVEAL && this.state.hand) || this.props.hand;
+      = (gamePhase === CHIEN_REVEAL && this.state.hand) || players[currentPlayer].hand;
     const chien
-      = (gamePhase === CHIEN_REVEAL && this.state.chien) || this.props.chien;
+      = (gamePhase === CHIEN_REVEAL && this.state.chien) || game.chien;
     const playerOrder = Object.keys(players);
     const playerPositions = definePlayerPositions(playerOrder, currentPlayer);
 
@@ -113,7 +113,10 @@ export default class Room extends Component {
             />
           }
           {gamePhase === TRICK
-            && <TrickPanel {...this.props} playerPositions={playerPositions} />
+            && <TrickPanel
+              {...this.props}
+              playerPositions={playerPositions}
+            />
           }
           {gamePhase === ROUND_SCORES
             && <RoundScoresPanel
@@ -128,11 +131,14 @@ export default class Room extends Component {
   handleCardClick (card) {
     const {
       actions,
-      gamePhase,
       currentPlayer,
+      game
+    } = this.props;
+    const {
+      gamePhase,
       bidTaker,
       playerTurn
-    } = this.props;
+    } = game;
 
     if (gamePhase === CHIEN_REVEAL && currentPlayer === bidTaker) {
       return this.moveCardFromHandToChien(card);

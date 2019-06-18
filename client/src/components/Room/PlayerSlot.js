@@ -38,12 +38,12 @@ function getCards (props) {
     currentPlayer,
     player,
     currentTrick,
-    playerTurn
+    playerTurn,
+    hand = []
   } = props;
-  const hand = player.hand;
 
   if (playerId !== currentPlayer) {
-    return new Array(hand.length).fill('');
+    return new Array(player.hand.length).fill('');
   }
 
   const isPlaying = playerTurn === currentPlayer;

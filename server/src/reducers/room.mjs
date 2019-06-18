@@ -30,6 +30,8 @@ const initialState = {
  * @return {Object} nextState next state
  */
 export default function room (state = initialState, action, dispatch) {
+  const gameReducer = games[state.selectedGame];
+
   switch (action.type) {
   case JOIN_ROOM:
   case ADD_BOT:
@@ -52,8 +54,6 @@ export default function room (state = initialState, action, dispatch) {
       return state;
     }
 
-    const gameReducer = games[state.selectedGame];
-
     return {
       ...state,
       roomStatus: roomStatuses.GAME_IN_PROGRESS,
@@ -65,7 +65,10 @@ export default function room (state = initialState, action, dispatch) {
       serverError: action.error
     };
   default:
-    return state;
+    return {
+      ...state,
+      game: gameReducer(state.game, action, dispatch)
+    };
   }
 }
 

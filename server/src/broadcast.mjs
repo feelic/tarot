@@ -18,7 +18,10 @@ export default function broadcast (room, state) {
   });
 
   responses.forEach(message => {
-    if (state.players[message.currentPlayer].bot === true) {
+    if (! players[message.currentPlayer]) {
+      return console.log(`Player ${message.currentPlayer} no longer exists in room ${room}`);
+    }
+    if (players[message.currentPlayer].bot === true) {
       return playBotturn(room, message);
     }
     const socketId = players[message.currentPlayer].socketId;

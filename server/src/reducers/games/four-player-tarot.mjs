@@ -44,7 +44,7 @@ export default function game (state = initialState, action, dispatch) {
   case START_GAME:
     return game(
       {
-        ...state,
+        ...initialState,
         players: players({}, action)
       },
       {type: START_ROUND},
@@ -98,9 +98,10 @@ export function handleBidding (state, action, dispatch) {
       bid: action.bid
     };
   case PLACE_BID:
+    const playerOrder = Object.keys(state.players);
     const newPlayers = players(state.players, action);
-    const bidTaker = getBidTaker(newPlayers, state.playerOrder);
-    const nextPlayer = getNextPlayer(state.playerOrder, action.playerId);
+    const bidTaker = getBidTaker(newPlayers);
+    const nextPlayer = getNextPlayer(playerOrder, action.playerId);
     const bidSpeaker = (! bidTaker && nextPlayer) || null;
     const biddingFailed = bidTaker === 'nobody';
 
