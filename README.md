@@ -4,9 +4,14 @@ This is an online multiplayer version of the card game Tarot.
 
 Rules in english for the game can be found [here](https://www.pagat.com/tarot/frtarot.html) until a tutorial is added to the game.
 
+![View of the bidding panel](./docs/bidding.png)
+
 ## Installation & Build
 
-tbd
+* Clone the project
+* run `yarn`
+* in 2 different console windows, run `yarn run server` and `yarn run client`
+
 
 ## Features
 ### MVP
@@ -19,11 +24,10 @@ tbd
 * [x] AI player
 * [x] "Excuse" rules
 * [x] Fix allowed trump card
-* [ ] Fix bid taking error
+* [x] Handle mid game disconnect/refresh
+* [x] Handle server side errors
 * [ ] Round scores interface
 * [ ] Functional next round button
-* [ ] Handle mid game disconnect/refresh
-* [ ] Handle server side errors
 
 #### To do
 * [ ] AI player difficulties
