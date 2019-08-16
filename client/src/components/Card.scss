@@ -5,6 +5,8 @@
   border-radius: 8px;
   width: 85px;
   height: 150px;
+  bottom: 0;
+  transition:bottom 0.3s ease-in-out;
 }
 .card-turned {
   background-image: url(../assets/back.jpg);
@@ -12,6 +14,7 @@
 }
 .card-hoverable:hover {
   border: 1px solid #aaa;
+  bottom: 10px;
 }
 .card-disable-overlay {
   position: absolute;
