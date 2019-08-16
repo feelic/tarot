@@ -12,14 +12,13 @@ export function getRoundScores (state) {
   const winThreshold = winThresholdByBoutsCount[boutsCounts];
   const difference = totalRoundScore - winThreshold;
   const win = difference > 0;
-  const winner
-    = (win && [bidTaker])
-    || Object.keys(players).filter(player => player !== bidTaker);
+  const otherPlayers = Object.keys(players).filter(player => player !== bidTaker);
+  const winner = (win && [bidTaker]) || otherPlayers;
   const pointResult = difference * bidOptions[bid].multiplier;
   const playerScoreUpdates = Object.keys(players).reduce((prev, playerId) => {
     return {
       ...prev,
-      [playerId]: (winner.includes(playerId) && pointResult) || pointResult * - 1
+      [playerId]: (otherPlayers.includes(playerId) && pointResult * - 1) || pointResult
     };
   }, {});
 

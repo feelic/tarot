@@ -140,7 +140,7 @@ describe('score util functions', () => {
           winThreshold: 56,
           winner: ['b']
         },
-        scores: {a: 70, b: - 70}
+        scores: {a: - 70, b: 70}
       };
 
       expect(getRoundScores(state)).toEqual(expectedResult);
