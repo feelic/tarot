@@ -1,10 +1,10 @@
 module.exports = {
   'verbose': true,
   'moduleDirectories': ['node_modules', 'imports'],
-  'testMatch': ['**/?(*.)test.mjs'],
+  'testMatch': ['**/?(*.)test.js'],
   'transform': {
     '^.+\\.mjs$': 'babel-jest',
     '^.+\\.js$': 'babel-jest'
   },
-  'moduleFileExtensions': ['mjs', 'js']
+  'moduleFileExtensions': ['js', 'js']
 };
