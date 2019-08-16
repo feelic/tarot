@@ -7,12 +7,12 @@ import {
   REMOVE_BOT,
   SERVER_ERROR,
   DISCONNECT
-} from '../constants/action-types';
-import {getBotPlayerName} from '../constants/bot-player-names';
-import {roomStatuses} from '../constants';
-import players from './players';
-import gameDescriptions from '../constants/game-descriptions';
-import games from './games';
+} from '../constants/action-types.js';
+import {getBotPlayerName} from '../constants/bot-player-names.js';
+import {roomStatuses} from '../constants/index.js';
+import players from './players.js';
+import gameDescriptions from '../constants/game-descriptions.js';
+import games from './games/index.js';
 
 const initialState = {
   selectedGame: null,

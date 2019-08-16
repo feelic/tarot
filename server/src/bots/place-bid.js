@@ -1,5 +1,5 @@
-import {bouts} from '../constants';
-import {getAllowedBids} from '../util/bids';
+import {bouts} from '../constants/index.js';
+import {getAllowedBids} from '../util/bids.js';
 
 export default function (players, hand) {
   const allowedBids = getAllowedBids(players);

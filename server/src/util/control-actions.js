@@ -1,5 +1,5 @@
-import {ADD_BOT, PLACE_BID, PLAY_CARD, START_GAME} from '../constants/action-types';
-import {roomStatuses} from '../constants';
+import {ADD_BOT, PLACE_BID, PLAY_CARD, START_GAME} from '../constants/action-types.js';
+import {roomStatuses} from '../constants/index.js';
 
 export default function controlActions (state, action) {
   switch (action.type) {

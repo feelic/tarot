@@ -1,5 +1,5 @@
 /* global describe, it, expect */
-import {countBouts, countScore, getRoundScores} from './scores';
+import {countBouts, countScore, getRoundScores} from './scores.js';
 
 describe('score util functions', () => {
   describe('countBouts', () => {

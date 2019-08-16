@@ -1,1 +1,1 @@
-../../../server/src/constants/action-types.mjs
+../../../server/src/constants/action-types.js

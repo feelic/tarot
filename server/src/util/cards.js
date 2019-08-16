@@ -1,4 +1,4 @@
-import {tarotDeck, chienSizes, suits, suitsAndTrumps} from '../constants';
+import {tarotDeck, chienSizes, suits, suitsAndTrumps} from '../constants/index.js';
 
 export function dealCards (nbPlayers = 4) {
   //shuffle the deck

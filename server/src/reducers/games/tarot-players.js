@@ -6,7 +6,7 @@ import {
   PLACE_BID,
   MAKE_CHIEN,
   PLAY_CARD
-} from '../../constants/action-types';
+} from '../../constants/action-types.js';
 
 const initialState = {};
 const initialPlayer = {

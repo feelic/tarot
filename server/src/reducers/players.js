@@ -4,7 +4,7 @@ import {
   ADD_BOT,
   REMOVE_BOT,
   DISCONNECT
-} from '../constants/action-types';
+} from '../constants/action-types.js';
 
 const initialState = {};
 const initialPlayer = {};

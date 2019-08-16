@@ -1,10 +1,10 @@
-import {dispatch} from '../dispatch';
-import placeBid from './place-bid';
-import playCard from './play-card';
-import makeChien from './make-chien';
+import {dispatch} from '../dispatch.js';
+import placeBid from './place-bid.js';
+import playCard from './play-card.js';
+import makeChien from './make-chien.js';
 
-import {gamePhases, roomStatuses} from '../constants';
-import {PLACE_BID, PLAY_CARD, MAKE_CHIEN} from '../constants/action-types';
+import {gamePhases, roomStatuses} from '../constants/index.js';
+import {PLACE_BID, PLAY_CARD, MAKE_CHIEN} from '../constants/action-types.js';
 
 const BOT_ACTION_DELAY = 400;
 

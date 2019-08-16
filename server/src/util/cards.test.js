@@ -5,8 +5,8 @@ import {
   getAllowedTrumpCards,
   getTrickWinner,
   sortCards
-} from './cards';
-import {suitsAndTrumps, chienSizes} from '../constants';
+} from './cards.js';
+import {suitsAndTrumps, chienSizes} from '../constants/index.js';
 
 describe('cards util functions', () => {
   describe('dealCards', () => {

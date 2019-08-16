@@ -1,9 +1,9 @@
 import express from 'express';
 import http from 'http';
 import socketIO from 'socket.io';
-import {dispatch} from './src/dispatch';
-import {configureBroadcaster} from './src/broadcast';
-import {JOIN_ROOM, DISCONNECT} from './src/constants/action-types';
+import {dispatch} from './src/dispatch.js';
+import {configureBroadcaster} from './src/broadcast.js';
+import {JOIN_ROOM, DISCONNECT} from './src/constants/action-types.js';
 
 const port = 4001;
 const app = express();

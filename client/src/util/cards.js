@@ -1,1 +1,1 @@
-../../../server/src/util/cards.mjs
+../../../server/src/util/cards.js

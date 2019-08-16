@@ -1,9 +1,9 @@
-import {PLAY_CARD, AWARD_TRICK, AWARD_ROUND} from '../../constants/action-types';
-import {getTrickWinner} from '../../util/cards';
-import {getNextPlayer} from '../../util/players';
-import {gamePhases} from '../../constants';
-import players from './tarot-players';
-import {getRoundScores} from '../../util/scores';
+import {PLAY_CARD, AWARD_TRICK, AWARD_ROUND} from '../../constants/action-types.js';
+import {getTrickWinner} from '../../util/cards.js';
+import {getNextPlayer} from '../../util/players.js';
+import {gamePhases} from '../../constants/index.js';
+import players from './tarot-players.js';
+import {getRoundScores} from '../../util/scores.js';
 
 const {ROUND_SCORES} = gamePhases;
 

@@ -1,1 +1,1 @@
-../../../server/src/constants/index.mjs
+../../../server/src/constants/index.js

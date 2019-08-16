@@ -1,4 +1,4 @@
-import {getAllowedCards} from '../util/cards';
+import {getAllowedCards} from '../util/cards.js';
 
 export default function (trick, hand) {
   const allowedCards = getAllowedCards(trick, hand);

@@ -1,4 +1,4 @@
-import {playBotturn} from './bots';
+import {playBotturn} from './bots/index.js';
 
 let io;
 

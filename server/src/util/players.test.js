@@ -1,5 +1,5 @@
 /* global describe, it, expect */
-import {getNextPlayer} from './players';
+import {getNextPlayer} from './players.js';
 
 describe('players util functions', () => {
   describe('getNextPlayer', () => {

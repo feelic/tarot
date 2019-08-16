@@ -1,4 +1,4 @@
-import {bidRanking} from '../constants';
+import {bidRanking} from '../constants/index.js';
 
 export function getBidTaker (players = {}) {
   const playerBids = Object.values(players).map(player => player.bid);

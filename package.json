@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "server": "node --experimental-modules server",
+    "server": "node --experimental-modules server/index.js",
     "client": "cd client && yarn start",
     "sprite": "spritesmith .spritesmith.js",
     "thumbs": "mogrify -resize x150 -quality 100 -path src/assets/thumbs src/assets/cards/*.jpg",

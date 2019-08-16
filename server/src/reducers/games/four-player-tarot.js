@@ -7,14 +7,14 @@ import {
   AWARD_TRICK,
   AWARD_ROUND,
   AWARD_BID
-} from '../../constants/action-types';
-import players from './tarot-players';
-import trick from './trick';
+} from '../../constants/action-types.js';
+import players from './tarot-players.js';
+import trick from './trick.js';
 
-import {getBidTaker} from '../../util/bids';
-import {dealCards} from '../../util/cards';
-import {getNextPlayer} from '../../util/players';
-import {gamePhases} from '../../constants';
+import {getBidTaker} from '../../util/bids.js';
+import {dealCards} from '../../util/cards.js';
+import {getNextPlayer} from '../../util/players.js';
+import {gamePhases} from '../../constants/index.js';
 
 const {BIDDING, CHIEN_REVEAL, TRICK} = gamePhases;
 

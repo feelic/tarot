@@ -1,7 +1,7 @@
-import room from './reducers/room';
-import controlActions from './util/control-actions';
-import broadcast from './broadcast';
-import {SERVER_ERROR} from './constants/action-types';
+import room from './reducers/room.js';
+import controlActions from './util/control-actions.js';
+import broadcast from './broadcast.js';
+import {SERVER_ERROR} from './constants/action-types.js';
 
 const state = {
   rooms: {}

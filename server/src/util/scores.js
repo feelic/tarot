@@ -2,7 +2,7 @@ import {
   bouts,
   winThresholdByBoutsCount,
   bidOptions
-} from '../constants';
+} from '../constants/index.js';
 
 export function getRoundScores (state) {
   const {players, bidTaker, bid} = state;
