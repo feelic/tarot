@@ -1,0 +1,33 @@
+.select {
+  display: inline-block;
+  border-radius: 2px;
+  padding: 6px 12px;  border: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:not(:last-of-type) {
+    margin-right: 12px;
+  }
+}
+.primary {
+  @extend .select;
+  color: white;
+  border: 1px solid #489eb0;
+  background-color: #5babda;
+
+  &:hover {
+    background-color: #7babda;
+  }
+
+  &:active,
+  &.active {
+  background-color: #3babda;
+  }
+}

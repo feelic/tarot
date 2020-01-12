@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import styles from './Setup.module.scss';
-import Button from '../Button';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import Button from '../../Button';
+import PlayerSlot from './PlayerSlot';
 
 export default class Room extends Component {
   constructor () {
@@ -23,33 +21,7 @@ export default class Room extends Component {
             {new Array(playerSlots).fill('').map((value, idx) => {
               const player = playersArray[idx];
 
-              if (! player) {
-                return (
-                  <div
-                    className={[styles.playerSlot, styles.emptyPlayerSlot].join(
-                      ' '
-                    )}
-                    key={idx}
-                  >
-                    waiting for player or{' '}
-                    <Button onClick={actions.addBot}>add a bot</Button>
-                  </div>
-                );
-              }
-              return (
-                <div className={styles.playerSlot} key={player.id}>
-                  {player.username}{' '}
-                  {! player.connected && <b>connection issues</b>}
-                  {player.bot
-                    && <Button
-                      type="secondary"
-                      onClick={() => actions.removeBot(player.id)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} /> remove bot
-                    </Button>
-                  }
-                </div>
-              );
+              return <PlayerSlot key={idx} player={player} actions={actions} />;
             })}
           </React.Fragment>
         }
@@ -59,11 +31,6 @@ export default class Room extends Component {
               <li key={player.id}>
                 {player.username}{' '}
                 {! player.connected && <b>connection issues</b>}
-                {player.bot
-                  && <Button onClick={() => actions.removeBot(player.id)}>
-                    <FontAwesomeIcon icon={faTrash} /> remove bot
-                  </Button>
-                }
               </li>
             );
           })}

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import BiddingPanel from './BiddingPanel';
 import ChienRevealPanel from './ChienRevealPanel';
-import Setup from './Setup';
+import Setup from './Setup/index';
 import PlayerSlot from './PlayerSlot';
 import TrickPanel from './TrickPanel';
 import RoundScoresPanel from './RoundScoresPanel';

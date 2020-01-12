@@ -1,10 +1,23 @@
 .playerSlot {
+  display: flex;
+  flex-flow: column;
   margin: 2px;
   padding: 10px;
   border: 1px solid #489eb0;
   background-color: #5babda;
   max-width: 400px;
+  div {
+    padding: 5px;
+  }
 }
 .emptyPlayerSlot {
   background-color: #9cb0ca;
+}
+.playerName {
+  font-weight: bold;
+  font-size: 20px;
+}
+.playerInfo {
+  display: flex;
+  flex-flow: row;
 }

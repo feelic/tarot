@@ -3,11 +3,11 @@ import {bidOptions} from '../../constants';
 import styles from './BiddingPanel.module.scss';
 
 const bidDescriptions = {
-  pass: 'Let someone else take all the risks',
-  petite: 'When you want to try but not risk too much',
-  garde: 'Points are doubled, win or lose',
-  gardeSans: 'Points are tripled, but the chien remains a mystery',
-  gardeContre: 'Points are quadrupled, and the chien goes to the enemy'
+  pass: {label: 'Pass', desc: 'Let someone else take all the risks'},
+  petite: {label: 'Petite', desc: 'When you want to try but not risk too much'},
+  garde: {label: 'Garde', desc: 'Points are doubled, win or lose'},
+  gardeSans: {label: 'Garde Sans', desc: 'Points are tripled, but the chien remains a mystery'},
+  gardeContre: {label: 'Garde Contre', desc: 'Points are quadrupled, and the chien goes to the enemy'}
 };
 
 export default props => {
@@ -36,8 +36,8 @@ export default props => {
           {Object.keys(bidOptions).map(option => {
             return (
               <div key={option} className={styles.bidOption} onClick={() => actions.placeBid(option)}>
-                <p>{bidDescriptions[option]}</p>
-                <div className={styles.bidLabel}>{option}</div>
+                <p>{bidDescriptions[option].desc}</p>
+                <div className={styles.bidLabel}>{bidDescriptions[option].label}</div>
               </div>
             );
           })}
