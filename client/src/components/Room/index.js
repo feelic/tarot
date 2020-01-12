@@ -22,6 +22,12 @@ export default class Room extends Component {
   }
 
   static getDerivedStateFromProps (props, state) {
+    if (props.game.gamePhase === gamePhases.BIDDING) {
+      return {
+        /* eslint-disable no-undefined */
+        hand: undefined, chien: undefined
+      };
+    }
     if (props.game.gamePhase === gamePhases.CHIEN_REVEAL && ! state.hand) {
       return {
         hand: props.game.players[props.currentPlayer].hand,
@@ -89,6 +95,7 @@ export default class Room extends Component {
               player={player}
               currentTrick={currentTrick}
               playerTurn={playerTurn}
+              bidTaker={bidTaker}
             />
           );
         })}

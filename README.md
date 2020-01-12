@@ -27,7 +27,7 @@ Rules in english for the game can be found [here](https://www.pagat.com/tarot/fr
 * [x] Handle mid game disconnect/refresh
 * [x] Handle server side errors
 * [ ] Round scores interface
-* [ ] Functional next round button
+* [x] Functional next round button
 
 #### To do
 * [ ] AI player difficulties

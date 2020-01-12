@@ -89,6 +89,7 @@ export function player (state = initialPlayer, action) {
       tricks: [...action.chien]
     };
   case AWARD_TRICK:
+    console.log(action.cards);
     return {
       ...state,
       tricks: [...state.tricks, ...action.cards]
@@ -123,8 +124,8 @@ export function getTrickCards (trick, trickWinner) {
     {
       playerId: trickWinner,
       cards: [
-        trickCards.slice(0, excuseIndex),
-        trickCards.slice(excuseIndex + 1)
+        ...trickCards.slice(0, excuseIndex),
+        ...trickCards.slice(excuseIndex + 1)
       ]
     },
     {playerId: excusePlayer, cards: ['trumps-00']}

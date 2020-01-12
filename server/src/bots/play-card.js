@@ -3,6 +3,11 @@ import {getAllowedCards} from '../util/cards.js';
 export default function (trick, hand) {
   const allowedCards = getAllowedCards(trick, hand);
 
-  // Very dumb algorithm, simply play the highest allowed Card
-  return allowedCards[allowedCards.length - 1];
+  // play randomly from the allowed cards
+  // const cardIndex = Math.floor(Math.random() * allowedCards.length);
+
+  // play highest allowed card
+  const cardIndex = allowedCards.length - 1;
+
+  return allowedCards[cardIndex];
 }

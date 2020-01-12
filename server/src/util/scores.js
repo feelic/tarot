@@ -14,7 +14,7 @@ export function getRoundScores (state) {
   const win = difference > 0;
   const otherPlayers = Object.keys(players).filter(player => player !== bidTaker);
   const winner = (win && [bidTaker]) || otherPlayers;
-  const pointResult = difference * bidOptions[bid].multiplier;
+  const pointResult = difference + 25 * bidOptions[bid].multiplier;
   const playerScoreUpdates = Object.keys(players).reduce((prev, playerId) => {
     return {
       ...prev,

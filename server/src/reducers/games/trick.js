@@ -1,4 +1,8 @@
-import {PLAY_CARD, AWARD_TRICK, AWARD_ROUND} from '../../constants/action-types.js';
+import {
+  PLAY_CARD,
+  AWARD_TRICK,
+  AWARD_ROUND
+} from '../../constants/action-types.js';
 import {getTrickWinner} from '../../util/cards.js';
 import {getNextPlayer} from '../../util/players.js';
 import {gamePhases} from '../../constants/index.js';
@@ -30,11 +34,9 @@ export default function trick (state = [], action, dispatch) {
     const trickWinner
         = (isTrickComplete && getTrickWinner(currentTrick)) || null;
     const nextPlayer
-        = (! isTrickComplete
-          && getNextPlayer(playerIds, action.playerId))
-        || null;
+        = (! isTrickComplete && getNextPlayer(playerIds, action.playerId)) || null;
 
-      //card is last of trick
+    //card is last of trick
     if (isTrickComplete) {
       setTimeout(() => {
         dispatch({
@@ -81,7 +83,10 @@ export default function trick (state = [], action, dispatch) {
     return {
       ...state,
       gamePhase: ROUND_SCORES,
-      players: players(state.players, {...action, scores: roundScores.scores}),
+      players: players(state.players, {
+        ...action,
+        scores: roundScores.scores
+      }),
       scores: roundScores.details
     };
   default:

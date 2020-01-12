@@ -4,7 +4,7 @@ import Deck from '../Deck';
 import {getAllowedCards} from '../../util/cards';
 
 export default props => {
-  const {cardAction, playerId, currentPlayer, playerPositions, player} = props;
+  const {cardAction, playerId, bidTaker, currentPlayer, playerPositions, player} = props;
 
   const isCurrentPlayer = playerId === currentPlayer;
   const playerPosition = playerPositions[playerId];
@@ -20,7 +20,7 @@ export default props => {
   return (
     <div className={`player-slot player-slot-${playerPosition}`}>
       <h2>
-        {player.username} ({cards.length})
+        {player.username} {bidTaker === playerId && '(T)'}
       </h2>
       {! player.connected && <b>connection issues</b>}
       <Deck

@@ -106,7 +106,7 @@ export function handleBidding (state, action, dispatch) {
     const biddingFailed = bidTaker === 'nobody';
 
     if (! biddingFailed && bidTaker) {
-      const winningBid = state.players[bidTaker].bid;
+      const winningBid = newPlayers[bidTaker].bid;
 
       setTimeout(() => {
         dispatch({
