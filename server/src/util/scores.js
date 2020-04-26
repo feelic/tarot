@@ -11,7 +11,7 @@ export function getRoundScores (state) {
   const trickPoints = Math.floor(countScore(tricks));
   const winThreshold = winThresholdByBoutsCount[boutsCounts];
   const difference = trickPoints - winThreshold;
-  const win = difference > 0;
+  const win = difference >= 0;
   const otherPlayers = Object.keys(players).filter(
     player => player !== bidTaker
   );

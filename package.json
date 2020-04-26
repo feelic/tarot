@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "jest": "^25.4.0",
+    "jest": "24.7.1",
     "socket.io": "^2.3.0",
     "spritesmith-cli": "^1.1.2"
   },
@@ -24,7 +24,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "babel-core": "^7.0.0-bridge",
-    "babel-jest": "^25.4.0"
+    "babel-jest": "^24"
   },
   "jest": {
     "verbose": true,

@@ -34,11 +34,11 @@ class App extends Component {
       id: 'bobby',
       playerId: '1234'
     });
-    this.send({type: 'ADD_BOT'});
-    this.send({type: 'ADD_BOT'});
-    this.send({type: 'ADD_BOT'});
-    this.send({type: 'CHOOSE_GAME', game: 'four-player-tarot'});
-    this.send({type: 'START_GAME'});
+    // this.send({type: 'ADD_BOT'});
+    // this.send({type: 'ADD_BOT'});
+    // this.send({type: 'ADD_BOT'});
+    // this.send({type: 'CHOOSE_GAME', game: 'four-player-tarot'});
+    // this.send({type: 'START_GAME'});
   }
 
   // method for emitting a socket.io event

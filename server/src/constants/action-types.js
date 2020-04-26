@@ -4,6 +4,7 @@ export const LEAVE_ROOM = 'LEAVE_ROOM';
 export const CHOOSE_GAME = 'CHOOSE_GAME';
 export const START_GAME = 'START_GAME';
 export const ADD_BOT = 'ADD_BOT';
+export const SET_BOT_LEVEL = 'SET_BOT_LEVEL';
 export const REMOVE_BOT = 'REMOVE_BOT';
 
 // Server actions

@@ -5,6 +5,7 @@ import {
   START_GAME,
   START_ROUND,
   ADD_BOT,
+  SET_BOT_LEVEL,
   REMOVE_BOT,
   LEAVE_ROOM,
   CHOOSE_GAME
@@ -30,6 +31,9 @@ export function playCard (card) {
 }
 export function addBot () {
   return {type: ADD_BOT};
+}
+export function setBotLevel (botId, botLevel) {
+  return {type: SET_BOT_LEVEL, botId, botLevel};
 }
 export function removeBot (botId) {
   return {type: REMOVE_BOT, botId};

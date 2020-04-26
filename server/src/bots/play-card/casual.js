@@ -1,4 +1,4 @@
-import {getAllowedCards} from '../util/cards.js';
+import {getAllowedCards} from '../../util/cards.js';
 
 export default function (game, playerId) {
   const {currentTrick, players} = game;
@@ -6,10 +6,7 @@ export default function (game, playerId) {
 
   console.log(currentTrick, hand);
   const allowedCards = getAllowedCards(currentTrick, hand);
-  const isBidTaker = game.bidTaker === playerId;
-
-  // play randomly from the allowed cards
-  // const cardIndex = Math.floor(Math.random() * allowedCards.length);
+  // const isBidTaker = game.bidTaker === playerId;
 
   // play highest allowed card
   const cardIndex = allowedCards.length - 1;

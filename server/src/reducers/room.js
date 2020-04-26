@@ -4,6 +4,7 @@ import {
   CHOOSE_GAME,
   START_GAME,
   ADD_BOT,
+  SET_BOT_LEVEL,
   REMOVE_BOT,
   SERVER_ERROR,
   DISCONNECT
@@ -35,6 +36,7 @@ export default function room (state = initialState, action, dispatch) {
   switch (action.type) {
   case JOIN_ROOM:
   case ADD_BOT:
+  case SET_BOT_LEVEL:
   case REMOVE_BOT:
   case LEAVE_ROOM:
   case DISCONNECT:
@@ -76,6 +78,7 @@ export function handleRoster (state, action) {
   switch (action.type) {
   case JOIN_ROOM:
   case DISCONNECT:
+  case SET_BOT_LEVEL:
   case REMOVE_BOT:
     return {
       ...state,

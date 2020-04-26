@@ -2,6 +2,7 @@ import {
   JOIN_ROOM,
   LEAVE_ROOM,
   ADD_BOT,
+  SET_BOT_LEVEL,
   REMOVE_BOT,
   DISCONNECT
 } from '../constants/action-types.js';
@@ -23,6 +24,11 @@ export default function players (state = initialState, action) {
     return {
       ...state,
       [action.playerId]: player(initialPlayer, action)
+    };
+  case SET_BOT_LEVEL:
+    return {
+      ...state,
+      [action.botId]: player(state[action.botId], action)
     };
   case DISCONNECT:
     return {
@@ -54,7 +60,13 @@ export function player (state = initialPlayer, action) {
       id: action.playerId,
       socketId: action.socketId,
       connected: true,
-      bot: action.type === ADD_BOT
+      bot: action.type === ADD_BOT,
+      botLevel: action.type === ADD_BOT && 'casual'
+    };
+  case SET_BOT_LEVEL:
+    return {
+      ...state,
+      botLevel: action.botLevel
     };
   case DISCONNECT:
     return {

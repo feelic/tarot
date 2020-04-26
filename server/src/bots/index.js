@@ -1,6 +1,6 @@
 import {dispatch} from '../dispatch.js';
 import placeBid from './place-bid.js';
-import playCard from './play-card.js';
+import playCard from './play-card/index.js';
 import makeChien from './make-chien.js';
 
 import {gamePhases, roomStatuses} from '../constants/index.js';

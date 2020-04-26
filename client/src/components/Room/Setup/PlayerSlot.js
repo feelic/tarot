@@ -4,6 +4,7 @@ import Button from '../../Button';
 import Select from '../../Select';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import botLevels from '../../../constants/bot-levels';
 
 export default class PlayerSlot extends Component {
   render () {
@@ -23,16 +24,24 @@ export default class PlayerSlot extends Component {
           <span className={styles.playerName}>{player.username}</span>
         </div>
         <div className={styles.playerInfo}>
-          {! player.connected && <div><b>connection issues</b></div>}
-          {! player.bot && <div>human</div> }
+          {! player.connected
+            && <div>
+              <b>connection issues</b>
+            </div>
+          }
+          {! player.bot && <div>human</div>}
           {player.bot
             && <Fragment>
               <div>
                 <label>level:</label>
-                <Select type="primary">
-                  <option>Absolute idiot</option>
-                  <option>Complete moron</option>
-                  <option>Total dingus</option>
+                <Select type="primary" value={player.botLevel} onChange={(e) => actions.setBotLevel(player.id, e.target.value)}>
+                  {Object.values(botLevels).map(level => {
+                    return (
+                      <option key={level.id} value={level.id}>
+                        {level.label}
+                      </option>
+                    );
+                  })}
                 </Select>
               </div>
               <div>
