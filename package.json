@@ -9,20 +9,39 @@
     "client": "cd client && yarn start",
     "sprite": "spritesmith .spritesmith.js",
     "thumbs": "mogrify -resize x150 -quality 100 -path src/assets/thumbs src/assets/cards/*.jpg",
-    "test": "jest server --config=jest.config.js"
+    "test": "jest server"
   },
   "author": "Felix Goalec <fgoalec@synthesio.com>",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "jest": "^25.4.0",
     "socket.io": "^2.3.0",
     "spritesmith-cli": "^1.1.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.8.0",
-    "@babel/preset-env": "^7.8.0",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
     "babel-core": "^7.0.0-bridge",
-    "babel-jest": "^24.8.0"
+    "babel-jest": "^25.4.0"
+  },
+  "jest": {
+    "verbose": true,
+    "moduleDirectories": [
+      "node_modules",
+      "imports"
+    ],
+    "testMatch": [
+      "**/?(*.)test.js"
+    ],
+    "transform": {
+      "^.+\\.mjs$": "babel-jest",
+      "^.+\\.js$": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "js"
+    ]
   }
 }

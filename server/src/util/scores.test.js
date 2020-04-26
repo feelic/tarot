@@ -103,12 +103,49 @@ describe('score util functions', () => {
         details: {
           boutsCounts: 3,
           winThreshold: 36,
-          totalRoundScore: 38.5,
-          difference: 2.5,
-          pointResult: 5,
+          trickPoints: 38,
+          difference: 2,
+          pointResult: 54,
           winner: ['a']
         },
-        scores: {a: 5, b: - 5}
+        scores: {a: 54, b: - 54}
+      };
+
+      expect(getRoundScores(state)).toEqual(expectedResult);
+    });
+    it('attacker points should be a function of number of defenders', () => {
+      const state = {
+        bid: 'garde',
+        bidTaker: 'a',
+        players: {
+          a: {
+            tricks: [
+              'trumps-01',
+              'hearts-14',
+              'trumps-21',
+              'diamonds-14',
+              'trumps-00',
+              'clubs-14',
+              'spades-14',
+              'clubs-13',
+              'spades-13',
+              'diamonds-01'
+            ]
+          },
+          b: {},
+          c: {}
+        }
+      };
+      const expectedResult = {
+        details: {
+          boutsCounts: 3,
+          winThreshold: 36,
+          trickPoints: 38,
+          difference: 2,
+          pointResult: 54,
+          winner: ['a']
+        },
+        scores: {a: 108, b: - 54, c: - 54}
       };
 
       expect(getRoundScores(state)).toEqual(expectedResult);
@@ -135,12 +172,12 @@ describe('score util functions', () => {
         details: {
           boutsCounts: 0,
           difference: - 35,
-          pointResult: - 70,
-          totalRoundScore: 21,
+          pointResult: 120,
+          trickPoints: 21,
           winThreshold: 56,
           winner: ['b']
         },
-        scores: {a: - 70, b: 70}
+        scores: {a: - 120, b: 120}
       };
 
       expect(getRoundScores(state)).toEqual(expectedResult);

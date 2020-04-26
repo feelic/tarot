@@ -127,7 +127,7 @@ export default class Room extends Component {
           }
           {gamePhase === ROUND_SCORES
             && <RoundScoresPanel
-              {...{...scores, actions, players, bidTaker, bid}}
+              {...{scores, actions, players, bidTaker, bid}}
             />
           }
         </div>

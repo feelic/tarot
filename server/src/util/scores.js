@@ -8,17 +8,24 @@ export function getRoundScores (state) {
   const {players, bidTaker, bid} = state;
   const tricks = players[bidTaker].tricks;
   const boutsCounts = countBouts(tricks);
-  const totalRoundScore = countScore(tricks);
+  const trickPoints = Math.floor(countScore(tricks));
   const winThreshold = winThresholdByBoutsCount[boutsCounts];
-  const difference = totalRoundScore - winThreshold;
+  const difference = trickPoints - winThreshold;
   const win = difference > 0;
-  const otherPlayers = Object.keys(players).filter(player => player !== bidTaker);
+  const otherPlayers = Object.keys(players).filter(
+    player => player !== bidTaker
+  );
   const winner = (win && [bidTaker]) || otherPlayers;
-  const pointResult = difference + 25 * bidOptions[bid].multiplier;
+  const pointResult = (Math.abs(difference) + 25) * bidOptions[bid].multiplier;
+  const takerPointChange = ((win && pointResult) || pointResult * - 1) * otherPlayers.length;
+  const defenderPointChange = (! win && pointResult) || pointResult * - 1;
+
   const playerScoreUpdates = Object.keys(players).reduce((prev, playerId) => {
     return {
       ...prev,
-      [playerId]: (otherPlayers.includes(playerId) && pointResult * - 1) || pointResult
+      [playerId]:
+        (otherPlayers.includes(playerId) && defenderPointChange)
+        || takerPointChange
     };
   }, {});
 
@@ -26,7 +33,7 @@ export function getRoundScores (state) {
     details: {
       boutsCounts,
       winThreshold,
-      totalRoundScore,
+      trickPoints,
       difference,
       pointResult,
       winner

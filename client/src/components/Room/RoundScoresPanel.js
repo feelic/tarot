@@ -5,15 +5,18 @@ export default props => {
   const {
     actions,
     players,
+    scores,
+    bidTaker,
+    bid
+  } = props;
+  const playerScores = scores.scores;
+  const {
     winner,
     winThreshold,
     difference,
     boutsCounts,
-    totalRoundScore,
-    bidTaker,
-    bid
-    // pointResult
-  } = props;
+    trickPoints
+  } = scores.details;
 
   return (
     <div>
@@ -25,7 +28,7 @@ export default props => {
         round
       </p>
       <p>
-        They did {totalRoundScore}, with a difference of {difference}
+        They did {trickPoints}, with a difference of {difference}
       </p>
       <p>
         {(winner.length > 1 && 'The winners are') || 'The winner is'}{' '}
@@ -48,14 +51,14 @@ export default props => {
             return (
               <tr key={player.id}>
                 <td>{player.username}</td>
-                <td>{0}</td>
+                <td>{playerScores[player.id]}</td>
                 <td>{player.score}</td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <Button onClick={actions.startGame}>Next round</Button>
+      <Button onClick={actions.startRound}>Next round</Button>
     </div>
   );
 };

@@ -89,7 +89,6 @@ export function player (state = initialPlayer, action) {
       tricks: [...action.chien]
     };
   case AWARD_TRICK:
-    console.log(action.cards);
     return {
       ...state,
       tricks: [...state.tricks, ...action.cards]

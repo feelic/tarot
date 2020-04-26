@@ -3,6 +3,7 @@ import {
   PLACE_BID,
   PLAY_CARD,
   START_GAME,
+  START_ROUND,
   ADD_BOT,
   REMOVE_BOT,
   LEAVE_ROOM,
@@ -14,6 +15,9 @@ export function placeBid (bid) {
 }
 export function startGame () {
   return {type: START_GAME};
+}
+export function startRound () {
+  return {type: START_ROUND};
 }
 export function chooseGame (game) {
   return {type: CHOOSE_GAME, game};

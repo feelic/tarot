@@ -3,6 +3,11 @@ import {
   AWARD_TRICK,
   AWARD_ROUND
 } from '../../constants/action-types.js';
+
+import {
+  SERVER_AWARD_TRICK_DELAY,
+  SERVER_AWARD_ROUND_DELAY
+} from '../../constants/action-delays.js';
 import {getTrickWinner} from '../../util/cards.js';
 import {getNextPlayer} from '../../util/players.js';
 import {gamePhases} from '../../constants/index.js';
@@ -46,7 +51,7 @@ export default function trick (state = [], action, dispatch) {
           playerId: 'SERVER',
           trick: currentTrick
         });
-      }, 2000);
+      }, SERVER_AWARD_TRICK_DELAY);
     }
 
     return {
@@ -67,7 +72,7 @@ export default function trick (state = [], action, dispatch) {
           room: action.room,
           playerId: 'SERVER'
         });
-      }, 2000);
+      }, SERVER_AWARD_ROUND_DELAY);
     }
 
     return {
@@ -87,7 +92,7 @@ export default function trick (state = [], action, dispatch) {
         ...action,
         scores: roundScores.scores
       }),
-      scores: roundScores.details
+      scores: roundScores
     };
   default:
     return state;

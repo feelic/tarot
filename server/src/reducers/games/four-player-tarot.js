@@ -8,6 +8,10 @@ import {
   AWARD_ROUND,
   AWARD_BID
 } from '../../constants/action-types.js';
+import {
+  SERVER_AWARD_BID_DELAY,
+  SERVER_BIDDING_FAILED_DELAY
+} from '../../constants/action-delays.js';
 import players from './tarot-players.js';
 import trick from './trick.js';
 
@@ -116,7 +120,7 @@ export function handleBidding (state, action, dispatch) {
           bidTaker,
           bid: winningBid
         });
-      }, 2000);
+      }, SERVER_AWARD_BID_DELAY);
     }
 
     if (biddingFailed) {
@@ -126,7 +130,7 @@ export function handleBidding (state, action, dispatch) {
           room: action.room,
           playerId: 'SERVER'
         });
-      }, 4000);
+      }, SERVER_BIDDING_FAILED_DELAY);
     }
 
     return {
