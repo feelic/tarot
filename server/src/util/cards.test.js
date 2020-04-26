@@ -176,6 +176,13 @@ describe('cards util functions', () => {
 
       expect(getAllowedTrumpCards(trick, hand)).toEqual(allowedCards);
     });
+    it('should look at highest played trump card to define list of allowed trump cards', () => {
+      const hand = ['trumps-01', 'trumps-03'];
+      const trick = [{card: 'trumps-05'}, {card: 'trumps-02'}];
+      const allowedCards = ['trumps-01', 'trumps-03'];
+
+      expect(getAllowedTrumpCards(trick, hand)).toEqual(allowedCards);
+    });
     it('should look at the previous card if last played trump was the excuse', () => {
       const hand = ['trumps-01', 'trumps-03'];
       const trick = [{card: 'trumps-02'}, {card: 'trumps-00'}];

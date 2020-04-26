@@ -1,9 +1,11 @@
 import {getAllowedCards} from '../util/cards.js';
 
 export default function (game, playerId) {
-  const {trick, players} = game;
+  const {currentTrick, players} = game;
   const {hand} = players[playerId];
-  const allowedCards = getAllowedCards(trick, hand);
+
+  console.log(currentTrick, hand);
+  const allowedCards = getAllowedCards(currentTrick, hand);
   const isBidTaker = game.bidTaker === playerId;
 
   // play randomly from the allowed cards
