@@ -14,23 +14,15 @@ Rules in english for the game can be found [here](https://www.pagat.com/tarot/fr
 
 
 ## Features
-### MVP
-* [x] Welcome + Name selection
-* [x] Join game/room
-* [x] Room pre game interface + player roster
-* [x] Round bidding interface
-* [x] Chien making time
-* [x] Round play interface
-* [x] AI player
-* [x] "Excuse" rules
-* [x] Fix allowed trump card
-* [x] Handle mid game disconnect/refresh
-* [x] Handle server side errors
-* [ ] Round scores interface
-* [x] Functional next round button
 
-#### To do
-* [ ] AI player difficulties
+## To do List
+
+### AI player difficulties
+
+* [ ] AI development sandbox
+* [ ] AI player info collection model
+* [ ] dumb AI player
+* [ ] less dumb AI player
 
 ### Later
 * [ ] Advanced room creation & roster management
